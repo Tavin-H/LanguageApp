@@ -1,4 +1,5 @@
-import 'package:flash_fluent/flash_fluent.dart';
+import 'package:flash_fluent/screens/home_screen.dart';
+import 'package:flash_fluent/screens/learn_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,16 +12,11 @@ class MyApp extends StatelessWidget {
 @override
 Widget build(BuildContext context) {
   return MaterialApp(
-    home: Scaffold(
-      // Move SafeArea here so it protects the whole body
-      body: Expanded(
-        child: Center(
-          child: SafeArea( 
-            child: FlashFluent(),
-          ),
-        ),
-      ),
-    ),
+	initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/learn': (context) => const LearnScreen(),
+      },
   );
 }
 }
