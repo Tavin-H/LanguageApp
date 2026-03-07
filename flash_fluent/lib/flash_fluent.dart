@@ -11,9 +11,6 @@ class FlashFluent extends StatefulWidget {
 class _FlashFluentState extends State<FlashFluent> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-			child: HomeScreen(),
-		);
+    return Container(child: HomeScreen());
   }
 }
-

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class GrammarLesson extends StatefulWidget {
+  const GrammarLesson({super.key});
 
+  @override
+  State<GrammarLesson> createState() => _GrammarLessonState();
+}
+
+class _GrammarLessonState extends State<GrammarLesson> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,12 +15,12 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Home"),
+            Text("GrammarLesson"),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/learn');
+                Navigator.pop(context);
               },
-              child: Text("Learn"),
+              child: Text("back"),
             ),
           ],
         ),
