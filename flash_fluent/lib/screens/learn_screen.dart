@@ -30,7 +30,7 @@ class LearnScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, '/vocab_diff');
               },
               child: Text("Noun Dif"),
             ),
