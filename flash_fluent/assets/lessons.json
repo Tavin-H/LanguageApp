@@ -1,0 +1,14 @@
+{
+	"lessons": [
+		[
+			{
+				"type" : "title",
+				"content" : "Lesson 1"
+			},
+			{
+				"type" : "paragraph",
+				"content" : "This is the first lesson of flash-fluent!"
+			}
+		]
+	]
+}

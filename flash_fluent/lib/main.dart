@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
         '/learn': (context) => const LearnScreen(),
         '/vocab': (context) => const VocabLesson(),
         '/grammar': (context) => const GrammarLesson(),
-				'/grammar_diff': (context) => const GrammarDiffLesson(),
-				'/vocab_diff' : (context) => const VocabDiffLesson(),
+        '/grammar_diff': (context) => const GrammarDiffLesson(),
+        '/vocab_diff': (context) => const VocabDiffLesson(),
       },
     );
   }

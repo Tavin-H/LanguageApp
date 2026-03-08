@@ -22,11 +22,10 @@ class _VocabDiffLessonState extends State<VocabDiffLesson> {
               },
               child: Text("back"),
             ),
-						Text("Coming in v0.2"),
+            Text("Coming in v0.2"),
           ],
         ),
       ),
     );
-
   }
 }
