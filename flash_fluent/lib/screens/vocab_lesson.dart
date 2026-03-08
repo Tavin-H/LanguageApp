@@ -11,7 +11,6 @@ class VocabLesson extends StatefulWidget {
 }
 
 class _VocabLessonState extends State<VocabLesson> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +22,12 @@ class _VocabLessonState extends State<VocabLesson> {
           } else if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else {
-            // Data is here! Now we parse it.
             final Map<String, dynamic> data = json.decode(
               snapshot.data.toString(),
             );
             final lessons = data['lessons'] as List;
-						Lesson lesson1 = Lesson.fromJson(lessons[0]);
-						
+            Lesson lesson1 = Lesson.fromJson(lessons[0]);
 
-            // Now you return the actual UI
             return SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +39,16 @@ class _VocabLessonState extends State<VocabLesson> {
                     },
                     child: Text("back"),
                   ),
-									Text(lesson1.components[0].content),
+                  Expanded(
+                    child: ListView.builder(
+                      physics: const ClampingScrollPhysics(), // Stop it from stretching!
+                      itemCount: lesson1.components.length,
+                      itemBuilder: (context, index) {
+                        Component component = lesson1.components[index];
+                        return convertJsonComponentToWidget(component);
+                      },
+                    ),
+                  ),
                 ],
               ),
             );

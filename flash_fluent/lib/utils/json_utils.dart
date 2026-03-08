@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Lesson {
   final List<Component> components;
   Lesson({required this.components});
@@ -17,4 +19,17 @@ class Component {
   factory Component.fromJson(Map<String, dynamic> json) {
     return Component(type: json['type'], content: json['content']);
   }
+}
+
+Widget convertJsonComponentToWidget(Component component) {
+  switch (component.type) {
+    case 'title':
+      return Text(
+        component.content,
+        style: TextStyle(color: Colors.blue.shade500),
+      );
+    case 'paragraph':
+      return Text(component.content, style: TextStyle(color: Colors.black));
+  }
+  return Text("Test");
 }
