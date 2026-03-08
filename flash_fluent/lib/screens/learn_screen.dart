@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen({super.key, required this.lessons});
-	final List<Lesson> lessons;
+  final List<Lesson> lessons;
 
   @override
   Widget build(BuildContext context) {
-		print(lessons[0]);
+    print(lessons[0]);
     return Scaffold(
       body: SafeArea(
         child: Column(

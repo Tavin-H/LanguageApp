@@ -3,14 +3,31 @@
 	"vocab-lessons": [
 		{
 			"lesson-name": "First 10 words",
-			"components": [
+			"pages": [
+
 				{
-					"type": "header",
-					"content" : "Introduction"
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type" : "paragraph",
+							"content": "안녕하세요 This is the first lesson of flash-fluent!"
+						}
+					]
 				},
 				{
-					"type" : "paragraph",
-					"content": "안녕하세요 This is the first lesson of flash-fluent!"
+					"components": [
+						{
+							"type": "header",
+							"content" : "Now take a short quiz!"
+						},
+						{
+							"type" : "paragraph",
+							"content": "안녕하세요 What is this word?"
+						}
+					]
 				}
 			]
 		}

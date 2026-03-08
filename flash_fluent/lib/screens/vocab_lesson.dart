@@ -8,34 +8,54 @@ class VocabLesson extends StatefulWidget {
 }
 
 class _VocabLessonState extends State<VocabLesson> {
-	int page = 0;
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
-		final Lesson lesson = ModalRoute.of(context)!.settings.arguments as Lesson;
+    final Lesson lesson = ModalRoute.of(context)!.settings.arguments as Lesson;
+    void nextPage() {
+      if (page < lesson.pages.length - 1) {
+        setState(() {
+          page++;
+        });
+      } else {
+				//End lesson;
+				Navigator.pop(context);
+			}
+    }
+		void previousPage() {
+      if (page > 0) {
+        setState(() {
+          page--;
+        });
+      }
+    }
+
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Vocab Lesson"),
+            Text(lesson.title),
+            Expanded(
+              child: ListView.builder(
+                physics:
+                    const ClampingScrollPhysics(), // Stop it from stretching!
+                itemCount: lesson.pages[page].components.length,
+                itemBuilder: (context, index) {
+                  Component component = lesson.pages[page].components[index];
+                  return convertJsonComponentToWidget(component);
+                },
+              ),
+            ),
+            ElevatedButton(onPressed: nextPage, child: Text("next")),
+            ElevatedButton(onPressed: previousPage, child: Text("previous")),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               child: Text("back"),
-            ),
-						Text(lesson.title),
-            Expanded(
-              child: ListView.builder(
-                physics:
-                    const ClampingScrollPhysics(), // Stop it from stretching!
-                itemCount: lesson.components.length,
-                itemBuilder: (context, index) {
-                  Component component = lesson.components[index];
-                  return convertJsonComponentToWidget(component);
-                },
-              ),
             ),
           ],
         ),

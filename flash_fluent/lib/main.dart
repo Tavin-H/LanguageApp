@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(lessons: lessons),
-        '/learn': (context) => LearnScreen(lessons: lessons,),
+        '/learn': (context) => LearnScreen(lessons: lessons),
         '/vocab': (context) => const VocabLesson(),
         '/grammar': (context) => const GrammarLesson(),
         '/grammar_diff': (context) => const GrammarDiffLesson(),
