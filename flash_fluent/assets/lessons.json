@@ -26,6 +26,11 @@
 						{
 							"type" : "paragraph",
 							"content": "안녕하세요 What is this word?"
+						},
+						{
+							"type" : "sentence",
+							"target" : "안녕하세요",
+							"source" : "Hello"
 						}
 					]
 				}

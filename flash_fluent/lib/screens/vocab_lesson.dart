@@ -19,18 +19,18 @@ class _VocabLessonState extends State<VocabLesson> {
           page++;
         });
       } else {
-				//End lesson;
-				Navigator.pop(context);
-			}
+        //End lesson;
+        Navigator.pop(context);
+      }
     }
-		void previousPage() {
+
+    void previousPage() {
       if (page > 0) {
         setState(() {
           page--;
         });
       }
     }
-
 
     return Scaffold(
       body: SafeArea(
@@ -45,7 +45,13 @@ class _VocabLessonState extends State<VocabLesson> {
                 itemCount: lesson.pages[page].components.length,
                 itemBuilder: (context, index) {
                   Component component = lesson.pages[page].components[index];
-                  return convertJsonComponentToWidget(component);
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      convertJsonComponentToWidget(component),
+                      SizedBox(height: component.bottomMargin),
+                    ],
+                  );
                 },
               ),
             ),
