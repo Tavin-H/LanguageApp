@@ -1,14 +1,18 @@
+
 {
-	"lessons": [
-		[
-			{
-				"type" : "title",
-				"content" : "Lesson 1"
-			},
-			{
-				"type" : "paragraph",
-				"content" : "안녕하세요 This is the first lesson of flash-fluent!"
-			}
-		]
+	"vocab-lessons": [
+		{
+			"lesson-name": "First 10 words",
+			"components": [
+				{
+					"type": "header",
+					"content" : "Introduction"
+				},
+				{
+					"type" : "paragraph",
+					"content": "안녕하세요 This is the first lesson of flash-fluent!"
+				}
+			]
+		}
 	]
 }

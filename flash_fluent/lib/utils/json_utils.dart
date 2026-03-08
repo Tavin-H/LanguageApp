@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Lesson {
+	final String title;
   final List<Component> components;
-  Lesson({required this.components});
-  factory Lesson.fromJson(List<dynamic> jsonList) {
+  Lesson({required this.title, required this.components});
+  factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(
-      components: jsonList.map((item) => Component.fromJson(item)).toList(),
+			title: json['lesson-name'],
+      components: (json['components'] as List).map((item) => Component.fromJson(item)).toList(),
     );
   }
 }
@@ -23,7 +25,7 @@ class Component {
 
 Widget convertJsonComponentToWidget(Component component) {
   switch (component.type) {
-    case 'title':
+    case 'header':
       return Text(
         component.content,
         style: TextStyle(color: Colors.blue.shade500),
