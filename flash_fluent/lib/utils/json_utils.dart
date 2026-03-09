@@ -50,6 +50,8 @@ abstract class Component {
 
   factory Component.fromJson(Map<String, dynamic> json) {
     switch (json['type']) {
+			case 'padding':
+				return PaddingComponent.fromJson(json);
       case 'header':
         return HeaderComponent.fromJson(json);
       case 'paragraph':
@@ -63,6 +65,14 @@ abstract class Component {
       default:
         throw Exception('Unkown component type: ${json['type']}');
     }
+  }
+}
+
+class PaddingComponent extends Component {
+  PaddingComponent({required double margin})
+    : super(type: 'padding', bottomMargin: margin);
+  factory PaddingComponent.fromJson(Map<String, dynamic> json) {
+    return PaddingComponent(margin: json['height'].toDouble());
   }
 }
 
@@ -168,6 +178,8 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
 //Now define the styles of these
 Widget convertJsonComponentToWidget(Component component) {
   switch (component.type) {
+		case 'padding':
+			return SizedBox(height: component.bottomMargin);
     case 'header':
       final c = component as HeaderComponent;
       return Text(
@@ -192,12 +204,12 @@ Widget convertJsonComponentToWidget(Component component) {
               Text(
                 c.target,
                 style: TextStyle(
-                  color: Colors.purple,
+                  color: AppColours.accent1,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 15,
                 ),
               ),
-              Text(c.source),
+              Text(c.source, style: TextStyle(color: Colors.grey.shade700),),
             ],
           ),
         ),

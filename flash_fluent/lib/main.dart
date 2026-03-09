@@ -17,24 +17,28 @@ void main() async {
   final String response = await rootBundle.loadString('assets/lessons.json');
   final Map<String, dynamic> data = json.decode(response);
 
-  final List<dynamic> rawLessons = data['vocab-lessons'] as List;
-  List<Lesson> allLessons = rawLessons.map((l) => Lesson.fromJson(l)).toList();
+  final List<dynamic> rawGrammarLessons = data['grammar-lessons'] as List;
+  List<Lesson> grammarLessons = rawGrammarLessons.map((l) => Lesson.fromJson(l)).toList();
 
-  runApp(MyApp(lessons: allLessons));
+  final List<dynamic> rawVocabLessons = data['vocab-lessons'] as List;
+  List<Lesson> vocabLessons = rawVocabLessons.map((l) => Lesson.fromJson(l)).toList();
+
+  runApp(MyApp(grammarLessons: grammarLessons, vocabLessons: vocabLessons, ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.lessons});
+  const MyApp({super.key, required this.grammarLessons, required this.vocabLessons});
 
-  final List<Lesson> lessons;
+  final List<Lesson> grammarLessons;
+	final List<Lesson> vocabLessons;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(lessons: lessons),
-        '/learn': (context) => LearnScreen(lessons: lessons),
+        '/': (context) => HomeScreen(),
+        '/learn': (context) => LearnScreen(lessons: grammarLessons),
         '/vocab': (context) => const VocabLesson(),
         '/grammar': (context) => const GrammarLesson(),
         '/grammar_diff': (context) => const GrammarDiffLesson(),

@@ -1,7 +1,7 @@
 {
-	"vocab-lessons": [
+	"grammar-lessons": [
 		{
-			"lesson-name": "First 10 words",
+			"lesson-name": "I'm worried that ___",
 			"pages": [
 
 				{
@@ -12,34 +12,101 @@
 						},
 						{
 							"type" : "paragraph",
-							"content": "안녕하세요 This is the first lesson of flash-fluent!"
+							"content": "In this lesson, you will learn how to say 'I'm worried that I will ____' or 'I'm worried ____ will happen'"
 						},
 						{
+							"type" : "paragraph",
+							"content" : "The standard grammatical particle for this is:"
+						},
+						
+						{
 							"type" : "highlight",
-							"content" : "GRAMMAR"
+							"content" : "(ㄹ/을)까 봐 걱정하다"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Examples:"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "비가 올까 봐 우산을 가져올 거예요"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "그 소리가 학생들을 방해할까 봐"
 						}
+						
+
 					]
 				},
 				{
 					"components": [
 						{
 							"type": "header",
-							"content" : "Now take a short quiz!"
-						},
+							"content" : "Some more examples"
+						},	
 						{
-							"type" : "paragraph",
-							"content": "안녕하세요 What is this word?"
+							"type" : "sentence",
+							"target" : "왜 아직도 안 자요? 내일 일찍 일어나야 하잖아요.",
+							"source" : "(Why are you still awake? You have to get up early tomorrow.)"
 						},
 						{
 							"type" : "sentence",
-							"target" : "안녕하세요",
-							"source" : "Hello"
+							"target" : "늦잠을 잘까 봐 걱정돼서 알람을 5개나 맞췄어요.",
+							"source" : "(I’m worried that I might oversleep, so I set five alarms.)"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
 						},
 						{
 							"type" : "mini-quiz",
-							"question" : "How do you say hello?",
-							"options" : ["option1", "option2"]
+							"question" : "Is this a correct use of the grammar?",
+							"options" : ["true", "false"]
 						}
+					]
+				}
+			]
+		}
+	],
+	"vocab-lessons": [
+		{
+			"lesson-name": "I'm worried that ___",
+			"pages": [
+
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type" : "paragraph",
+							"content": "In this lesson, you will learn how to say 'I'm worried that I will ____' or 'I'm worried ____ will happen'"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The standard grammatical particle for this is:"
+						},
+						
+						{
+							"type" : "highlight",
+							"content" : "(ㄹ/을)까 봐 걱정하다"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Examples:"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "비가 올까 봐 우산을 가져올 거예요"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "그 소리가 학생들을 방해할까 봐"
+						}
+						
+
 					]
 				}
 			]
