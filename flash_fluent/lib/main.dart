@@ -1,3 +1,4 @@
+import 'package:flash_fluent/screens/bookmarks_screen.dart';
 import 'package:flash_fluent/screens/grammar_diff_lesson.dart';
 import 'package:flash_fluent/screens/grammar_lesson.dart';
 import 'package:flash_fluent/screens/home_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/grammar': (context) => const GrammarLesson(),
         '/grammar_diff': (context) => const GrammarDiffLesson(),
         '/vocab_diff': (context) => const VocabDiffLesson(),
+        '/bookmarks': (context) => const BookmarksScreen(),
       },
     );
   }

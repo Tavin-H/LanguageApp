@@ -1,4 +1,5 @@
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
 class VocabLesson extends StatefulWidget {
@@ -32,6 +33,10 @@ class _VocabLessonState extends State<VocabLesson> {
       }
     }
 
+    void makeBookmark() {
+      userBookmarks.add(Bookmark(page: page, lesson: lesson));
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -49,7 +54,7 @@ class _VocabLessonState extends State<VocabLesson> {
                     padding: EdgeInsets.fromLTRB(
                       20,
                       0,
-                      10,
+                      20,
                       component.bottomMargin,
                     ),
                     child: convertJsonComponentToWidget(component),
@@ -59,6 +64,11 @@ class _VocabLessonState extends State<VocabLesson> {
             ),
             ElevatedButton(onPressed: nextPage, child: Text("next")),
             ElevatedButton(onPressed: previousPage, child: Text("previous")),
+            ElevatedButton.icon(
+              onPressed: makeBookmark,
+              label: Text("bookmark"),
+              icon: Icon(Icons.bookmark_outline),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);

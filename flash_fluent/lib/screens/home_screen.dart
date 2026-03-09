@@ -20,6 +20,12 @@ class HomeScreen extends StatelessWidget {
               },
               child: Text("Learn"),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/bookmarks');
+              },
+              child: Text("Bookmarks"),
+            ),
           ],
         ),
       ),

@@ -58,6 +58,8 @@ abstract class Component {
         return SentenceComponent.fromJson(json);
       case 'highlight':
         return HighlightComponent.fromJson(json);
+      case 'mini-quiz':
+        return MiniQuizComponent.fromJson(json);
       default:
         throw Exception('Unkown component type: ${json['type']}');
     }
@@ -101,6 +103,68 @@ class HighlightComponent extends Component {
   }
 }
 
+class MiniQuizComponent extends Component {
+  final String question;
+  final List<String> options;
+  MiniQuizComponent({required this.question, required this.options})
+    : super(type: 'mini-quiz', bottomMargin: 10);
+  factory MiniQuizComponent.fromJson(Map<String, dynamic> json) {
+    return MiniQuizComponent(
+      question: json['question'],
+      options: List<String>.from(json['options']),
+    );
+  }
+}
+
+class MiniQuizWidget extends StatefulWidget {
+  const MiniQuizWidget({super.key, required this.c});
+  final MiniQuizComponent c;
+
+  @override
+  State<MiniQuizWidget> createState() => _MiniQuizWidgetState();
+}
+
+class _MiniQuizWidgetState extends State<MiniQuizWidget> {
+  String displayMessage = "";
+	late List<String> shuffledOptions;
+  @override
+  void initState() {
+    super.initState();
+    shuffledOptions = List<String>.from(widget.c.options)..shuffle();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(widget.c.question),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ...shuffledOptions.map(
+              (option) => ElevatedButton(
+                onPressed: () {
+                  if (option == widget.c.options[0]) {
+                    setState(() {
+                      displayMessage = "Correct!";
+                    });
+                  } else {
+                    setState(() {
+                      displayMessage = "Wrong";
+                    });
+                  }
+                },
+                child: Text(option),
+              ),
+            ),
+          ],
+        ),
+        Text(displayMessage),
+      ],
+    );
+  }
+}
+
 //Now define the styles of these
 Widget convertJsonComponentToWidget(Component component) {
   switch (component.type) {
@@ -108,7 +172,11 @@ Widget convertJsonComponentToWidget(Component component) {
       final c = component as HeaderComponent;
       return Text(
         c.content,
-        style: TextStyle(fontSize: 24, color: Colors.blue.shade500, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 24,
+          color: Colors.blue.shade500,
+          fontWeight: FontWeight.bold,
+        ),
       );
     case 'paragraph':
       final c = component as ParagraphComponent;
@@ -140,11 +208,21 @@ Widget convertJsonComponentToWidget(Component component) {
         children: [
           Text(
             c.content,
-            style: TextStyle(fontSize: 18, color: AppColours.accent1, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              color: AppColours.accent1,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       );
+    case 'mini-quiz':
+      final c = component as MiniQuizComponent;
+      return MiniQuizWidget(c: c);
     default:
-      return Text("Unsuported type: ${component.type}", style: TextStyle(color: Colors.red),);
+      return Text(
+        "Unsuported type: ${component.type}",
+        style: TextStyle(color: Colors.red),
+      );
   }
 }

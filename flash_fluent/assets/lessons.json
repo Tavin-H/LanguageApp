@@ -1,4 +1,3 @@
-
 {
 	"vocab-lessons": [
 		{
@@ -35,6 +34,11 @@
 							"type" : "sentence",
 							"target" : "안녕하세요",
 							"source" : "Hello"
+						},
+						{
+							"type" : "mini-quiz",
+							"question" : "How do you say hello?",
+							"options" : ["option1", "option2"]
 						}
 					]
 				}
