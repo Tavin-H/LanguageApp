@@ -1,3 +1,4 @@
+import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -43,7 +44,7 @@ class Page {
 
 abstract class Component {
   final String type;
-	final double bottomMargin;
+  final double bottomMargin;
 
   Component({required this.type, required this.bottomMargin});
 
@@ -55,6 +56,8 @@ abstract class Component {
         return ParagraphComponent.fromJson(json);
       case 'sentence':
         return SentenceComponent.fromJson(json);
+      case 'highlight':
+        return HighlightComponent.fromJson(json);
       default:
         throw Exception('Unkown component type: ${json['type']}');
     }
@@ -63,7 +66,8 @@ abstract class Component {
 
 class HeaderComponent extends Component {
   final String content;
-  HeaderComponent({required this.content}) : super(type: 'header', bottomMargin: 15);
+  HeaderComponent({required this.content})
+    : super(type: 'header', bottomMargin: 15);
   factory HeaderComponent.fromJson(Map<String, dynamic> json) {
     return HeaderComponent(content: json['content']);
   }
@@ -71,7 +75,8 @@ class HeaderComponent extends Component {
 
 class ParagraphComponent extends Component {
   final String content;
-  ParagraphComponent({required this.content}) : super(type: 'paragraph', bottomMargin: 10);
+  ParagraphComponent({required this.content})
+    : super(type: 'paragraph', bottomMargin: 10);
   factory ParagraphComponent.fromJson(Map<String, dynamic> json) {
     return ParagraphComponent(content: json['content']);
   }
@@ -87,33 +92,59 @@ class SentenceComponent extends Component {
   }
 }
 
+class HighlightComponent extends Component {
+  final String content;
+  HighlightComponent({required this.content})
+    : super(type: 'highlight', bottomMargin: 10);
+  factory HighlightComponent.fromJson(Map<String, dynamic> json) {
+    return HighlightComponent(content: json['content']);
+  }
+}
+
 //Now define the styles of these
 Widget convertJsonComponentToWidget(Component component) {
   switch (component.type) {
     case 'header':
       final c = component as HeaderComponent;
-      return Text(c.content, style: TextStyle(fontSize: 20, color: Colors.blue.shade500));
+      return Text(
+        c.content,
+        style: TextStyle(fontSize: 24, color: Colors.blue.shade500, fontWeight: FontWeight.bold),
+      );
     case 'paragraph':
       final c = component as ParagraphComponent;
-      return Text(c.content, style: TextStyle(color: Colors.black));
-
+      return Text(c.content, style: TextStyle(fontSize: 15));
     case 'sentence':
       final c = component as SentenceComponent;
+      return Container(
+        decoration: BoxDecoration(),
+        child: Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                c.target,
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              Text(c.source),
+            ],
+          ),
+        ),
+      );
+    case 'highlight':
+      final c = component as HighlightComponent;
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            c.target,
-            style: TextStyle(
-              color: Colors.purple,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            c.content,
+            style: TextStyle(fontSize: 18, color: AppColours.accent1, fontWeight: FontWeight.bold),
           ),
-          Text(c.source),
         ],
       );
     default:
-      return Text("Unsuported type: ${component.type}");
+      return Text("Unsuported type: ${component.type}", style: TextStyle(color: Colors.red),);
   }
 }

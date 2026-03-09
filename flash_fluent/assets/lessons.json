@@ -14,6 +14,10 @@
 						{
 							"type" : "paragraph",
 							"content": "안녕하세요 This is the first lesson of flash-fluent!"
+						},
+						{
+							"type" : "highlight",
+							"content" : "GRAMMAR"
 						}
 					]
 				},

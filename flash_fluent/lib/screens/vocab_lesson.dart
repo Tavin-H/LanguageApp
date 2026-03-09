@@ -37,7 +37,7 @@ class _VocabLessonState extends State<VocabLesson> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(lesson.title),
+            Text(lesson.title, style: TextStyle(fontSize: 25.0)),
             Expanded(
               child: ListView.builder(
                 physics:
@@ -45,12 +45,14 @@ class _VocabLessonState extends State<VocabLesson> {
                 itemCount: lesson.pages[page].components.length,
                 itemBuilder: (context, index) {
                   Component component = lesson.pages[page].components[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      convertJsonComponentToWidget(component),
-                      SizedBox(height: component.bottomMargin),
-                    ],
+                  return Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      20,
+                      0,
+                      10,
+                      component.bottomMargin,
+                    ),
+                    child: convertJsonComponentToWidget(component),
                   );
                 },
               ),
