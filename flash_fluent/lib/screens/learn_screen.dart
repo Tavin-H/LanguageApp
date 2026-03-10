@@ -21,21 +21,9 @@ class LearnScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/grammar', arguments: lessons[0]);
+                Navigator.pushNamed(context, '/', arguments: lessons[0]);
               },
               child: Text("Grammar"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/grammar_diff');
-              },
-              child: Text("Grammar Dif"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/vocab_diff');
-              },
-              child: Text("Noun Dif"),
             ),
             ElevatedButton(
               onPressed: () {

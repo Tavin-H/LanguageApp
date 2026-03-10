@@ -50,17 +50,19 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
+
+				//Intermediate screens
         '/learn': (context) => LearnScreen(lessons: grammarLessons),
-        '/vocab': (context) => const LearnLesson(),
-        '/grammar': (context) => const GrammarLesson(),
-        '/grammar_diff': (context) => const GrammarDiffLesson(),
-        '/vocab_diff': (context) => const VocabDiffLesson(),
-        '/bookmarks': (context) => const BookmarksScreen(),
+        '/practice': (context) => const PracticeScreen(),
         '/lesson_map': (context) =>
             LessonMapScreen(grammarLessons: grammarLessons),
-        '/practice': (context) => const PracticeScreen(),
         '/flashcard_hub': (context) => const FlashcardHub(),
+
+				//Action sceens
+        '/lesson': (context) => const LearnLesson(),
         '/flashcard_practice': (context) => const FlashcardPractice(),
+        '/bookmarks': (context) => const BookmarksScreen(),
+      
       },
     );
   }

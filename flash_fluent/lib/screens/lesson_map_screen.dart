@@ -13,7 +13,7 @@ class LessonMapContainer extends StatelessWidget {
         Text(lesson.title),
         ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/vocab', arguments: lesson);
+            Navigator.pushNamed(context, '/lesson', arguments: lesson);
           },
           child: Text("Learn!"),
         ),
