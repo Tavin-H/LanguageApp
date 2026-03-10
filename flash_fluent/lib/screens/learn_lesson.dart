@@ -2,13 +2,13 @@ import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
-class VocabLesson extends StatefulWidget {
-  const VocabLesson({super.key});
+class LearnLesson extends StatefulWidget {
+  const LearnLesson({super.key});
   @override
-  State<VocabLesson> createState() => _VocabLessonState();
+  State<LearnLesson> createState() => _LearnLessonState();
 }
 
-class _VocabLessonState extends State<VocabLesson> {
+class _LearnLessonState extends State<LearnLesson> {
   int page = 0;
 
   @override

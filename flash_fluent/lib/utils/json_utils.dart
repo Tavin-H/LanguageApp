@@ -50,8 +50,8 @@ abstract class Component {
 
   factory Component.fromJson(Map<String, dynamic> json) {
     switch (json['type']) {
-			case 'padding':
-				return PaddingComponent.fromJson(json);
+      case 'padding':
+        return PaddingComponent.fromJson(json);
       case 'header':
         return HeaderComponent.fromJson(json);
       case 'paragraph':
@@ -136,7 +136,7 @@ class MiniQuizWidget extends StatefulWidget {
 
 class _MiniQuizWidgetState extends State<MiniQuizWidget> {
   String displayMessage = "";
-	late List<String> shuffledOptions;
+  late List<String> shuffledOptions;
   @override
   void initState() {
     super.initState();
@@ -178,8 +178,8 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
 //Now define the styles of these
 Widget convertJsonComponentToWidget(Component component) {
   switch (component.type) {
-		case 'padding':
-			return SizedBox(height: component.bottomMargin);
+    case 'padding':
+      return SizedBox(height: component.bottomMargin);
     case 'header':
       final c = component as HeaderComponent;
       return Text(
@@ -209,7 +209,7 @@ Widget convertJsonComponentToWidget(Component component) {
                   fontSize: 15,
                 ),
               ),
-              Text(c.source, style: TextStyle(color: Colors.grey.shade700),),
+              Text(c.source, style: TextStyle(color: Colors.grey.shade700)),
             ],
           ),
         ),

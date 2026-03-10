@@ -18,10 +18,17 @@
 							"type" : "paragraph",
 							"content" : "The standard grammatical particle for this is:"
 						},
-						
+						{
+							"type" : "padding",
+							"height" : 10
+						},
 						{
 							"type" : "highlight",
 							"content" : "(ㄹ/을)까 봐 걱정하다"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
 						},
 						{
 							"type" : "paragraph",
@@ -105,8 +112,6 @@
 							"type" : "paragraph",
 							"content" : "그 소리가 학생들을 방해할까 봐"
 						}
-						
-
 					]
 				}
 			]

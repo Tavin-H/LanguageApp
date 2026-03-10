@@ -7,7 +7,6 @@ class LearnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(lessons[0]);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -15,9 +14,10 @@ class LearnScreen extends StatelessWidget {
             Text("Learn"),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/vocab', arguments: lessons[0]);
+                Navigator.pushNamed(context, '/lesson_map');
+                //Navigator.pushNamed(context, '/vocab', arguments: lessons[0]);
               },
-              child: Text("Noun"),
+              child: Text("Vocabulary"),
             ),
             ElevatedButton(
               onPressed: () {

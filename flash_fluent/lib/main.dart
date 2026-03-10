@@ -4,7 +4,8 @@ import 'package:flash_fluent/screens/grammar_lesson.dart';
 import 'package:flash_fluent/screens/home_screen.dart';
 import 'package:flash_fluent/screens/learn_screen.dart';
 import 'package:flash_fluent/screens/vocab_diff_lesson.dart';
-import 'package:flash_fluent/screens/vocab_lesson.dart';
+import 'package:flash_fluent/screens/learn_lesson.dart';
+import 'package:flash_fluent/screens/vocab_map_screen.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,19 +19,27 @@ void main() async {
   final Map<String, dynamic> data = json.decode(response);
 
   final List<dynamic> rawGrammarLessons = data['grammar-lessons'] as List;
-  List<Lesson> grammarLessons = rawGrammarLessons.map((l) => Lesson.fromJson(l)).toList();
+  List<Lesson> grammarLessons = rawGrammarLessons
+      .map((l) => Lesson.fromJson(l))
+      .toList();
 
   final List<dynamic> rawVocabLessons = data['vocab-lessons'] as List;
-  List<Lesson> vocabLessons = rawVocabLessons.map((l) => Lesson.fromJson(l)).toList();
+  List<Lesson> vocabLessons = rawVocabLessons
+      .map((l) => Lesson.fromJson(l))
+      .toList();
 
-  runApp(MyApp(grammarLessons: grammarLessons, vocabLessons: vocabLessons, ));
+  runApp(MyApp(grammarLessons: grammarLessons, vocabLessons: vocabLessons));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.grammarLessons, required this.vocabLessons});
+  const MyApp({
+    super.key,
+    required this.grammarLessons,
+    required this.vocabLessons,
+  });
 
   final List<Lesson> grammarLessons;
-	final List<Lesson> vocabLessons;
+  final List<Lesson> vocabLessons;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +48,12 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(),
         '/learn': (context) => LearnScreen(lessons: grammarLessons),
-        '/vocab': (context) => const VocabLesson(),
+        '/vocab': (context) => const LearnLesson(),
         '/grammar': (context) => const GrammarLesson(),
         '/grammar_diff': (context) => const GrammarDiffLesson(),
         '/vocab_diff': (context) => const VocabDiffLesson(),
         '/bookmarks': (context) => const BookmarksScreen(),
+        '/lesson_map': (context) => LessonMapScreen(vocabLessons: vocabLessons),
       },
     );
   }
