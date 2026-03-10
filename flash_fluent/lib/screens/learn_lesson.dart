@@ -43,7 +43,7 @@ class _LearnLessonState extends State<LearnLesson> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(lesson.title, style: TextStyle(fontSize: 25.0)),
-						SizedBox(height: 20,),
+            SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 physics:

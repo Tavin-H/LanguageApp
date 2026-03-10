@@ -48,7 +48,6 @@ class _FlashcardHubState extends State<FlashcardHub> {
               ),
             ),
 
-            Expanded(child: Placeholder()),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);

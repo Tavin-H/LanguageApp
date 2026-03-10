@@ -9,10 +9,12 @@ class FlashcardPractice extends StatefulWidget {
 }
 
 class _FlashcardPracticeState extends State<FlashcardPractice> {
-  int currentCardIndex = 0;
+  late int currentCardIndex;
+  late bool flipped;
   @override
   void initState() {
     currentCardIndex = 0;
+    flipped = false;
     super.initState();
   }
 
@@ -20,9 +22,60 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
   Widget build(BuildContext context) {
     final FlashcardDeck deck =
         ModalRoute.of(context)!.settings.arguments as FlashcardDeck;
+    void logFlashcardDifficulty() {
+      setState(() {
+        if (currentCardIndex < deck.flashcards.length - 1) {
+          currentCardIndex++;
+        	flipped = false;
+        } else {
+				Navigator.pop(context);
+				}
+      });
+    }
+
     return Scaffold(
       body: SafeArea(
-        child: Column(children: [Text("Reviewing ${deck.deckName}")]),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Reviewing ${deck.deckName}"),
+              Text(!flipped ? "??" : deck.flashcards[currentCardIndex].back),
+              flipped
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            logFlashcardDifficulty();
+                          },
+                          child: Text("Easy"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            logFlashcardDifficulty();
+                          },
+                          child: Text("Medium"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            logFlashcardDifficulty();
+                          },
+                          child: Text("Hard"),
+                        ),
+                      ],
+                    )
+                  : ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          flipped = true;
+                        });
+                      },
+                      child: Text("Flip"),
+                    ),
+            ],
+          ),
+        ),
       ),
     );
   }
