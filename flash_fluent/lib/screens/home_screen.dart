@@ -8,20 +8,31 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text("Home"),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/learn');
-              },
-              child: Text("Learn"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/bookmarks');
-              },
-              child: Text("Bookmarks"),
+            Expanded(child: Placeholder()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/learn');
+                  },
+                  child: Text("Learn"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/practice');
+                  },
+                  child: Text("Practice"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/bookmarks');
+                  },
+                  child: Text("Bookmarks"),
+                ),
+              ],
             ),
           ],
         ),

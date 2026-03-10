@@ -1,11 +1,14 @@
 import 'package:flash_fluent/screens/bookmarks_screen.dart';
+import 'package:flash_fluent/screens/flashcard_hub.dart';
+import 'package:flash_fluent/screens/flashcard_practice.dart';
 import 'package:flash_fluent/screens/grammar_diff_lesson.dart';
 import 'package:flash_fluent/screens/grammar_lesson.dart';
 import 'package:flash_fluent/screens/home_screen.dart';
 import 'package:flash_fluent/screens/learn_screen.dart';
+import 'package:flash_fluent/screens/practice_screen.dart';
 import 'package:flash_fluent/screens/vocab_diff_lesson.dart';
 import 'package:flash_fluent/screens/learn_lesson.dart';
-import 'package:flash_fluent/screens/vocab_map_screen.dart';
+import 'package:flash_fluent/screens/lesson_map_screen.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,7 +56,11 @@ class MyApp extends StatelessWidget {
         '/grammar_diff': (context) => const GrammarDiffLesson(),
         '/vocab_diff': (context) => const VocabDiffLesson(),
         '/bookmarks': (context) => const BookmarksScreen(),
-        '/lesson_map': (context) => LessonMapScreen(vocabLessons: vocabLessons),
+        '/lesson_map': (context) =>
+            LessonMapScreen(grammarLessons: grammarLessons),
+        '/practice': (context) => const PracticeScreen(),
+        '/flashcard_hub': (context) => const FlashcardHub(),
+        '/flashcard_practice': (context) => const FlashcardPractice(),
       },
     );
   }

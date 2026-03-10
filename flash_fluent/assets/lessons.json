@@ -74,7 +74,78 @@
 					]
 				}
 			]
+		},
+		{
+			"lesson-name": "With the intention of ___",
+			"pages": [
+
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type" : "paragraph",
+							"content": "In this lesson, we will learn how to add an intention to a sentence. You will be able to say 'I'm doing ___ in order to ____' or 'I intend to study later today'"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The standard grammatical particle for this is:"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "highlight",
+							"content" : " (으)려고 하다"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Examples:"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "오늘 도서관에 가려고 합니다."
+						},
+						{
+							"type" : "paragraph",
+							"content" : "좋아하기 때문에 한국어 배우려고 해요."
+						}
+						
+
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Some more examples"
+						},	
+						{
+							"type" : "sentence",
+							"target" : "오늘 도서관에 가려고 했어요",
+							"source" : "(I planned/intended to go to the library today.)"
+						},
+						{
+							"type" : "sentence",
+							"target" : "주말에 부모님과 같이 밥 먹으려고 약속했어요. ",
+							"source" : "(I promised/arranged to have dinner with my parents on the weekend.)"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						}
+					]
+				}
+			]
 		}
+
 	],
 	"vocab-lessons": [
 		{
@@ -107,10 +178,6 @@
 						{
 							"type" : "paragraph",
 							"content" : "비가 올까 봐 우산을 가져올 거예요"
-						},
-						{
-							"type" : "paragraph",
-							"content" : "그 소리가 학생들을 방해할까 봐"
 						}
 					]
 				}

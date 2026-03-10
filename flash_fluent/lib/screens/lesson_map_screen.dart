@@ -8,7 +8,7 @@ class LessonMapContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-			mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(lesson.title),
         ElevatedButton(
@@ -23,8 +23,8 @@ class LessonMapContainer extends StatelessWidget {
 }
 
 class LessonMapScreen extends StatefulWidget {
-  const LessonMapScreen({super.key, required this.vocabLessons});
-  final List<Lesson> vocabLessons;
+  const LessonMapScreen({super.key, required this.grammarLessons});
+  final List<Lesson> grammarLessons;
 
   @override
   State<LessonMapScreen> createState() => _LessonMapScreenState();
@@ -40,10 +40,10 @@ class _LessonMapScreenState extends State<LessonMapScreen> {
             Text("Vocabulary Lessons:"),
             Expanded(
               child: ListView.builder(
-                itemCount: widget.vocabLessons.length,
+                itemCount: widget.grammarLessons.length,
                 itemBuilder: (context, index) {
                   return LessonMapContainer(
-                    lesson: widget.vocabLessons[index],
+                    lesson: widget.grammarLessons[index],
                   );
                 },
               ),
