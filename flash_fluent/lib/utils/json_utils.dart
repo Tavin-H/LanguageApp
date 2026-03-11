@@ -2,21 +2,6 @@ import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flutter/material.dart';
 
-/*
-class Lesson {
-  final String title;
-  final List<Component> components;
-  Lesson({required this.title, required this.components});
-  factory Lesson.fromJson(Map<String, dynamic> json) {
-    return Lesson(
-      title: json['lesson-name'],
-      components: (json['components'] as List)
-          .map((item) => Component.fromJson(item))
-          .toList(),
-    );
-  }
-}
-*/
 class Lesson {
   final String title;
   final List<Page> pages;
@@ -244,4 +229,19 @@ Widget convertJsonComponentToWidget(Component component) {
         style: TextStyle(color: Colors.red),
       );
   }
+}
+
+class StoryPage {
+	final String content;
+	StoryPage({required this.content});
+}
+
+class Story {
+	final String title;
+	final List<StoryPage> storyPages;
+	Story({required this.title, required this.storyPages});
+
+	factory Story.fromJson(Map<String, dynamic> json) {
+		return Story(title: json['story-name'], storyPages: (json['pages'] as List).map((item) => StoryPage.fromJson(item)));
+	}
 }
