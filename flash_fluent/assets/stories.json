@@ -7,10 +7,16 @@
 		],
 		"questions" : [
 			{
-				"question" : "Was this story good?",
-				"options" : ["Yes", "No"],
-				"relavent-line" : "This story is good"
+				"question" : "What was 수지 doing at the cafe?",
+				"options" : ["Meeting a friend","Studying", "Ordering Coffee"],
+				"relavent-line" : "수지: 아니요, 친구를 기다려요."
+			},
+			{
+				"question" : "What did 민호 order?",
+				"options" : ["Cake", "Coffee" ,"Sandwich"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
 			}
+
 		]
 	}
 ]

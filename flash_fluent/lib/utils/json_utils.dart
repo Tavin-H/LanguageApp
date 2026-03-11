@@ -236,14 +236,42 @@ class StoryPage {
   StoryPage({required this.content});
 }
 
+class Question {
+  String question;
+  List<String> options;
+  String relaventLine;
+  Question({
+    required this.question,
+    required this.options,
+    required this.relaventLine,
+  });
+
+  factory Question.fromJson(Map<String, dynamic> json) {
+    return Question(
+      question: json['question'],
+      relaventLine: json['relavent-line'],
+      options: List<String>.from(json['options']),
+    );
+  }
+}
+
 class Story {
   final String title;
   final List<StoryPage> storyPages;
-  Story({required this.title, required this.storyPages});
+  final List<Question> questions;
+
+  Story({
+    required this.title,
+    required this.storyPages,
+    required this.questions,
+  });
 
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
       title: json['story-name'],
+      questions: (json['questions'] as List)
+          .map((question) => Question.fromJson(question))
+          .toList(),
       storyPages: (json['pages'] as List)
           .map((item) => StoryPage(content: item))
           .toList(),
