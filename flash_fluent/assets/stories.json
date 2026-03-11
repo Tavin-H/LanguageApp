@@ -1,0 +1,15 @@
+[
+	{
+		"story-name" : "Story1",
+		"pages" : [
+			"Hello this is some \n story test thing"
+		],
+		"questions" : [
+			{
+				"question" : "Was this story good?",
+				"options" : ["Yes", "No"],
+				"relavent-line" : "This story is good"
+			}
+		]
+	}
+]

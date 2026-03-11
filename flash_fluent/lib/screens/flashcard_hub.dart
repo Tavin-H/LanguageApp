@@ -20,16 +20,16 @@ class FlashcardDeckContainer extends StatelessWidget {
           },
           child: Text("Practice"),
         ),
-				ElevatedButton(
-				onPressed: () {
-					Navigator.pushNamed(
-						context,
-						'/flashcard_practice',
-						arguments: deck,
-					);
-				},
-				child: Text("Custom Practice"),
-			),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              '/flashcard_practice',
+              arguments: deck,
+            );
+          },
+          child: Text("Custom Practice"),
+        ),
       ],
     );
   }

@@ -26,10 +26,10 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
       setState(() {
         if (currentCardIndex < deck.flashcards.length - 1) {
           currentCardIndex++;
-        	flipped = false;
+          flipped = false;
         } else {
-				Navigator.pop(context);
-				}
+          Navigator.pop(context);
+        }
       });
     }
 

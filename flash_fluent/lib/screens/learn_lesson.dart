@@ -1,3 +1,5 @@
+import 'package:flash_fluent/custom-widgets/styled_button.dart';
+import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +40,23 @@ class _LearnLessonState extends State<LearnLesson> {
     }
 
     return Scaffold(
+      backgroundColor: AppColours.background,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(lesson.title, style: TextStyle(fontSize: 25.0)),
+					Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+
+IconButton(onPressed: () {
+Navigator.pop(context);
+}, icon: Icon(Icons.arrow_back, color: AppColours.foreground,)),
+
+            Text(
+              lesson.title,
+              style: TextStyle(fontSize: 25.0, color: AppColours.foreground),
+            ),
+IconButton(onPressed: makeBookmark, icon: Icon(Icons.bookmark_outline, color: AppColours.foreground,)),
+					],),
             SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
@@ -63,19 +77,11 @@ class _LearnLessonState extends State<LearnLesson> {
                 },
               ),
             ),
-            ElevatedButton(onPressed: nextPage, child: Text("next")),
-            ElevatedButton(onPressed: previousPage, child: Text("previous")),
-            ElevatedButton.icon(
-              onPressed: makeBookmark,
-              label: Text("bookmark"),
-              icon: Icon(Icons.bookmark_outline),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("back"),
-            ),
+						Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+						children: [
+						StyledButton(text: "previous", func: previousPage),
+						StyledButton(text: "Next", func: nextPage)
+						],),
           ],
         ),
       ),

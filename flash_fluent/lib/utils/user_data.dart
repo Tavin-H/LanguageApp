@@ -1,14 +1,11 @@
 import 'package:flash_fluent/utils/json_utils.dart';
 
-enum FlashcardType {
-	vocab,
-	grammar,
-}
+enum FlashcardType { vocab, grammar }
 
 class Flashcard {
   String front;
   String back;
-	FlashcardType type;
+  FlashcardType type;
   Flashcard({required this.front, required this.back, required this.type});
 }
 
@@ -17,14 +14,13 @@ class FlashcardDeck {
   List<Flashcard> flashcards;
   FlashcardDeck({required this.flashcards, required this.deckName});
 
-
-// Tries to add it to this deck but will not make a copy
-	void tryAdd(Flashcard flashcard) { 		
-		if(flashcards.contains(flashcard)) {
-			return;
-		}
-		flashcards.add(flashcard);
-	}
+  // Tries to add it to this deck but will not make a copy
+  void tryAdd(Flashcard flashcard) {
+    if (flashcards.contains(flashcard)) {
+      return;
+    }
+    flashcards.add(flashcard);
+  }
 }
 
 class Bookmark {

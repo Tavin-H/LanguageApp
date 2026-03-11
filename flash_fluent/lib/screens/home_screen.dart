@@ -1,3 +1,4 @@
+import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,29 +12,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             Text("Home"),
             Expanded(child: Placeholder()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/learn');
-                  },
-                  child: Text("Learn"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/practice');
-                  },
-                  child: Text("Practice"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/bookmarks');
-                  },
-                  child: Text("Bookmarks"),
-                ),
-              ],
-            ),
+            Navbar(),
           ],
         ),
       ),

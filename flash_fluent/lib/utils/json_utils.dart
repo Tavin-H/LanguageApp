@@ -1,3 +1,4 @@
+import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flutter/material.dart';
 
@@ -136,6 +137,7 @@ class MiniQuizWidget extends StatefulWidget {
 
 class _MiniQuizWidgetState extends State<MiniQuizWidget> {
   String displayMessage = "";
+	Color displayColor = AppColours.blue;
   late List<String> shuffledOptions;
   @override
   void initState() {
@@ -147,29 +149,31 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(widget.c.question),
+        Text(widget.c.question, style: TextStyle(color: AppColours.foreground)),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ...shuffledOptions.map(
-              (option) => ElevatedButton(
-                onPressed: () {
+              (option) => StyledButton(
+                text: option,
+                func: () {
                   if (option == widget.c.options[0]) {
                     setState(() {
                       displayMessage = "Correct!";
+											displayColor = AppColours.blue;
                     });
                   } else {
                     setState(() {
                       displayMessage = "Wrong";
+											displayColor = AppColours.orange;
                     });
                   }
                 },
-                child: Text(option),
               ),
             ),
           ],
         ),
-        Text(displayMessage),
+        Text(displayMessage, style: TextStyle(color: displayColor),),
       ],
     );
   }
@@ -186,13 +190,16 @@ Widget convertJsonComponentToWidget(Component component) {
         c.content,
         style: TextStyle(
           fontSize: 24,
-          color: Colors.blue.shade500,
+          color: AppColours.blue,
           fontWeight: FontWeight.bold,
         ),
       );
     case 'paragraph':
       final c = component as ParagraphComponent;
-      return Text(c.content, style: TextStyle(fontSize: 15));
+      return Text(
+        c.content,
+        style: TextStyle(fontSize: 15, color: AppColours.foreground),
+      );
     case 'sentence':
       final c = component as SentenceComponent;
       return Container(
@@ -204,12 +211,12 @@ Widget convertJsonComponentToWidget(Component component) {
               Text(
                 c.target,
                 style: TextStyle(
-                  color: AppColours.accent1,
+                  color: AppColours.orange,
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                 ),
               ),
-              Text(c.source, style: TextStyle(color: Colors.grey.shade700)),
+              Text(c.source, style: TextStyle(color: AppColours.foreground2)),
             ],
           ),
         ),
@@ -222,7 +229,7 @@ Widget convertJsonComponentToWidget(Component component) {
             c.content,
             style: TextStyle(
               fontSize: 18,
-              color: AppColours.accent1,
+              color: AppColours.orange,
               fontWeight: FontWeight.bold,
             ),
           ),
