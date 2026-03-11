@@ -45,18 +45,32 @@ class _LearnLessonState extends State<LearnLesson> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-					Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back, color: AppColours.foreground),
+                ),
 
-IconButton(onPressed: () {
-Navigator.pop(context);
-}, icon: Icon(Icons.arrow_back, color: AppColours.foreground,)),
-
-            Text(
-              lesson.title,
-              style: TextStyle(fontSize: 25.0, color: AppColours.foreground),
+                Text(
+                  lesson.title,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    color: AppColours.foreground,
+                  ),
+                ),
+                IconButton(
+                  onPressed: makeBookmark,
+                  icon: Icon(
+                    Icons.bookmark_outline,
+                    color: AppColours.foreground,
+                  ),
+                ),
+              ],
             ),
-IconButton(onPressed: makeBookmark, icon: Icon(Icons.bookmark_outline, color: AppColours.foreground,)),
-					],),
             SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
@@ -77,11 +91,13 @@ IconButton(onPressed: makeBookmark, icon: Icon(Icons.bookmark_outline, color: Ap
                 },
               ),
             ),
-						Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-						children: [
-						StyledButton(text: "previous", func: previousPage),
-						StyledButton(text: "Next", func: nextPage)
-						],),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                StyledButton(text: "previous", func: previousPage),
+                StyledButton(text: "Next", func: nextPage),
+              ],
+            ),
           ],
         ),
       ),

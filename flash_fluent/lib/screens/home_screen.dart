@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             Text("Home"),
             Expanded(child: Placeholder()),
+
             Navbar(),
           ],
         ),

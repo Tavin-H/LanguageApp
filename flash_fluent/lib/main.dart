@@ -6,6 +6,7 @@ import 'package:flash_fluent/screens/learn_screen.dart';
 import 'package:flash_fluent/screens/practice_screen.dart';
 import 'package:flash_fluent/screens/learn_lesson.dart';
 import 'package:flash_fluent/screens/lesson_map_screen.dart';
+import 'package:flash_fluent/screens/story_screen.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,11 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final String response = await rootBundle.loadString('assets/lessons.json');
+  final String storyResponse = await rootBundle.loadString(
+    'assets/stories.json',
+  );
   final Map<String, dynamic> data = json.decode(response);
+  final List<dynamic> storyData = json.decode(storyResponse);
 
   final List<dynamic> rawGrammarLessons = data['grammar-lessons'] as List;
   List<Lesson> grammarLessons = rawGrammarLessons
@@ -29,7 +34,16 @@ void main() async {
       .map((l) => Lesson.fromJson(l))
       .toList();
 
-  runApp(MyApp(grammarLessons: grammarLessons, vocabLessons: vocabLessons));
+  List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
+
+  print(stories.length);
+  runApp(
+    MyApp(
+      grammarLessons: grammarLessons,
+      vocabLessons: vocabLessons,
+      stories: stories,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,10 +51,12 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.grammarLessons,
     required this.vocabLessons,
+    required this.stories,
   });
 
   final List<Lesson> grammarLessons;
   final List<Lesson> vocabLessons;
+  final List<Story> stories;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +78,7 @@ class MyApp extends StatelessWidget {
           grammarLessons: grammarLessons,
           vocabLessons: vocabLessons,
         ),
-        '/practice': (context) => const PracticeScreen(),
+        '/practice': (context) => PracticeScreen(stories: stories),
         '/lesson_map': (context) =>
             LessonMapScreen(grammarLessons: grammarLessons),
         '/flashcard_hub': (context) => const FlashcardHub(),
@@ -71,6 +87,7 @@ class MyApp extends StatelessWidget {
         '/lesson': (context) => const LearnLesson(),
         '/flashcard_practice': (context) => const FlashcardPractice(),
         '/bookmarks': (context) => const BookmarksScreen(),
+        '/story': (context) => const StoryScreen(),
       },
     );
   }

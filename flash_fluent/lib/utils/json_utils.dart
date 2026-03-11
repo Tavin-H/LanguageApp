@@ -122,7 +122,7 @@ class MiniQuizWidget extends StatefulWidget {
 
 class _MiniQuizWidgetState extends State<MiniQuizWidget> {
   String displayMessage = "";
-	Color displayColor = AppColours.blue;
+  Color displayColor = AppColours.blue;
   late List<String> shuffledOptions;
   @override
   void initState() {
@@ -145,12 +145,12 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
                   if (option == widget.c.options[0]) {
                     setState(() {
                       displayMessage = "Correct!";
-											displayColor = AppColours.blue;
+                      displayColor = AppColours.blue;
                     });
                   } else {
                     setState(() {
                       displayMessage = "Wrong";
-											displayColor = AppColours.orange;
+                      displayColor = AppColours.orange;
                     });
                   }
                 },
@@ -158,7 +158,7 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
             ),
           ],
         ),
-        Text(displayMessage, style: TextStyle(color: displayColor),),
+        Text(displayMessage, style: TextStyle(color: displayColor)),
       ],
     );
   }
@@ -232,16 +232,21 @@ Widget convertJsonComponentToWidget(Component component) {
 }
 
 class StoryPage {
-	final String content;
-	StoryPage({required this.content});
+  final String content;
+  StoryPage({required this.content});
 }
 
 class Story {
-	final String title;
-	final List<StoryPage> storyPages;
-	Story({required this.title, required this.storyPages});
+  final String title;
+  final List<StoryPage> storyPages;
+  Story({required this.title, required this.storyPages});
 
-	factory Story.fromJson(Map<String, dynamic> json) {
-		return Story(title: json['story-name'], storyPages: (json['pages'] as List).map((item) => StoryPage.fromJson(item)));
-	}
+  factory Story.fromJson(Map<String, dynamic> json) {
+    return Story(
+      title: json['story-name'],
+      storyPages: (json['pages'] as List)
+          .map((item) => StoryPage(content: item))
+          .toList(),
+    );
+  }
 }

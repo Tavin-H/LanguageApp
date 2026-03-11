@@ -1,7 +1,10 @@
+import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flutter/material.dart';
 
 class PracticeScreen extends StatelessWidget {
-  const PracticeScreen({super.key});
+  const PracticeScreen({super.key, required this.stories});
+
+  final List<Story> stories;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,8 @@ class PracticeScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/grammar_diff');
+                print(stories.length);
+                Navigator.pushNamed(context, '/story', arguments: stories[0]);
               },
               child: Text("Story"),
             ),
