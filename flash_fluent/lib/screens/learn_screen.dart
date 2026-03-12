@@ -90,11 +90,11 @@ class LearnScreen extends StatelessWidget {
               child: Text("Grammar"),
             ),
 						*/
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Back"),
+                icon: Icon(Icons.arrow_back, color: AppColours.foreground),
               ),
               Padding(
                 padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 0),

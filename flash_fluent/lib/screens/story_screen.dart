@@ -32,49 +32,51 @@ class QuestionContainer extends StatefulWidget {
 
 class _QuestionContainerState extends State<QuestionContainer> {
   late List<String> shuffledOptions;
-	late bool showHint;
+  late bool showHint;
   @override
   void initState() {
     super.initState();
     shuffledOptions = List<String>.from(widget.questionObject.options)
       ..shuffle();
-		showHint = false;
+    showHint = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           widget.questionObject.question,
           style: TextStyle(color: AppColours.foreground),
         ),
 
-        Column(
-          children: [
-            ...shuffledOptions.map(
-              (option) => StyledButton(
-                text: option,
-                func: () {
-                  if (option == widget.questionObject.options[0]) {
-                    setState(() {
-                      //Correct!
-											showHint = false;
-
-                    });
-                  } else {
-                    //Wrong :(
-										setState(() {
-																				  showHint = true;
-																				});
-                  }
-                },
-              ),
-            ),
-						if(showHint)
-							Text(widget.questionObject.relaventLine,style: TextStyle(color: AppColours.foreground),),
-          ],
+        ...shuffledOptions.map(
+          (option) => StyledButton(
+            text: option,
+            func: () {
+              if (option == widget.questionObject.options[0]) {
+                setState(() {
+                  //Correct!
+                  showHint = false;
+                });
+              } else {
+                //Wrong :(
+                setState(() {
+                  showHint = true;
+                });
+              }
+            },
+          ),
         ),
+        if (showHint) ...[
+          Text("Hint:", style: TextStyle(color: AppColours.foreground)),
+
+          Text(
+            widget.questionObject.relaventLine,
+            style: TextStyle(color: AppColours.foreground),
+          ),
+        ],
       ],
     );
   }
@@ -177,7 +179,6 @@ class _StoryScreenState extends State<StoryScreen> {
                           setState(() {
                             state = ReadingState.testing;
                           });
-                          print("Go to comprehension quiz");
                         }
                       },
                     ),
@@ -188,8 +189,11 @@ class _StoryScreenState extends State<StoryScreen> {
                   child: ListView.builder(
                     itemCount: story.questions.length,
                     itemBuilder: (context, index) {
-                      return QuestionContainer(
-                        questionObject: story.questions[index],
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                        child: QuestionContainer(
+                          questionObject: story.questions[index],
+                        ),
                       );
                     },
                   ),

@@ -51,8 +51,51 @@
 					"components": [
 						{
 							"type": "header",
-							"content" : "Some more examples"
-						},	
+							"content" : "Continued"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "This grammatical structure can be used with either 걱정하다 or 걱정돼다. These verbs both mean 'To worry' but the nuance is slightly differnt"
+						},
+						{
+							"type":"padding",
+							"height" : 20
+						},
+						{
+							"type" : "sentence",
+							"target" : "왜 아직도 안 자요? 내일 일찍 일어나야 하잖아요.",
+							"source" : "(Why are you still awake? You have to get up early tomorrow.)"
+						},
+						{
+							"type" : "sentence",
+							"target" : "늦잠을 잘까 봐 걱정돼서 알람을 5개나 맞췄어요.",
+							"source" : "(I’m worried that I might oversleep, so I set five alarms.)"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "mini-quiz",
+							"question" : "Is this a correct use of the grammar?",
+							"options" : ["true", "false"]
+						}
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Continued"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "This grammatical structure can be used with either 걱정하다 or 걱정돼다. These verbs both mean 'To worry' but the nuance is slightly differnt"
+						},
+						{
+							"type":"padding",
+							"height" : 20
+						},
 						{
 							"type" : "sentence",
 							"target" : "왜 아직도 안 자요? 내일 일찍 일어나야 하잖아요.",

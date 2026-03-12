@@ -52,7 +52,7 @@ class _LearnLessonState extends State<LearnLesson> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back, color: AppColours.foreground),
+                  icon: Icon(Icons.close, color: AppColours.foreground),
                 ),
 
                 Text(
@@ -71,7 +71,40 @@ class _LearnLessonState extends State<LearnLesson> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+						/*
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child: LinearProgressIndicator(
+                color: AppColours.orange,
+                minHeight: 5,
+                value: page / (lesson.pages.length - 1),
+                backgroundColor: AppColours.background2,
+              ),
+            ),
+						*/
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child: TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0, end: page / (lesson.pages.length - 1)),
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeOut,
+                builder: (context, animatedValue, child) {
+                  return LinearProgressIndicator(
+                    value:
+                        animatedValue,
+                    minHeight:
+                        6,
+                    backgroundColor: AppColours.background2,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColours.orange,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      10,
+                    ),
+                  );
+                },
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 physics:
