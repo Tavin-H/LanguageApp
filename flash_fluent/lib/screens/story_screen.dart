@@ -21,6 +21,54 @@ class PageContainer extends StatelessWidget {
     );
   }
 }
+//--------------------------------
+
+class OptionContainer extends StatefulWidget {
+  const OptionContainer({
+    super.key,
+    required this.text,
+    required this.isCorrect,
+    required this.isSelected,
+		required this.action,
+  });
+  final String text;
+  final bool isCorrect;
+	final bool isSelected;
+	final void Function() action;
+
+  @override
+  State<OptionContainer> createState() => _OptionContainerState();
+}
+
+class _OptionContainerState extends State<OptionContainer> {
+  late IconData icon;
+  @override
+  @override
+  void initState() {
+    icon = Icons.circle_outlined;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+			widget.action();
+			},
+      child: Row(
+        children: [
+          Icon(widget.isSelected ? Icons.circle : Icons.circle_outlined, color: AppColours.foreground, size: 30),
+          SizedBox(width: 100),
+          Text(
+            widget.text,
+            style: TextStyle(color: AppColours.foreground, fontSize: 20),
+          ),
+        ],
+      ),
+    );
+  }
+}
+//--------------------------------
 
 class QuestionContainer extends StatefulWidget {
   const QuestionContainer({super.key, required this.questionObject});
@@ -33,11 +81,13 @@ class QuestionContainer extends StatefulWidget {
 class _QuestionContainerState extends State<QuestionContainer> {
   late List<String> shuffledOptions;
   late bool showHint;
+  late int selectedOptionIndex;
   @override
   void initState() {
     super.initState();
     shuffledOptions = List<String>.from(widget.questionObject.options)
       ..shuffle();
+    selectedOptionIndex = -1;
     showHint = false;
   }
 
@@ -50,7 +100,22 @@ class _QuestionContainerState extends State<QuestionContainer> {
           widget.questionObject.question,
           style: TextStyle(color: AppColours.foreground),
         ),
+        ...shuffledOptions.map(
+          (option) => OptionContainer(
+					action: () {
+					setState(() {
 
+					selectedOptionIndex = shuffledOptions.indexOf(option);
+					});
+					},
+            text: option,
+            isCorrect: (widget.questionObject.options[0] == option),
+            isSelected: (selectedOptionIndex == shuffledOptions
+                .indexOf(option)),
+          ),
+        ),
+
+        /*
         ...shuffledOptions.map(
           (option) => StyledButton(
             text: option,
@@ -69,6 +134,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
             },
           ),
         ),
+				*/
         if (showHint) ...[
           Text("Hint:", style: TextStyle(color: AppColours.foreground)),
 
@@ -81,6 +147,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
     );
   }
 }
+//--------------------------------
 
 class StoryScreen extends StatefulWidget {
   const StoryScreen({super.key});

@@ -107,8 +107,12 @@ class PracticeScreen extends StatelessWidget {
                       text: stories[index].title,
                       icon: Icons.menu_book,
                       action: () {
-												Navigator.pushNamed( context, '/story', arguments: stories[index], );
-											},
+                        Navigator.pushNamed(
+                          context,
+                          '/story',
+                          arguments: stories[index],
+                        );
+                      },
                       color: index % 2 == 0
                           ? AppColours.blue
                           : AppColours.blue2,
@@ -117,15 +121,15 @@ class PracticeScreen extends StatelessWidget {
                 ),
               ),
             ),
-Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "Audio Lessons",
                 style: TextStyle(color: AppColours.foreground2, fontSize: 18),
               ),
             ),
-						SizedBox(height: 10,),
-Expanded(
+            SizedBox(height: 10),
+            Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
@@ -136,12 +140,15 @@ Expanded(
                       text: "Audio Lesson",
                       icon: Icons.mic,
                       action: () {
-												Navigator.pushNamed( context, '/story', arguments: stories[index], );
-											},
+                        Navigator.pushNamed(
+                          context,
+                          '/story',
+                          arguments: stories[index],
+                        );
+                      },
                       color: index % 2 == 0
                           ? AppColours.orange
                           : AppColours.orange2,
-
                     );
                   },
                 ),
