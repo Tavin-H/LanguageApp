@@ -29,12 +29,12 @@ class OptionContainer extends StatefulWidget {
     required this.text,
     required this.isCorrect,
     required this.isSelected,
-		required this.action,
+    required this.action,
   });
   final String text;
   final bool isCorrect;
-	final bool isSelected;
-	final void Function() action;
+  final bool isSelected;
+  final void Function() action;
 
   @override
   State<OptionContainer> createState() => _OptionContainerState();
@@ -53,11 +53,16 @@ class _OptionContainerState extends State<OptionContainer> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-			widget.action();
-			},
+        widget.action();
+      },
       child: Row(
         children: [
-          Icon(widget.isSelected ? Icons.circle : Icons.circle_outlined, color: AppColours.foreground, size: 30),
+          if (widget.isSelected && widget.isCorrect)
+            Icon(Icons.check_circle, color: AppColours.blue, size: 30),
+          if (widget.isSelected && !widget.isCorrect)
+            Icon(Icons.cancel, color: AppColours.orange, size: 30),
+          if (!widget.isSelected)
+            Icon(Icons.circle_outlined, color: AppColours.foreground, size: 30),
           SizedBox(width: 100),
           Text(
             widget.text,
@@ -71,8 +76,15 @@ class _OptionContainerState extends State<OptionContainer> {
 //--------------------------------
 
 class QuestionContainer extends StatefulWidget {
-  const QuestionContainer({super.key, required this.questionObject});
+  const QuestionContainer({
+    super.key,
+    required this.questionObject,
+    required this.addCorrectCount,
+    required this.removeCorrectCount,
+  });
   final Question questionObject;
+  final void Function() addCorrectCount;
+  final void Function() removeCorrectCount;
 
   @override
   State<QuestionContainer> createState() => _QuestionContainerState();
@@ -81,7 +93,9 @@ class QuestionContainer extends StatefulWidget {
 class _QuestionContainerState extends State<QuestionContainer> {
   late List<String> shuffledOptions;
   late bool showHint;
+  late bool selectedCorrect;
   late int selectedOptionIndex;
+
   @override
   void initState() {
     super.initState();
@@ -89,10 +103,14 @@ class _QuestionContainerState extends State<QuestionContainer> {
       ..shuffle();
     selectedOptionIndex = -1;
     showHint = false;
+    selectedCorrect = false;
   }
 
   @override
   Widget build(BuildContext context) {
+    int correctIndex = shuffledOptions.indexOf(
+      widget.questionObject.options[0],
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -102,39 +120,34 @@ class _QuestionContainerState extends State<QuestionContainer> {
         ),
         ...shuffledOptions.map(
           (option) => OptionContainer(
-					action: () {
-					setState(() {
-
-					selectedOptionIndex = shuffledOptions.indexOf(option);
-					});
-					},
+            action: () {
+              setState(() {
+                int before = selectedOptionIndex;
+                selectedOptionIndex = shuffledOptions.indexOf(option);
+                if (selectedOptionIndex != correctIndex) {
+                  if (before != selectedOptionIndex) {
+                    // Stops from being able to select twice
+                    if (selectedCorrect == true) {
+                      widget.removeCorrectCount();
+                      selectedCorrect = false;
+                    }
+                  }
+                  showHint = true;
+                } else {
+                  showHint = false;
+                  selectedCorrect = true;
+                  if (before != selectedOptionIndex) {
+                    widget.addCorrectCount();
+                  }
+                }
+              });
+            },
             text: option,
             isCorrect: (widget.questionObject.options[0] == option),
-            isSelected: (selectedOptionIndex == shuffledOptions
-                .indexOf(option)),
+            isSelected:
+                (selectedOptionIndex == shuffledOptions.indexOf(option)),
           ),
         ),
-
-        /*
-        ...shuffledOptions.map(
-          (option) => StyledButton(
-            text: option,
-            func: () {
-              if (option == widget.questionObject.options[0]) {
-                setState(() {
-                  //Correct!
-                  showHint = false;
-                });
-              } else {
-                //Wrong :(
-                setState(() {
-                  showHint = true;
-                });
-              }
-            },
-          ),
-        ),
-				*/
         if (showHint) ...[
           Text("Hint:", style: TextStyle(color: AppColours.foreground)),
 
@@ -159,6 +172,22 @@ class StoryScreen extends StatefulWidget {
 class _StoryScreenState extends State<StoryScreen> {
   int page = 0;
   late ReadingState state;
+
+  int correctCount = 0;
+
+  void addCorrectCount() {
+    setState(() {
+      correctCount++;
+      print(correctCount);
+    });
+  }
+
+  void removeCorrectCount() {
+    setState(() {
+      correctCount--;
+      print(correctCount);
+    });
+  }
 
   @override
   void initState() {
@@ -259,12 +288,31 @@ class _StoryScreenState extends State<StoryScreen> {
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                         child: QuestionContainer(
+                          addCorrectCount: addCorrectCount,
+                          removeCorrectCount: removeCorrectCount,
                           questionObject: story.questions[index],
                         ),
                       );
                     },
                   ),
                 ),
+              if (state == ReadingState.testing &&
+                  correctCount != story.questions.length)
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+										backgroundColor: AppColours.foreground2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(10),
+                    ),
+                  ),
+                  child: Text("Continue", style: TextStyle(color: Colors.grey.shade700),),
+                ),
+              if (state == ReadingState.testing &&
+                  correctCount == story.questions.length)
+                StyledButton(text: "Continue", func: () {
+								Navigator.pop(context);
+								}),
             ],
           ),
         ),
