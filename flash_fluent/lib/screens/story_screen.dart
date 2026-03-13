@@ -3,6 +3,7 @@ import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:page_flip/page_flip.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 enum ReadingState { reading, testing }
 
@@ -52,6 +53,7 @@ class _OptionContainerState extends State<OptionContainer> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      enableFeedback: false,
       onTap: () {
         widget.action();
       },
@@ -95,9 +97,88 @@ class _QuestionContainerState extends State<QuestionContainer> {
   late bool showHint;
   late bool selectedCorrect;
   late int selectedOptionIndex;
+  final player = AudioPlayer();
+
+void _showHint() {
+  showModalBottomSheet(
+    context: context,
+		barrierColor: Colors.transparent,
+    // makes the top corners rounded
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+    ),
+    builder: (context) {
+      return Container(
+        height: 220,
+				width: double.infinity,
+				decoration: BoxDecoration(
+				color: AppColours.background2,
+				borderRadius: BorderRadius.circular(25)),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+				crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Whoops...", style: TextStyle(color: AppColours.orange, fontSize: 28, fontWeight: FontWeight.bold)),
+						Text("Heres a hint:", style: TextStyle(color: AppColours.foreground, fontSize: 18),),
+						Text("\"${widget.questionObject.relaventLine}\"", style: TextStyle(color: AppColours.foreground, fontSize: 20, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 20),
+						Center(child: 
+						StyledButton(text: "Try again", func: () => Navigator.pop(context)))
+          ],
+        ),
+      );
+    },
+  );
+}
+void _showCorrect() {
+  showModalBottomSheet(
+    context: context,
+		barrierColor: Colors.transparent,
+    // makes the top corners rounded
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+    ),
+    builder: (context) {
+      return Container(
+        height: 200,
+				width: double.infinity,
+				decoration: BoxDecoration(
+				color: AppColours.background2,
+				borderRadius: BorderRadius.circular(25)),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+				crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Correct!", style: TextStyle(color: AppColours.blue, fontSize: 28, fontWeight: FontWeight.bold)),
+						Text("Good job!", style: TextStyle(color: AppColours.foreground, fontSize: 20),),
+            const SizedBox(height: 20),
+						Center(child: 
+						StyledButton(text: "Continue", func: () => Navigator.pop(context)))
+          ],
+        ),
+      );
+    },
+  );
+}
+
+
+  Future<void> playCorrectSound() async {
+    // 2. Now you can use 'await' here
+    await player.stop();
+    await player.play(AssetSource('sounds/Correct.mp3'));
+    //await player.resume();
+  }
+
+  Future<void> playWrongSound() async {
+    // 2. Now you can use 'await' here
+    await player.stop();
+    await player.play(AssetSource('sounds/Wrong.mp3'));
+    //await player.resume();
+  }
 
   @override
   void initState() {
+    //widget.player.setSource(AssetSource('sounds/Correct.mp3'));
     super.initState();
     shuffledOptions = List<String>.from(widget.questionObject.options)
       ..shuffle();
@@ -132,8 +213,12 @@ class _QuestionContainerState extends State<QuestionContainer> {
                       selectedCorrect = false;
                     }
                   }
+                  playWrongSound();
                   showHint = true;
+									_showHint();
                 } else {
+									_showCorrect();
+                  playCorrectSound();
                   showHint = false;
                   selectedCorrect = true;
                   if (before != selectedOptionIndex) {
@@ -148,14 +233,6 @@ class _QuestionContainerState extends State<QuestionContainer> {
                 (selectedOptionIndex == shuffledOptions.indexOf(option)),
           ),
         ),
-        if (showHint) ...[
-          Text("Hint:", style: TextStyle(color: AppColours.foreground)),
-
-          Text(
-            widget.questionObject.relaventLine,
-            style: TextStyle(color: AppColours.foreground),
-          ),
-        ],
       ],
     );
   }
@@ -301,18 +378,24 @@ class _StoryScreenState extends State<StoryScreen> {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-										backgroundColor: AppColours.foreground2,
+                    backgroundColor: AppColours.foreground2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadiusGeometry.circular(10),
                     ),
                   ),
-                  child: Text("Continue", style: TextStyle(color: Colors.grey.shade700),),
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(color: Colors.grey.shade700),
+                  ),
                 ),
               if (state == ReadingState.testing &&
                   correctCount == story.questions.length)
-                StyledButton(text: "Continue", func: () {
-								Navigator.pop(context);
-								}),
+                StyledButton(
+                  text: "Continue",
+                  func: () {
+                    Navigator.pop(context);
+                  },
+                ),
             ],
           ),
         ),

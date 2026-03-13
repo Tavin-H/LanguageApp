@@ -127,7 +127,10 @@ class _LearnLessonState extends State<LearnLesson> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 StyledButton(text: "previous", func: previousPage),
-                StyledButton(text: "Next", func: nextPage),
+                StyledButton(
+                  text: page == lesson.pages.length - 1 ? "Finish" : "Next",
+                  func: nextPage,
+                ),
               ],
             ),
           ],

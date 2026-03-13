@@ -10,21 +10,23 @@ class LessonContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadiusGeometry.circular(12.0),
-      child: Container(
-        height: 55,
-        decoration: BoxDecoration(color: AppColours.background2),
-        child: Padding(
-          padding: EdgeInsetsGeometry.fromLTRB(18, 0, 10, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                lesson.title,
-                style: TextStyle(fontSize: 18, color: AppColours.foreground),
-              ),
-              /*
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        color: AppColours.background,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColours.background2, width: 5),
+      ),
+      child: Padding(
+        padding: EdgeInsetsGeometry.fromLTRB(18, 0, 4, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              lesson.title,
+              style: TextStyle(fontSize: 18, color: AppColours.foreground),
+            ),
+            /*
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/lesson', arguments: lesson);
@@ -41,14 +43,13 @@ class LessonContainer extends StatelessWidget {
                 ),
               ),
 							*/
-              StyledButton(
-                text: "Learn",
-                func: () {
-                  Navigator.pushNamed(context, '/lesson', arguments: lesson);
-                },
-              ),
-            ],
-          ),
+            StyledButton(
+              text: "Learn",
+              func: () {
+                Navigator.pushNamed(context, '/lesson', arguments: lesson);
+              },
+            ),
+          ],
         ),
       ),
     );
