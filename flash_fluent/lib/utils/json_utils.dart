@@ -74,7 +74,7 @@ class HeaderComponent extends Component {
 class ParagraphComponent extends Component {
   final String content;
   ParagraphComponent({required this.content})
-    : super(type: 'paragraph', bottomMargin: 10);
+    : super(type: 'paragraph', bottomMargin: 20);
   factory ParagraphComponent.fromJson(Map<String, dynamic> json) {
     return ParagraphComponent(content: json['content']);
   }

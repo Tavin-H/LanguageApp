@@ -26,10 +26,12 @@ class Navbar extends StatelessWidget {
                   icon: Icon(
                     Icons.menu_book_rounded,
                     size: 40,
-                    color: AppColours.blue,
+                    color: ModalRoute.of(context)?.settings.name == '/learn'
+                        ? AppColours.orange
+                        : AppColours.foreground,
                   ),
                 ),
-                Text("Learn", style: TextStyle(color: AppColours.blue)),
+                Text("Learn", style: TextStyle(color: AppColours.foreground)),
               ],
             ),
           ),
@@ -40,11 +42,22 @@ class Navbar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/practice');
+                    if (ModalRoute.of(context)?.settings.name != '/practice') {
+                      Navigator.pushNamed(context, '/practice');
+                    }
                   },
-                  icon: Icon(Icons.edit_note, size: 40, color: AppColours.blue),
+                  icon: Icon(
+                    Icons.edit_note,
+                    size: 40,
+                    color: ModalRoute.of(context)?.settings.name == '/practice'
+                        ? AppColours.orange
+                        : AppColours.foreground,
+                  ),
                 ),
-                Text("Practice", style: TextStyle(color: AppColours.blue)),
+                Text(
+                  "Practice",
+                  style: TextStyle(color: AppColours.foreground),
+                ),
               ],
             ),
           ),
@@ -56,15 +69,19 @@ class Navbar extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     //Navigator.pushNamed(context, '/');
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    if (ModalRoute.of(context)?.settings.name != '/') {
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    }
                   },
                   icon: Icon(
                     Icons.home_rounded,
                     size: 40,
-                    color: AppColours.blue,
+                    color: ModalRoute.of(context)?.settings.name == '/'
+                        ? AppColours.orange
+                        : AppColours.foreground,
                   ),
                 ),
-                Text("Home", style: TextStyle(color: AppColours.blue)),
+                Text("Home", style: TextStyle(color: AppColours.foreground)),
               ],
             ),
           ),
@@ -75,15 +92,22 @@ class Navbar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/bookmarks');
+                    if (ModalRoute.of(context)?.settings.name != '/bookmarks') {
+                      Navigator.pushNamed(context, '/bookmarks');
+                    }
                   },
                   icon: Icon(
                     Icons.collections_bookmark,
                     size: 35,
-                    color: AppColours.blue,
+                    color: ModalRoute.of(context)?.settings.name == '/bookmarks'
+                        ? AppColours.orange
+                        : AppColours.foreground,
                   ),
                 ),
-                Text("Workshop", style: TextStyle(color: AppColours.blue)),
+                Text(
+                  "Workshop",
+                  style: TextStyle(color: AppColours.foreground),
+                ),
               ],
             ),
           ),
@@ -94,9 +118,15 @@ class Navbar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.person, size: 40, color: AppColours.blue),
+                  icon: Icon(
+                    Icons.person,
+                    size: 40,
+                    color: ModalRoute.of(context)?.settings.name == '/profile'
+                        ? AppColours.orange
+                        : AppColours.foreground,
+                  ),
                 ),
-                Text("Profile", style: TextStyle(color: AppColours.blue)),
+                Text("Profile", style: TextStyle(color: AppColours.foreground)),
               ],
             ),
           ),
