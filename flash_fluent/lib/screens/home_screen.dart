@@ -171,29 +171,71 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   SizedBox(height: 50),
+                  Container(
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+										borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 3,
+                        color: AppColours.background2,
+                      ),
+                    ),
+										child: Padding(
+										  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+										  child: Column(
+										  crossAxisAlignment: CrossAxisAlignment.start,
+										  children: [
+										  Text("Word of the day",style: TextStyle(color: AppColours.foreground)),
+											Row(
+											mainAxisAlignment: MainAxisAlignment.spaceBetween,
+											children: [
+											Text("걱정하다", style: TextStyle(color: AppColours.orange, fontSize: 20, fontWeight: FontWeight.bold),),
+
+											Text("To worry", style: TextStyle(color: AppColours.foreground, fontSize: 20),),
+											Icon(Icons.book, color: AppColours.foreground,),
+											],)
+										  ],),
+										),
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    "Weekly Goal",
+                    style: TextStyle(
+                      color: AppColours.foreground,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Container(
+                    height: 3,
+                    width: double.infinity,
+                    color: AppColours.background2,
+                  ),
+                  SizedBox(height: 15),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-										Column(
-											crossAxisAlignment: CrossAxisAlignment.start,
-										children: [
-                      Text(
-                        "Weekly Goal",
-                        style: TextStyle(
-                          color: AppColours.foreground,
-                          fontSize: 20,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Progress",
+                            style: TextStyle(
+                              color: AppColours.foreground,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            "7/12 Exercises",
+                            style: TextStyle(
+                              color: AppColours.foreground,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
                       ),
-											Text(
-                        "Progress",
-                        style: TextStyle(
-                          color: AppColours.foreground,
-                          fontSize: 16,
-                        ),
-                      ),
-
-										]),
                       SizedBox(
                         height: 60,
                         width: 60,
@@ -207,8 +249,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-
-                  SizedBox(height: 30),
+                  SizedBox(height: 50),
+                  Text(
+                    "Your learning",
+                    style: TextStyle(
+                      color: AppColours.foreground,
+                      fontSize: 20,
+                    ),
+                  ),
                   Container(
                     height: 3,
                     width: double.infinity,

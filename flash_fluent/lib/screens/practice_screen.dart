@@ -28,15 +28,12 @@ class PracticeContainer extends StatelessWidget {
             child: SizedBox(
               height: 80,
               width: 100,
-              child: ClipRRect(
-                borderRadius: BorderRadiusGeometry.circular(15),
                 child: Container(
-                  color: color,
+								decoration: BoxDecoration(border: Border.all(color: color, width: 3), borderRadius:  BorderRadius.circular(12)),
                   child: Center(
                     child: Icon(icon, size: 40, color: AppColours.foreground),
                   ),
                 ),
-              ),
             ),
           ),
           SizedBox(height: 10),
@@ -105,7 +102,7 @@ class PracticeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return PracticeContainer(
                       text: stories[index].title,
-                      icon: Icons.menu_book,
+                      icon: Icons.menu_book_rounded,
                       action: () {
                         Navigator.pushNamed(
                           context,

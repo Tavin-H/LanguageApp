@@ -10,5 +10,6 @@ class AppColours {
   static final blue2 = Color(0xFF464775);
   static final orange = Color(0xFFC17955);
   static final orange2 = Color(0xFFa15833);
+  static final green = Color(0xFF80CF84);
   static final accent1 = Colors.blue.shade900;
 }

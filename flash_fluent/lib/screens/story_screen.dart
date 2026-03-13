@@ -60,7 +60,7 @@ class _OptionContainerState extends State<OptionContainer> {
       child: Row(
         children: [
           if (widget.isSelected && widget.isCorrect)
-            Icon(Icons.check_circle, color: AppColours.blue, size: 30),
+            Icon(Icons.check_circle, color: AppColours.green, size: 30),
           if (widget.isSelected && !widget.isCorrect)
             Icon(Icons.cancel, color: AppColours.orange, size: 30),
           if (!widget.isSelected)
@@ -176,7 +176,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
               Text(
                 "Correct!",
                 style: TextStyle(
-                  color: AppColours.blue,
+                  color: AppColours.green,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
