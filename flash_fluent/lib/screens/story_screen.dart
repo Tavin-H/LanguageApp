@@ -99,68 +99,105 @@ class _QuestionContainerState extends State<QuestionContainer> {
   late int selectedOptionIndex;
   final player = AudioPlayer();
 
-void _showHint() {
-  showModalBottomSheet(
-    context: context,
-		barrierColor: Colors.transparent,
-    // makes the top corners rounded
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-    ),
-    builder: (context) {
-      return Container(
-        height: 220,
-				width: double.infinity,
-				decoration: BoxDecoration(
-				color: AppColours.background2,
-				borderRadius: BorderRadius.circular(25)),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-				crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Whoops...", style: TextStyle(color: AppColours.orange, fontSize: 28, fontWeight: FontWeight.bold)),
-						Text("Heres a hint:", style: TextStyle(color: AppColours.foreground, fontSize: 18),),
-						Text("\"${widget.questionObject.relaventLine}\"", style: TextStyle(color: AppColours.foreground, fontSize: 20, fontWeight: FontWeight.bold),),
-            const SizedBox(height: 20),
-						Center(child: 
-						StyledButton(text: "Try again", func: () => Navigator.pop(context)))
-          ],
-        ),
-      );
-    },
-  );
-}
-void _showCorrect() {
-  showModalBottomSheet(
-    context: context,
-		barrierColor: Colors.transparent,
-    // makes the top corners rounded
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-    ),
-    builder: (context) {
-      return Container(
-        height: 200,
-				width: double.infinity,
-				decoration: BoxDecoration(
-				color: AppColours.background2,
-				borderRadius: BorderRadius.circular(25)),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-				crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Correct!", style: TextStyle(color: AppColours.blue, fontSize: 28, fontWeight: FontWeight.bold)),
-						Text("Good job!", style: TextStyle(color: AppColours.foreground, fontSize: 20),),
-            const SizedBox(height: 20),
-						Center(child: 
-						StyledButton(text: "Continue", func: () => Navigator.pop(context)))
-          ],
-        ),
-      );
-    },
-  );
-}
+  void _showHint() {
+    showModalBottomSheet(
+      context: context,
+      barrierColor: Colors.transparent,
+      // makes the top corners rounded
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      builder: (context) {
+        return Container(
+          height: 220,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: AppColours.background2,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Whoops...",
+                style: TextStyle(
+                  color: AppColours.orange,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "Heres a hint:",
+                style: TextStyle(color: AppColours.foreground, fontSize: 18),
+              ),
+              Text(
+                "\"${widget.questionObject.relaventLine}\"",
+                style: TextStyle(
+                  color: AppColours.foreground,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: StyledButton(
+                  text: "Try again",
+                  func: () => Navigator.pop(context),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
+  void _showCorrect() {
+    showModalBottomSheet(
+      context: context,
+      barrierColor: Colors.transparent,
+      // makes the top corners rounded
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      builder: (context) {
+        return Container(
+          height: 200,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: AppColours.background2,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Correct!",
+                style: TextStyle(
+                  color: AppColours.blue,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "Good job!",
+                style: TextStyle(color: AppColours.foreground, fontSize: 20),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: StyledButton(
+                  text: "Continue",
+                  func: () => Navigator.pop(context),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Future<void> playCorrectSound() async {
     // 2. Now you can use 'await' here
@@ -215,9 +252,9 @@ void _showCorrect() {
                   }
                   playWrongSound();
                   showHint = true;
-									_showHint();
+                  _showHint();
                 } else {
-									_showCorrect();
+                  _showCorrect();
                   playCorrectSound();
                   showHint = false;
                   selectedCorrect = true;

@@ -14,11 +14,11 @@ class LessonContainer extends StatelessWidget {
       height: 60,
       decoration: BoxDecoration(
         color: AppColours.background,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColours.background2, width: 5),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColours.background2, width: 3),
       ),
       child: Padding(
-        padding: EdgeInsetsGeometry.fromLTRB(18, 0, 4, 0),
+        padding: EdgeInsetsGeometry.fromLTRB(18, 0, 7, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -26,23 +26,6 @@ class LessonContainer extends StatelessWidget {
               lesson.title,
               style: TextStyle(fontSize: 18, color: AppColours.foreground),
             ),
-            /*
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/lesson', arguments: lesson);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColours.orange,
-                ),
-                child: Text(
-                  "Learn!",
-                  style: TextStyle(
-                    color: AppColours.background2,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-							*/
             StyledButton(
               text: "Learn",
               func: () {
