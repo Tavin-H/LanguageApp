@@ -1,5 +1,62 @@
+import 'package:flash_fluent/custom-widgets/styled_button.dart';
+import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_flip_card/flutter_flip_card.dart';
+
+class FlashCardContainer extends StatelessWidget {
+  const FlashCardContainer({super.key, required this.controller});
+
+  final FlipCardController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlipCard(
+      onTapFlipping: true,
+      frontWidget: Container(
+        width: 200,
+        height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: AppColours.background,
+          border: Border.all(color: AppColours.orange, width: 4),
+        ),
+        child: Center(
+          child: Text(
+            "걱정하다",
+            style: TextStyle(
+              color: AppColours.foreground,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+      backWidget: Container(
+        width: 200,
+        height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: AppColours.background,
+          border: Border.all(color: AppColours.blue, width: 4),
+        ),
+        child: Center(
+          child: Text(
+            "To Worry",
+            style: TextStyle(
+              color: AppColours.foreground,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+
+      controller: controller,
+      rotateSide: RotateSide.right,
+    );
+  }
+}
 
 class FlashcardPractice extends StatefulWidget {
   const FlashcardPractice({super.key});
@@ -33,13 +90,23 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
       });
     }
 
+    final controller = FlipCardController();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Reviewing ${deck.deckName}"),
+              Text(
+                "Reviewing ${deck.deckName}",
+                style: TextStyle(color: AppColours.foreground, fontSize: 24),
+              ),
+              Expanded(
+                child: Center(
+                  child: FlashCardContainer(controller: controller),
+                ),
+              ),
               Text(!flipped ? "??" : deck.flashcards[currentCardIndex].back),
               flipped
                   ? Row(
@@ -65,13 +132,14 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
                         ),
                       ],
                     )
-                  : ElevatedButton(
-                      onPressed: () {
+                  : StyledButton(
+                      text: "Flip",
+                      func: () {
                         setState(() {
+                          controller.flipcard();
                           flipped = true;
                         });
                       },
-                      child: Text("Flip"),
                     ),
             ],
           ),

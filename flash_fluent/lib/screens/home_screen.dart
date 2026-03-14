@@ -170,33 +170,63 @@ class _HomeScreenState extends State<HomeScreen> {
                       IconStat(icon: Icons.mic, progress: 2),
                     ],
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 30),
+                  Center(
+                    child: Text(
+                      "Aquire -> Absorb -> Produce",
+                      style: TextStyle(
+                        color: AppColours.foreground,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
                   Container(
-                    height: 60,
+                    height: 70,
                     width: double.infinity,
                     decoration: BoxDecoration(
-										borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         width: 3,
                         color: AppColours.background2,
                       ),
                     ),
-										child: Padding(
-										  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-										  child: Column(
-										  crossAxisAlignment: CrossAxisAlignment.start,
-										  children: [
-										  Text("Word of the day",style: TextStyle(color: AppColours.foreground)),
-											Row(
-											mainAxisAlignment: MainAxisAlignment.spaceBetween,
-											children: [
-											Text("걱정하다", style: TextStyle(color: AppColours.orange, fontSize: 20, fontWeight: FontWeight.bold),),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Word of the day",
+                            style: TextStyle(color: AppColours.foreground),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "걱정하다",
+                                style: TextStyle(
+                                  color: AppColours.orange,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
 
-											Text("To worry", style: TextStyle(color: AppColours.foreground, fontSize: 20),),
-											Icon(Icons.book, color: AppColours.foreground,),
-											],)
-										  ],),
-										),
+                              Text(
+                                "To worry",
+                                style: TextStyle(
+                                  color: AppColours.foreground,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Icon(Icons.book, color: AppColours.foreground),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 30),
                   Text(

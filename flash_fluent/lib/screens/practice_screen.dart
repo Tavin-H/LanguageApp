@@ -27,16 +27,37 @@ class PracticeContainer extends StatelessWidget {
             onTap: action,
             child: SizedBox(
               height: 80,
-              width: 100,
-                child: Container(
-								decoration: BoxDecoration(border: Border.all(color: color, width: 3), borderRadius:  BorderRadius.circular(12)),
-                  child: Center(
-                    child: Icon(icon, size: 40, color: AppColours.foreground),
-                  ),
+              width: 110,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: color, width: 3),
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                child: Center(
+                  child: Icon(icon, size: 40, color: AppColours.foreground),
+                ),
+              ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 5),
+          SizedBox(
+            width: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.library_books,
+                  color: AppColours.foreground2,
+                  size: 15,
+                ),
+                Text("2", style: TextStyle(color: AppColours.foreground2)),
+                Expanded(child: Container()),
+
+                Icon(Icons.timer, color: AppColours.foreground2, size: 15),
+                Text("3 min", style: TextStyle(color: AppColours.foreground2)),
+              ],
+            ),
+          ),
           Text(
             text,
             style: TextStyle(color: AppColours.foreground, fontSize: 16),

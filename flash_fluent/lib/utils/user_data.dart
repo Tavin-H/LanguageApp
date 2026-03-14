@@ -40,3 +40,5 @@ List<FlashcardDeck> flashcardDecks = [
 ];
 
 List<Bookmark> userBookmarks = [];
+
+class ChapterData {}
