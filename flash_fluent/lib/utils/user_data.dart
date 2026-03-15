@@ -42,7 +42,19 @@ List<FlashcardDeck> flashcardDecks = [
 
 List<Bookmark> userBookmarks = [];
 
-class ChapterData {}
+class ChapterData {
+	String title;
+	List<Lesson> lessons;
+	List<Bookmark> bookmarks = [];
+	ValueNotifier<int> completedLessonCount;
+	ChapterData({required this.title, required this.lessons, required this.completedLessonCount});	
+
+	void updateProgess() {
+		completedLessonCount.value = lessons.where((l) => l.completed.value).length;
+	}
+}
+
+List<ChapterData> chapters = [];
 
 void tryAddLessonTitle(String title) {
   if (completedLessonTitles.value.contains(title)) return;

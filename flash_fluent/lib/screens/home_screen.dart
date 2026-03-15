@@ -1,5 +1,6 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
+import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
@@ -25,14 +26,6 @@ class IconStat extends StatelessWidget {
       ],
     );
   }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  final sidePadding = 20.0;
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class CourseContainer extends StatelessWidget {
@@ -64,6 +57,16 @@ class CourseContainer extends StatelessWidget {
     );
   }
 }
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key, required this.chapter});
+	final ChapterData chapter;
+
+  final sidePadding = 20.0;
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
 
 class _HomeScreenState extends State<HomeScreen> {
   void _showCourses() {
@@ -309,14 +312,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 20,
                     ),
                   ),
-                  LinearProgressIndicator(
-                    value: 0.4,
-                    minHeight: 6,
-                    backgroundColor: AppColours.background2,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColours.orange,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
+                  ValueListenableBuilder(
+                    valueListenable: widget.chapter.completedLessonCount,
+                    builder: (context, count, child) {
+                      return LinearProgressIndicator(
+                        value: count / widget.chapter.lessons.length,
+                        minHeight: 6,
+                        backgroundColor: AppColours.background2,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColours.orange,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      );
+                    },
                   ),
                 ],
               ),

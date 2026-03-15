@@ -5,10 +5,10 @@ import 'package:flash_fluent/screens/home_screen.dart';
 import 'package:flash_fluent/screens/learn_screen.dart';
 import 'package:flash_fluent/screens/practice_screen.dart';
 import 'package:flash_fluent/screens/learn_lesson.dart';
-import 'package:flash_fluent/screens/lesson_map_screen.dart';
 import 'package:flash_fluent/screens/story_screen.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -34,25 +34,28 @@ void main() async {
       .map((l) => Lesson.fromJson(l, LessonType.vocab))
       .toList();
 
-	final List<Lesson> allLessons = [];
+  final List<Lesson> allLessons = [];
 
-	final int minLength = grammarLessons.length < vocabLessons.length ? grammarLessons.length : vocabLessons.length;
+  final int minLength = grammarLessons.length < vocabLessons.length
+      ? grammarLessons.length
+      : vocabLessons.length;
 
-	for(int i = 0; i < minLength; i++) {
-		allLessons.add(vocabLessons[i]);
-		allLessons.add(grammarLessons[i]);
-	}
-	allLessons.addAll(vocabLessons.sublist(minLength));
-	allLessons.addAll(grammarLessons.sublist(minLength));
+  for (int i = 0; i < minLength; i++) {
+    allLessons.add(vocabLessons[i]);
+    allLessons.add(grammarLessons[i]);
+  }
+  allLessons.addAll(vocabLessons.sublist(minLength));
+  allLessons.addAll(grammarLessons.sublist(minLength));
+
+	chapters.add(ChapterData(title: "Chapter 1", lessons: allLessons, completedLessonCount: ValueNotifier(0)));
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
 
-  print(stories.length);
   runApp(
     MyApp(
       grammarLessons: grammarLessons,
       vocabLessons: vocabLessons,
-			allLessons: allLessons,
+      allLessons: allLessons,
       stories: stories,
     ),
   );
@@ -63,13 +66,13 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.grammarLessons,
     required this.vocabLessons,
-		required this.allLessons,
+    required this.allLessons,
     required this.stories,
   });
 
   final List<Lesson> grammarLessons;
   final List<Lesson> vocabLessons;
-	final List<Lesson> allLessons;
+  final List<Lesson> allLessons;
   final List<Story> stories;
 
   @override
@@ -85,17 +88,13 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => HomeScreen(chapter: chapters[0],),
 
         //Intermediate screens
         '/learn': (context) => LearnScreen(
-          grammarLessons: grammarLessons,
-          vocabLessons: vocabLessons,
-					allLessons: allLessons,
+				chapter: chapters[0],
         ),
         '/practice': (context) => PracticeScreen(stories: stories),
-        '/lesson_map': (context) =>
-            LessonMapScreen(grammarLessons: grammarLessons),
         '/flashcard_hub': (context) => const FlashcardHub(),
 
         //Action sceens

@@ -16,7 +16,7 @@ class FlashCardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlipCard(
-		animationDuration: const Duration(milliseconds: 400),
+      animationDuration: const Duration(milliseconds: 400),
       onTapFlipping: true,
       frontWidget: Container(
         width: 200,

@@ -2,21 +2,22 @@ import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flutter/material.dart';
 
-enum LessonType {
-	grammar,
-	vocab,
-}
+enum LessonType { grammar, vocab }
 
 class Lesson {
   final String title;
   final List<Page> pages;
-	final LessonType type;
+  final LessonType type;
   ValueNotifier<bool> completed;
-  Lesson({required this.title, required this.pages, required this.type, bool isCompleted = false,})
-    : completed = ValueNotifier(isCompleted);
+  Lesson({
+    required this.title,
+    required this.pages,
+    required this.type,
+    bool isCompleted = false,
+  }) : completed = ValueNotifier(isCompleted);
   factory Lesson.fromJson(Map<String, dynamic> json, type) {
     return Lesson(
-		type: type,
+      type: type,
       title: json['lesson-name'],
       pages: (json['pages'] as List)
           .map((item) => Page.fromJson(item))

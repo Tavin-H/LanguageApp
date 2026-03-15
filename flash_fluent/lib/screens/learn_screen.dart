@@ -2,6 +2,7 @@ import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
 class LessonContainer extends StatelessWidget {
@@ -9,11 +10,11 @@ class LessonContainer extends StatelessWidget {
     super.key,
     required this.lesson,
     required this.setParentState,
-		required this.moveLessonToEnd,
+    required this.moveLessonToEnd,
   });
   final Lesson lesson;
   final void Function() setParentState;
-	final void Function(Lesson) moveLessonToEnd;
+  final void Function(Lesson) moveLessonToEnd;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +51,10 @@ class LessonContainer extends StatelessWidget {
                           '/lesson',
                           arguments: lesson,
                         ).then((_) {
-													if(lesson.completed.value) {
-														moveLessonToEnd(lesson);
-													}
+                          if (lesson.completed.value) {
+                            moveLessonToEnd(lesson);
+                          }
+													
                           setParentState();
                         });
                       },
@@ -80,34 +82,30 @@ class LessonContainer extends StatelessWidget {
 class LearnScreen extends StatefulWidget {
   const LearnScreen({
     super.key,
-    required this.grammarLessons,
-    required this.vocabLessons,
-		required this.allLessons,
+		required this.chapter
   });
-  final List<Lesson> grammarLessons;
-  final List<Lesson> vocabLessons;
-	final List<Lesson> allLessons;
+	final ChapterData chapter;
 
   @override
   State<LearnScreen> createState() => _LearnScreenState();
 }
 
 class _LearnScreenState extends State<LearnScreen> {
+  void moveLessonToEnd(Lesson lesson) {
+    widget.chapter.lessons.remove(lesson);
+    widget.chapter.lessons.add(lesson);
+		widget.chapter.updateProgess();
+  }
 
-	void moveLessonToEnd(Lesson lesson) {
-		
-												widget.allLessons.remove(lesson);
-												widget.allLessons.add(lesson);
-	}
   @override
   Widget build(BuildContext context) {
-    Lesson suggetedVocab = widget.allLessons.firstWhere(
+    Lesson suggetedVocab = widget.chapter.lessons.firstWhere(
       (l) => (!l.completed.value && l.type == LessonType.vocab),
-      orElse: () => widget.allLessons[0],
+      orElse: () => widget.chapter.lessons[0],
     );
-    Lesson suggetedGrammar = widget.allLessons.firstWhere(
+    Lesson suggetedGrammar = widget.chapter.lessons.firstWhere(
       (l) => (!l.completed.value && l.type == LessonType.grammar),
-      orElse: () => widget.allLessons[0],
+      orElse: () => widget.chapter.lessons[0],
     );
     return Scaffold(
       backgroundColor: AppColours.background,
@@ -145,7 +143,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       setParentState: () {
                         setState(() {});
                       },
-											moveLessonToEnd: moveLessonToEnd,
+                      moveLessonToEnd: moveLessonToEnd,
                     ),
                     Text(
                       "Vocab",
@@ -156,7 +154,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       setParentState: () {
                         setState(() {});
                       },
-											moveLessonToEnd: moveLessonToEnd,
+                      moveLessonToEnd: moveLessonToEnd,
                     ),
                     SizedBox(height: 40),
                     Text(
@@ -173,16 +171,16 @@ class _LearnScreenState extends State<LearnScreen> {
               SizedBox(height: 5),
               Expanded(
                 child: ListView.builder(
-                  itemCount: widget.allLessons.length,
+                  itemCount: widget.chapter.lessons.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 15),
                       child: LessonContainer(
-                        lesson: widget.allLessons[index],
+                        lesson: widget.chapter.lessons[index],
                         setParentState: () {
                           setState(() {});
                         },
-												moveLessonToEnd: moveLessonToEnd,
+                        moveLessonToEnd: moveLessonToEnd,
                       ),
                     );
                   },

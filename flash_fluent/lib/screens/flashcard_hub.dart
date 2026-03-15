@@ -13,38 +13,35 @@ class FlashcardDeckContainer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
       child: Container(
-              height: 60,
-              decoration: BoxDecoration(
-                color: AppColours.background,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColours.background2, width: 3),
+        height: 60,
+        decoration: BoxDecoration(
+          color: AppColours.background,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColours.background2, width: 3),
+        ),
+        child: Padding(
+          padding: EdgeInsetsGeometry.fromLTRB(18, 0, 7, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                deck.deckName,
+                style: TextStyle(fontSize: 18, color: AppColours.foreground),
               ),
-              child: Padding(
-                padding: EdgeInsetsGeometry.fromLTRB(18, 0, 7, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      deck.deckName,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: AppColours.foreground,
-                      ),
-                    ),
-                    StyledButton(
-                      text: "Review",
-                      func: () {
-              Navigator.pushNamed(
-                context,
-                '/flashcard_practice',
-                arguments: deck,
-              );
-                      },
-                    ),
-                  ],
-                ),
+              StyledButton(
+                text: "Review",
+                func: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/flashcard_practice',
+                    arguments: deck,
+                  );
+                },
               ),
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
