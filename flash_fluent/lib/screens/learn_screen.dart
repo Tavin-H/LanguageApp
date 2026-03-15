@@ -9,9 +9,11 @@ class LessonContainer extends StatelessWidget {
     super.key,
     required this.lesson,
     required this.setParentState,
+		required this.moveLessonToEnd,
   });
   final Lesson lesson;
   final void Function() setParentState;
+	final void Function(Lesson) moveLessonToEnd;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,9 @@ class LessonContainer extends StatelessWidget {
                           '/lesson',
                           arguments: lesson,
                         ).then((_) {
+													if(lesson.completed.value) {
+														moveLessonToEnd(lesson);
+													}
                           setParentState();
                         });
                       },
@@ -77,24 +82,32 @@ class LearnScreen extends StatefulWidget {
     super.key,
     required this.grammarLessons,
     required this.vocabLessons,
+		required this.allLessons,
   });
   final List<Lesson> grammarLessons;
   final List<Lesson> vocabLessons;
+	final List<Lesson> allLessons;
 
   @override
   State<LearnScreen> createState() => _LearnScreenState();
 }
 
 class _LearnScreenState extends State<LearnScreen> {
+
+	void moveLessonToEnd(Lesson lesson) {
+		
+												widget.allLessons.remove(lesson);
+												widget.allLessons.add(lesson);
+	}
   @override
   Widget build(BuildContext context) {
-    Lesson suggetedVocab = widget.vocabLessons.firstWhere(
-      (l) => !l.completed.value,
-      orElse: () => widget.vocabLessons[0],
+    Lesson suggetedVocab = widget.allLessons.firstWhere(
+      (l) => (!l.completed.value && l.type == LessonType.vocab),
+      orElse: () => widget.allLessons[0],
     );
-    Lesson suggetedGrammar = widget.grammarLessons.firstWhere(
-      (l) => !l.completed.value,
-      orElse: () => widget.grammarLessons[0],
+    Lesson suggetedGrammar = widget.allLessons.firstWhere(
+      (l) => (!l.completed.value && l.type == LessonType.grammar),
+      orElse: () => widget.allLessons[0],
     );
     return Scaffold(
       backgroundColor: AppColours.background,
@@ -132,6 +145,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       setParentState: () {
                         setState(() {});
                       },
+											moveLessonToEnd: moveLessonToEnd,
                     ),
                     Text(
                       "Vocab",
@@ -142,6 +156,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       setParentState: () {
                         setState(() {});
                       },
+											moveLessonToEnd: moveLessonToEnd,
                     ),
                     SizedBox(height: 40),
                     Text(
@@ -158,15 +173,16 @@ class _LearnScreenState extends State<LearnScreen> {
               SizedBox(height: 5),
               Expanded(
                 child: ListView.builder(
-                  itemCount: widget.grammarLessons.length,
+                  itemCount: widget.allLessons.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 15),
                       child: LessonContainer(
-                        lesson: widget.grammarLessons[index],
+                        lesson: widget.allLessons[index],
                         setParentState: () {
                           setState(() {});
                         },
+												moveLessonToEnd: moveLessonToEnd,
                       ),
                     );
                   },

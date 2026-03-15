@@ -1,4 +1,6 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
+import 'package:flash_fluent/custom-widgets/styled_button.dart';
+import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
@@ -8,30 +10,41 @@ class FlashcardDeckContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(deck.deckName),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              '/flashcard_practice',
-              arguments: deck,
-            );
-          },
-          child: Text("Practice"),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              '/flashcard_practice',
-              arguments: deck,
-            );
-          },
-          child: Text("Custom Practice"),
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
+      child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                color: AppColours.background,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColours.background2, width: 3),
+              ),
+              child: Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(18, 0, 7, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      deck.deckName,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: AppColours.foreground,
+                      ),
+                    ),
+                    StyledButton(
+                      text: "Review",
+                      func: () {
+              Navigator.pushNamed(
+                context,
+                '/flashcard_practice',
+                arguments: deck,
+              );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }

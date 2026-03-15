@@ -26,13 +26,24 @@ void main() async {
 
   final List<dynamic> rawGrammarLessons = data['grammar-lessons'] as List;
   List<Lesson> grammarLessons = rawGrammarLessons
-      .map((l) => Lesson.fromJson(l))
+      .map((l) => Lesson.fromJson(l, LessonType.grammar))
       .toList();
 
   final List<dynamic> rawVocabLessons = data['vocab-lessons'] as List;
   List<Lesson> vocabLessons = rawVocabLessons
-      .map((l) => Lesson.fromJson(l))
+      .map((l) => Lesson.fromJson(l, LessonType.vocab))
       .toList();
+
+	final List<Lesson> allLessons = [];
+
+	final int minLength = grammarLessons.length < vocabLessons.length ? grammarLessons.length : vocabLessons.length;
+
+	for(int i = 0; i < minLength; i++) {
+		allLessons.add(vocabLessons[i]);
+		allLessons.add(grammarLessons[i]);
+	}
+	allLessons.addAll(vocabLessons.sublist(minLength));
+	allLessons.addAll(grammarLessons.sublist(minLength));
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
 
@@ -41,6 +52,7 @@ void main() async {
     MyApp(
       grammarLessons: grammarLessons,
       vocabLessons: vocabLessons,
+			allLessons: allLessons,
       stories: stories,
     ),
   );
@@ -51,11 +63,13 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.grammarLessons,
     required this.vocabLessons,
+		required this.allLessons,
     required this.stories,
   });
 
   final List<Lesson> grammarLessons;
   final List<Lesson> vocabLessons;
+	final List<Lesson> allLessons;
   final List<Story> stories;
 
   @override
@@ -77,6 +91,7 @@ class MyApp extends StatelessWidget {
         '/learn': (context) => LearnScreen(
           grammarLessons: grammarLessons,
           vocabLessons: vocabLessons,
+					allLessons: allLessons,
         ),
         '/practice': (context) => PracticeScreen(stories: stories),
         '/lesson_map': (context) =>

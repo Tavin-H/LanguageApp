@@ -16,6 +16,7 @@ class FlashCardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlipCard(
+		animationDuration: const Duration(milliseconds: 400),
       onTapFlipping: true,
       frontWidget: Container(
         width: 200,
@@ -28,7 +29,6 @@ class FlashCardContainer extends StatelessWidget {
         child: Center(
           child: Text(
             flashcard.front,
-            //"걱정하다",
             style: TextStyle(
               color: AppColours.foreground,
               fontSize: 20,
@@ -47,7 +47,6 @@ class FlashCardContainer extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            //"To Worry",
             flashcard.back,
             style: TextStyle(
               color: AppColours.foreground,
