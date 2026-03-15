@@ -1,3 +1,4 @@
+import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
@@ -58,12 +59,7 @@ class _FlashcardHubState extends State<FlashcardHub> {
               ),
             ),
 
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Back"),
-            ),
+            Navbar(),
           ],
         ),
       ),

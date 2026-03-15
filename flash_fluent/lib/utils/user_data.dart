@@ -1,4 +1,5 @@
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flutter/foundation.dart';
 
 enum FlashcardType { vocab, grammar }
 
@@ -42,3 +43,11 @@ List<FlashcardDeck> flashcardDecks = [
 List<Bookmark> userBookmarks = [];
 
 class ChapterData {}
+
+void tryAddLessonTitle(String title) {
+  if (completedLessonTitles.value.contains(title)) return;
+  completedLessonTitles.value = [...completedLessonTitles.value, title];
+}
+
+final ValueNotifier<List<String>> completedLessonTitles = ValueNotifier([]);
+List<String> completedStoriesTitles = [];

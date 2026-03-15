@@ -129,7 +129,13 @@ class _LearnLessonState extends State<LearnLesson> {
                 StyledButton(text: "previous", func: previousPage),
                 StyledButton(
                   text: page == lesson.pages.length - 1 ? "Finish" : "Next",
-                  func: nextPage,
+                  func: page == lesson.pages.length - 1
+                      ? () {
+                          lesson.completed.value = true;
+                          tryAddLessonTitle(lesson.title);
+                          nextPage();
+                        }
+                      : nextPage,
                 ),
               ],
             ),

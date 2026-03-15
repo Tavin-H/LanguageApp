@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class Lesson {
   final String title;
   final List<Page> pages;
-  Lesson({required this.title, required this.pages});
+  ValueNotifier<bool> completed;
+  Lesson({required this.title, required this.pages, bool isCompleted = false})
+    : completed = ValueNotifier(isCompleted);
   factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(
       title: json['lesson-name'],

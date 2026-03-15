@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 
 class FlashCardContainer extends StatelessWidget {
-  const FlashCardContainer({super.key, required this.controller});
-
+  const FlashCardContainer({
+    super.key,
+    required this.controller,
+    required this.flashcard,
+  });
+  final Flashcard flashcard;
   final FlipCardController controller;
 
   @override
@@ -23,7 +27,8 @@ class FlashCardContainer extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "걱정하다",
+            flashcard.front,
+            //"걱정하다",
             style: TextStyle(
               color: AppColours.foreground,
               fontSize: 20,
@@ -42,7 +47,8 @@ class FlashCardContainer extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "To Worry",
+            //"To Worry",
+            flashcard.back,
             style: TextStyle(
               color: AppColours.foreground,
               fontSize: 20,
@@ -68,10 +74,12 @@ class FlashcardPractice extends StatefulWidget {
 class _FlashcardPracticeState extends State<FlashcardPractice> {
   late int currentCardIndex;
   late bool flipped;
+  late FlipCardController controller;
   @override
   void initState() {
     currentCardIndex = 0;
     flipped = false;
+    controller = FlipCardController();
     super.initState();
   }
 
@@ -84,13 +92,12 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
         if (currentCardIndex < deck.flashcards.length - 1) {
           currentCardIndex++;
           flipped = false;
+          controller.flipcard();
         } else {
           Navigator.pop(context);
         }
       });
     }
-
-    final controller = FlipCardController();
 
     return Scaffold(
       body: SafeArea(
@@ -104,32 +111,86 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
               ),
               Expanded(
                 child: Center(
-                  child: FlashCardContainer(controller: controller),
+                  child: FlashCardContainer(
+                    controller: controller,
+                    flashcard: deck.flashcards[currentCardIndex],
+                    key: ValueKey(currentCardIndex),
+                  ),
                 ),
               ),
-              Text(!flipped ? "??" : deck.flashcards[currentCardIndex].back),
               flipped
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColours.green,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(10),
+                            ),
+                          ),
+
                           onPressed: () {
                             logFlashcardDifficulty();
                           },
-                          child: Text("Easy"),
+
+                          icon: Icon(
+                            Icons.signal_cellular_alt_1_bar_rounded,
+                            color: AppColours.background,
+                          ),
+
+                          label: Text(
+                            "Easy",
+                            style: TextStyle(color: AppColours.background),
+                          ),
                         ),
-                        ElevatedButton(
+                        SizedBox(width: 10),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColours.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(10),
+                            ),
+                          ),
+
                           onPressed: () {
                             logFlashcardDifficulty();
                           },
-                          child: Text("Medium"),
+
+                          icon: Icon(
+                            Icons.signal_cellular_alt_2_bar_rounded,
+                            color: AppColours.background,
+                          ),
+
+                          label: Text(
+                            "Okay",
+                            style: TextStyle(color: AppColours.background),
+                          ),
                         ),
-                        ElevatedButton(
+                        SizedBox(width: 10),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColours.orange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(10),
+                            ),
+                          ),
+
                           onPressed: () {
                             logFlashcardDifficulty();
                           },
-                          child: Text("Hard"),
+
+                          icon: Icon(
+                            Icons.signal_cellular_alt_rounded,
+                            color: AppColours.background,
+                          ),
+
+                          label: Text(
+                            "Hard",
+                            style: TextStyle(color: AppColours.background),
+                          ),
                         ),
+                        SizedBox(width: 10),
                       ],
                     )
                   : StyledButton(
@@ -141,6 +202,7 @@ class _FlashcardPracticeState extends State<FlashcardPractice> {
                         });
                       },
                     ),
+              SizedBox(height: 40),
             ],
           ),
         ),

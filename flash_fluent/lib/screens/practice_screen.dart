@@ -27,7 +27,7 @@ class PracticeContainer extends StatelessWidget {
             onTap: action,
             child: SizedBox(
               height: 80,
-              width: 110,
+              width: 100,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: color, width: 3),
@@ -41,7 +41,7 @@ class PracticeContainer extends StatelessWidget {
           ),
           SizedBox(height: 5),
           SizedBox(
-            width: 100,
+            width: 90,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

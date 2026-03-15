@@ -80,7 +80,10 @@ class Navbar extends StatelessWidget {
                   icon: Icon(
                     Icons.menu_book_rounded,
                     size: 35,
-                    color: ModalRoute.of(context)?.settings.name == '/practice'
+                    color:
+                        (ModalRoute.of(context)?.settings.name == '/practice' ||
+                            ModalRoute.of(context)?.settings.name ==
+                                '/flashcard_hub')
                         ? AppColours.orange
                         : AppColours.foreground,
                   ),

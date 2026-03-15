@@ -1,5 +1,6 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
+import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
 class IconStat extends StatelessWidget {
@@ -159,15 +160,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Image.asset("assets/images/korean_flag.png"),
                         ),
                       ),
-                      IconStat(
-                        icon: Icons.school_rounded,
-                        progress: 16,
-                      ), // Lessons
+                      ValueListenableBuilder(
+                        valueListenable: completedLessonTitles,
+                        builder: (context, titles, child) {
+                          return IconStat(
+                            // Lessons completed
+                            icon: Icons.school_rounded,
+                            progress: completedLessonTitles.value.length,
+                          );
+                        },
+                      ),
+                      // Lessons
                       IconStat(
                         icon: Icons.menu_book_rounded,
-                        progress: 8,
+                        progress: completedStoriesTitles.length,
                       ), // Stories
-                      IconStat(icon: Icons.mic, progress: 2),
+                      IconStat(icon: Icons.mic, progress: 0),
                     ],
                   ),
                   SizedBox(height: 30),

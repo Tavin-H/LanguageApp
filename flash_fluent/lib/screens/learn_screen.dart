@@ -5,41 +5,74 @@ import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flutter/material.dart';
 
 class LessonContainer extends StatelessWidget {
-  const LessonContainer({super.key, required this.lesson});
+  const LessonContainer({
+    super.key,
+    required this.lesson,
+    required this.setParentState,
+  });
   final Lesson lesson;
+  final void Function() setParentState;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      decoration: BoxDecoration(
-        color: AppColours.background,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColours.background2, width: 3),
-      ),
-      child: Padding(
-        padding: EdgeInsetsGeometry.fromLTRB(18, 0, 7, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ValueListenableBuilder(
+      valueListenable: lesson.completed,
+      builder: (context, completed, child) {
+        return Stack(
+          clipBehavior: Clip.none,
           children: [
-            Text(
-              lesson.title,
-              style: TextStyle(fontSize: 18, color: AppColours.foreground),
+            Container(
+              height: 60,
+              decoration: BoxDecoration(
+                color: AppColours.background,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColours.background2, width: 3),
+              ),
+              child: Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(18, 0, 7, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      lesson.title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: AppColours.foreground,
+                      ),
+                    ),
+                    StyledButton(
+                      text: "Learn",
+                      func: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/lesson',
+                          arguments: lesson,
+                        ).then((_) {
+                          setParentState();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
-            StyledButton(
-              text: "Learn",
-              func: () {
-                Navigator.pushNamed(context, '/lesson', arguments: lesson);
-              },
-            ),
+            if (completed)
+              Positioned(
+                top: -5,
+                left: -5,
+                child: Icon(
+                  Icons.check_circle_rounded,
+                  color: AppColours.orange,
+                ),
+              ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
-class LearnScreen extends StatelessWidget {
+class LearnScreen extends StatefulWidget {
   const LearnScreen({
     super.key,
     required this.grammarLessons,
@@ -49,7 +82,20 @@ class LearnScreen extends StatelessWidget {
   final List<Lesson> vocabLessons;
 
   @override
+  State<LearnScreen> createState() => _LearnScreenState();
+}
+
+class _LearnScreenState extends State<LearnScreen> {
+  @override
   Widget build(BuildContext context) {
+    Lesson suggetedVocab = widget.vocabLessons.firstWhere(
+      (l) => !l.completed.value,
+      orElse: () => widget.vocabLessons[0],
+    );
+    Lesson suggetedGrammar = widget.grammarLessons.firstWhere(
+      (l) => !l.completed.value,
+      orElse: () => widget.grammarLessons[0],
+    );
     return Scaffold(
       backgroundColor: AppColours.background,
       body: Container(
@@ -58,22 +104,6 @@ class LearnScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /*
-            Text("Learn"),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/lesson_map');
-                //Navigator.pushNamed(context, '/vocab', arguments: lessons[0]);
-              },
-              child: Text("Vocabulary"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/', arguments: lessons[0]);
-              },
-              child: Text("Grammar"),
-            ),
-						*/
               IconButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -97,12 +127,22 @@ class LearnScreen extends StatelessWidget {
                       "Grammar",
                       style: TextStyle(color: AppColours.foreground2),
                     ),
-                    LessonContainer(lesson: grammarLessons[0]),
+                    LessonContainer(
+                      lesson: suggetedGrammar,
+                      setParentState: () {
+                        setState(() {});
+                      },
+                    ),
                     Text(
                       "Vocab",
                       style: TextStyle(color: AppColours.foreground2),
                     ),
-                    LessonContainer(lesson: vocabLessons[0]),
+                    LessonContainer(
+                      lesson: suggetedVocab,
+                      setParentState: () {
+                        setState(() {});
+                      },
+                    ),
                     SizedBox(height: 40),
                     Text(
                       "All Lessons",
@@ -115,13 +155,19 @@ class LearnScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 5),
               Expanded(
                 child: ListView.builder(
-                  itemCount: grammarLessons.length,
+                  itemCount: widget.grammarLessons.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 10),
-                      child: LessonContainer(lesson: grammarLessons[index]),
+                      padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 15),
+                      child: LessonContainer(
+                        lesson: widget.grammarLessons[index],
+                        setParentState: () {
+                          setState(() {});
+                        },
+                      ),
                     );
                   },
                 ),
