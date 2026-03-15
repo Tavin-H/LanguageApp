@@ -1,6 +1,5 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
-import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
@@ -60,13 +59,12 @@ class CourseContainer extends StatelessWidget {
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.chapter});
-	final ChapterData chapter;
+  final ChapterData chapter;
 
   final sidePadding = 20.0;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
 
 class _HomeScreenState extends State<HomeScreen> {
   void _showCourses() {
@@ -164,20 +162,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       ValueListenableBuilder(
-                        valueListenable: completedLessonTitles,
-                        builder: (context, titles, child) {
+                        valueListenable: widget.chapter.completedLessonCount,
+                        builder: (context, count, child) {
                           return IconStat(
                             // Lessons completed
                             icon: Icons.school_rounded,
-                            progress: completedLessonTitles.value.length,
+                            progress: count,
                           );
                         },
                       ),
                       // Lessons
-                      IconStat(
-                        icon: Icons.menu_book_rounded,
-                        progress: completedStoriesTitles.length,
-                      ), // Stories
+                      ValueListenableBuilder(
+                        valueListenable: widget.chapter.completedStoriesCount,
+                        builder: (context, count, child) {
+                          return IconStat(
+                            icon: Icons.menu_book_rounded,
+                            progress: count,
+                          );
+                        },
+                      ),
                       IconStat(icon: Icons.mic, progress: 0),
                     ],
                   ),
@@ -313,10 +316,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ValueListenableBuilder(
-                    valueListenable: widget.chapter.completedLessonCount,
+                    valueListenable: widget.chapter.completedCount,
                     builder: (context, count, child) {
                       return LinearProgressIndicator(
-                        value: count / widget.chapter.lessons.length,
+                        value:
+                            count /
+                            (widget.chapter.lessons.length +
+                                widget.chapter.stories.length),
                         minHeight: 6,
                         backgroundColor: AppColours.background2,
                         valueColor: AlwaysStoppedAnimation<Color>(

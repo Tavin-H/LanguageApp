@@ -47,9 +47,17 @@ void main() async {
   allLessons.addAll(vocabLessons.sublist(minLength));
   allLessons.addAll(grammarLessons.sublist(minLength));
 
-	chapters.add(ChapterData(title: "Chapter 1", lessons: allLessons, completedLessonCount: ValueNotifier(0)));
-
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
+
+  chapters.add(
+    ChapterData(
+      title: "Chapter 1",
+      lessons: allLessons,
+      stories: stories,
+      completedLessonCount: ValueNotifier(0),
+      completedStoriesCount: ValueNotifier(0),
+    ),
+  );
 
   runApp(
     MyApp(
@@ -88,13 +96,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(chapter: chapters[0],),
+        '/': (context) => HomeScreen(chapter: chapters[0]),
 
         //Intermediate screens
-        '/learn': (context) => LearnScreen(
-				chapter: chapters[0],
-        ),
-        '/practice': (context) => PracticeScreen(stories: stories),
+        '/learn': (context) => LearnScreen(chapter: chapters[0]),
+        '/practice': (context) => PracticeScreen(chapter: chapters[0]),
         '/flashcard_hub': (context) => const FlashcardHub(),
 
         //Action sceens

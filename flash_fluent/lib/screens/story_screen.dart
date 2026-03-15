@@ -428,8 +428,9 @@ class _StoryScreenState extends State<StoryScreen> {
               if (state == ReadingState.testing &&
                   correctCount == story.questions.length)
                 StyledButton(
-                  text: "Continue",
+                  text: "Finish",
                   func: () {
+                    story.completed.value = true;
                     Navigator.pop(context);
                   },
                 ),

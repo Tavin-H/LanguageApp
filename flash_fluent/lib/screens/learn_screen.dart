@@ -54,7 +54,7 @@ class LessonContainer extends StatelessWidget {
                           if (lesson.completed.value) {
                             moveLessonToEnd(lesson);
                           }
-													
+
                           setParentState();
                         });
                       },
@@ -69,7 +69,7 @@ class LessonContainer extends StatelessWidget {
                 left: -5,
                 child: Icon(
                   Icons.check_circle_rounded,
-                  color: AppColours.orange,
+                  color: AppColours.green,
                 ),
               ),
           ],
@@ -80,11 +80,8 @@ class LessonContainer extends StatelessWidget {
 }
 
 class LearnScreen extends StatefulWidget {
-  const LearnScreen({
-    super.key,
-		required this.chapter
-  });
-	final ChapterData chapter;
+  const LearnScreen({super.key, required this.chapter});
+  final ChapterData chapter;
 
   @override
   State<LearnScreen> createState() => _LearnScreenState();
@@ -94,7 +91,7 @@ class _LearnScreenState extends State<LearnScreen> {
   void moveLessonToEnd(Lesson lesson) {
     widget.chapter.lessons.remove(lesson);
     widget.chapter.lessons.add(lesson);
-		widget.chapter.updateProgess();
+    widget.chapter.updateProgess();
   }
 
   @override

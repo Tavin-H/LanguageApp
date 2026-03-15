@@ -269,12 +269,14 @@ class Story {
   final String title;
   final List<StoryPage> storyPages;
   final List<Question> questions;
+  ValueNotifier<bool> completed;
 
   Story({
     required this.title,
     required this.storyPages,
     required this.questions,
-  });
+    bool isCompleted = false,
+  }) : completed = ValueNotifier(isCompleted);
 
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(

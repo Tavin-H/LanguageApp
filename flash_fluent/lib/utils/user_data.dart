@@ -43,15 +43,29 @@ List<FlashcardDeck> flashcardDecks = [
 List<Bookmark> userBookmarks = [];
 
 class ChapterData {
-	String title;
-	List<Lesson> lessons;
-	List<Bookmark> bookmarks = [];
-	ValueNotifier<int> completedLessonCount;
-	ChapterData({required this.title, required this.lessons, required this.completedLessonCount});	
+  String title;
+  List<Lesson> lessons;
+  List<Story> stories;
+  List<Bookmark> bookmarks = [];
+  ValueNotifier<int> completedLessonCount;
+  ValueNotifier<int> completedStoriesCount;
+  ValueNotifier<int> completedCount;
+  ChapterData({
+    required this.title,
+    required this.lessons,
+    required this.stories,
+    required this.completedLessonCount,
+    required this.completedStoriesCount,
+  }) : completedCount = ValueNotifier(0);
 
-	void updateProgess() {
-		completedLessonCount.value = lessons.where((l) => l.completed.value).length;
-	}
+  void updateProgess() {
+    completedLessonCount.value = lessons.where((l) => l.completed.value).length;
+    completedStoriesCount.value = stories
+        .where((s) => s.completed.value)
+        .length;
+    completedCount.value =
+        completedStoriesCount.value + completedLessonCount.value;
+  }
 }
 
 List<ChapterData> chapters = [];

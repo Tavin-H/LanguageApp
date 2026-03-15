@@ -2,6 +2,7 @@ import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
 class PracticeContainer extends StatelessWidget {
@@ -11,15 +12,23 @@ class PracticeContainer extends StatelessWidget {
     required this.icon,
     required this.action,
     required this.color,
+		required this.story,
   });
   final void Function() action;
   final String text;
   final Color color;
   final IconData icon;
+	final Story story;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return ValueListenableBuilder(valueListenable: story.completed, builder: (context, completed, child) {
+return
+		Stack(
+		clipBehavior: Clip.none,
+		children: [
+
+		Padding(
       padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
       child: Column(
         children: [
@@ -50,7 +59,7 @@ class PracticeContainer extends StatelessWidget {
                   color: AppColours.foreground2,
                   size: 15,
                 ),
-                Text("2", style: TextStyle(color: AppColours.foreground2)),
+                Text("${story.storyPages.length}", style: TextStyle(color: AppColours.foreground2)),
                 Expanded(child: Container()),
 
                 Icon(Icons.timer, color: AppColours.foreground2, size: 15),
@@ -64,14 +73,21 @@ class PracticeContainer extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ),
+		if(completed)
+		Positioned(
+		top: -5,
+		left: -5,
+		child: Icon(Icons.check_circle, color: AppColours.green,)),
+		],);
+		});
   }
 }
 
 class PracticeScreen extends StatelessWidget {
-  const PracticeScreen({super.key, required this.stories});
+  const PracticeScreen({super.key, required this.chapter});
 
-  final List<Story> stories;
+  final ChapterData chapter;
 
   @override
   Widget build(BuildContext context) {
@@ -118,18 +134,22 @@ class PracticeScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
+								clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
-                  itemCount: stories.length,
+                  itemCount: chapter.stories.length,
                   itemBuilder: (context, index) {
                     return PracticeContainer(
-                      text: stories[index].title,
+										story: chapter.stories[index],
+                      text: chapter.stories[index].title,
                       icon: Icons.menu_book_rounded,
                       action: () {
                         Navigator.pushNamed(
                           context,
                           '/story',
-                          arguments: stories[index],
-                        );
+                          arguments: chapter.stories[index],
+                        ).then((_) {
+                          chapter.updateProgess();
+                        });
                       },
                       color: index % 2 == 0
                           ? AppColours.blue
@@ -151,17 +171,19 @@ class PracticeScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
+								clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
-                  itemCount: stories.length,
+                  itemCount: chapter.stories.length,
                   itemBuilder: (context, index) {
                     return PracticeContainer(
+										story: chapter.stories[index],
                       text: "Audio Lesson",
                       icon: Icons.mic,
                       action: () {
                         Navigator.pushNamed(
                           context,
                           '/story',
-                          arguments: stories[index],
+                          arguments: chapter.stories[index],
                         );
                       },
                       color: index % 2 == 0
