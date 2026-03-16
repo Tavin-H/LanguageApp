@@ -3,8 +3,9 @@ import 'package:flash_fluent/screens/flashcard_hub.dart';
 import 'package:flash_fluent/screens/flashcard_practice.dart';
 import 'package:flash_fluent/screens/home_screen.dart';
 import 'package:flash_fluent/screens/learn_screen.dart';
-import 'package:flash_fluent/screens/practice_screen.dart';
+import 'package:flash_fluent/screens/explore_screen.dart';
 import 'package:flash_fluent/screens/learn_lesson.dart';
+import 'package:flash_fluent/screens/practice_screen.dart';
 import 'package:flash_fluent/screens/story_screen.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
@@ -17,6 +18,14 @@ import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light, // Android
+      //statusBarBrightness: Brightness.dark,      // iOS
+    ),
+  );
   final String response = await rootBundle.loadString('assets/lessons.json');
   final String storyResponse = await rootBundle.loadString(
     'assets/stories.json',
@@ -58,7 +67,6 @@ void main() async {
       completedStoriesCount: ValueNotifier(0),
     ),
   );
-
   runApp(
     MyApp(
       grammarLessons: grammarLessons,
@@ -85,30 +93,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColours.background,
-        canvasColor: AppColours.background,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColours.blue,
-          surface: AppColours.background,
-        ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light, // Android
+        statusBarBrightness: Brightness.dark, // iOS
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomeScreen(chapter: chapters[0]),
+      child: MaterialApp(
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            systemOverlayStyle:
+                SystemUiOverlayStyle.light, // Makes status bar icons white
+          ),
+          scaffoldBackgroundColor: AppColours.background,
+          canvasColor: AppColours.background,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColours.blue,
+            surface: AppColours.background,
+          ),
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomeScreen(chapter: chapters[0]),
 
-        //Intermediate screens
-        '/learn': (context) => LearnScreen(chapter: chapters[0]),
-        '/practice': (context) => PracticeScreen(chapter: chapters[0]),
-        '/flashcard_hub': (context) => const FlashcardHub(),
+          //Intermediate screens
+          '/learn': (context) => LearnScreen(chapter: chapters[0]),
+          '/explore': (context) => ExploreScreen(chapter: chapters[0]),
+          '/flashcard_hub': (context) => const FlashcardHub(),
 
-        //Action sceens
-        '/lesson': (context) => const LearnLesson(),
-        '/flashcard_practice': (context) => const FlashcardPractice(),
-        '/bookmarks': (context) => const BookmarksScreen(),
-        '/story': (context) => const StoryScreen(),
-      },
+          //Action sceens
+          '/lesson': (context) => const LearnLesson(),
+          '/flashcard_practice': (context) => const FlashcardPractice(),
+          '/bookmarks': (context) => const BookmarksScreen(),
+          '/story': (context) => const StoryScreen(),
+          '/practice': (context) => PracticeScreen(),
+        },
+      ),
     );
   }
 }

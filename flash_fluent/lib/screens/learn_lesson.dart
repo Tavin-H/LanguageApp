@@ -85,7 +85,7 @@ class _LearnLessonState extends State<LearnLesson> {
                     builder: (context, animatedValue, child) {
                       return LayoutBuilder(
                         builder: (context, constraints) {
-													final double width = constraints.maxWidth;
+                          final double width = constraints.maxWidth;
                           return Stack(
                             clipBehavior: Clip.none,
                             children: [

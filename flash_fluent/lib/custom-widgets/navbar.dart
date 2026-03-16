@@ -73,15 +73,15 @@ class Navbar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    if (ModalRoute.of(context)?.settings.name != '/practice') {
-                      Navigator.pushNamed(context, '/practice');
+                    if (ModalRoute.of(context)?.settings.name != '/explore') {
+                      Navigator.pushNamed(context, '/explore');
                     }
                   },
                   icon: Icon(
                     Icons.menu_book_rounded,
                     size: 35,
                     color:
-                        (ModalRoute.of(context)?.settings.name == '/practice' ||
+                        (ModalRoute.of(context)?.settings.name == '/explore' ||
                             ModalRoute.of(context)?.settings.name ==
                                 '/flashcard_hub')
                         ? AppColours.orange
@@ -102,15 +102,15 @@ class Navbar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    if (ModalRoute.of(context)?.settings.name != '/learn') {
-                      Navigator.pushNamed(context, '/learn');
+                    if (ModalRoute.of(context)?.settings.name != '/practice') {
+                      Navigator.pushNamed(context, '/practice');
                     }
                   },
                   icon: Icon(
                     Icons.bolt,
                     size: 35,
-                    color: ModalRoute.of(context)?.settings.name == '/learn'
-                        ? AppColours.foreground
+                    color: ModalRoute.of(context)?.settings.name == '/practice'
+                        ? AppColours.orange
                         : AppColours.foreground,
                   ),
                 ),
