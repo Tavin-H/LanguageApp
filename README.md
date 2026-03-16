@@ -34,3 +34,21 @@ Features will include:
 
 ### Note
 There will be releases in between v0.1 and v1.0 for bug fixes and small updates to UI/UX but nothing big planned so they are not in this roadmap
+
+## Screenshots
+### Home Screen
+This page contains an overview of your learning stats. Also quick links coming soon
+![Home screen](Screenshots/HomeScreen.PNG)
+
+### Learn Screen
+This is where you perform the "Aqcuire" step of the process. </br> You can follow the suggested lesson path or choose whatever looks most fun to you!
+![Learn Screen](Screenshots/LearnScreen.PNG)
+
+### Lesson Screen
+When you are going through a lesson, whether grammar or vocabulary, the screen will look like this. A progress bar is shown at the top under the lesson title to indicate how far through you are. Each lesson is formatted in a way to look stylish yet practical.
+</br>Note: You can Bookmark a lesson using the button a the top right, this will place it in your workshop
+![Lesson Screen](Screenshots/LessonExample.PNG)
+
+### Story Screen
+One of the best features of the app is the stories in each chapter. These are designed to match the difficulty and vocabulary of the chapter to ensure comprehension.</br>There are also mini quizes at the end to test your comprehension skills.</br>
+![Story Example](Screenshots/StoryExample.PNG)
