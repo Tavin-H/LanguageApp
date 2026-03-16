@@ -71,38 +71,60 @@ class _LearnLessonState extends State<LearnLesson> {
                 ),
               ],
             ),
-            /*
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: LinearProgressIndicator(
-                color: AppColours.orange,
-                minHeight: 5,
-                value: page / (lesson.pages.length - 1),
-                backgroundColor: AppColours.background2,
-              ),
-            ),
-						*/
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: TweenAnimationBuilder<double>(
-                tween: Tween<double>(
-                  begin: 0,
-                  end: page / (lesson.pages.length - 1),
-                ),
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeOut,
-                builder: (context, animatedValue, child) {
-                  return LinearProgressIndicator(
-                    value: animatedValue,
-                    minHeight: 6,
-                    backgroundColor: AppColours.background2,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColours.orange,
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween<double>(
+                      begin: 0,
+                      end: page / (lesson.pages.length - 1),
                     ),
-                    borderRadius: BorderRadius.circular(10),
-                  );
-                },
-              ),
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOut,
+                    builder: (context, animatedValue, child) {
+                      return LayoutBuilder(
+                        builder: (context, constraints) {
+													final double width = constraints.maxWidth;
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              LinearProgressIndicator(
+                                value: animatedValue,
+                                minHeight: 6,
+                                backgroundColor: AppColours.background2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  animatedValue == 1
+                                      ? AppColours.green
+                                      : AppColours.orange,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              Positioned(
+                                top: -10,
+                                left: width * animatedValue - 13,
+                                child: CircleAvatar(
+                                  radius: 13,
+                                  backgroundColor: AppColours.background,
+                                  child: Icon(
+                                    animatedValue == 1
+                                        ? Icons.check_circle
+                                        : Icons.circle,
+                                    color: animatedValue == 1
+                                        ? AppColours.green
+                                        : AppColours.orange,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             Expanded(
               child: ListView.builder(
