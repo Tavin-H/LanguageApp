@@ -12,75 +12,95 @@ class PracticeContainer extends StatelessWidget {
     required this.icon,
     required this.action,
     required this.color,
-		required this.story,
+    required this.story,
   });
   final void Function() action;
   final String text;
   final Color color;
   final IconData icon;
-	final Story story;
+  final Story story;
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(valueListenable: story.completed, builder: (context, completed, child) {
-return
-		Stack(
-		clipBehavior: Clip.none,
-		children: [
+    return ValueListenableBuilder(
+      valueListenable: story.completed,
+      builder: (context, completed, child) {
+        return Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: action,
+                    child: SizedBox(
+                      height: 80,
+                      width: 100,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: color, width: 3),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            icon,
+                            size: 40,
+                            color: AppColours.foreground,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  SizedBox(
+                    width: 90,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.library_books,
+                          color: AppColours.foreground2,
+                          size: 15,
+                        ),
+                        Text(
+                          "${story.storyPages.length}",
+                          style: TextStyle(color: AppColours.foreground2),
+                        ),
+                        Expanded(child: Container()),
 
-		Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-      child: Column(
-        children: [
-          InkWell(
-            onTap: action,
-            child: SizedBox(
-              height: 80,
-              width: 100,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: color, width: 3),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Icon(icon, size: 40, color: AppColours.foreground),
-                ),
+                        Icon(
+                          Icons.timer,
+                          color: AppColours.foreground2,
+                          size: 15,
+                        ),
+                        Text(
+                          "3 min",
+                          style: TextStyle(color: AppColours.foreground2),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: AppColours.foreground,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          SizedBox(height: 5),
-          SizedBox(
-            width: 90,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.library_books,
-                  color: AppColours.foreground2,
-                  size: 15,
-                ),
-                Text("${story.storyPages.length}", style: TextStyle(color: AppColours.foreground2)),
-                Expanded(child: Container()),
-
-                Icon(Icons.timer, color: AppColours.foreground2, size: 15),
-                Text("3 min", style: TextStyle(color: AppColours.foreground2)),
-              ],
-            ),
-          ),
-          Text(
-            text,
-            style: TextStyle(color: AppColours.foreground, fontSize: 16),
-          ),
-        ],
-      ),
-    ),
-		if(completed)
-		Positioned(
-		top: -5,
-		left: -5,
-		child: Icon(Icons.check_circle, color: AppColours.green,)),
-		],);
-		});
+            if (completed)
+              Positioned(
+                top: -5,
+                left: -5,
+                child: Icon(Icons.check_circle, color: AppColours.green),
+              ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -134,12 +154,12 @@ class PracticeScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
-								clipBehavior: Clip.none,
+                  clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
                   itemCount: chapter.stories.length,
                   itemBuilder: (context, index) {
                     return PracticeContainer(
-										story: chapter.stories[index],
+                      story: chapter.stories[index],
                       text: chapter.stories[index].title,
                       icon: Icons.menu_book_rounded,
                       action: () {
@@ -171,12 +191,12 @@ class PracticeScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
-								clipBehavior: Clip.none,
+                  clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
                   itemCount: chapter.stories.length,
                   itemBuilder: (context, index) {
                     return PracticeContainer(
-										story: chapter.stories[index],
+                      story: chapter.stories[index],
                       text: "Audio Lesson",
                       icon: Icons.mic,
                       action: () {

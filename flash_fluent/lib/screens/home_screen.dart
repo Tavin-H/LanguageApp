@@ -1,5 +1,6 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
+import 'package:flash_fluent/utils/dictionary_database.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flutter/material.dart';
 
@@ -67,6 +68,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final DictionaryDatabaseService _dictionaryService =
+      DictionaryDatabaseService.instance;
+
   void _showCourses() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -113,10 +117,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _dictionaryService.addEntry("Hi", "Hello");
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
+            FutureBuilder(
+              future: _dictionaryService.getEntries(),
+              builder: (context, snapshot) {
+                // 1. Check if we are still waiting for the database
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                // 2. Check if there was an error (like a SQL syntax error)
+                if (snapshot.hasError) {
+                  return Center(child: Text("Error: ${snapshot.error}"));
+                }
+
+                // 3. Check if we actually have data and it's not empty
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text("No entries found yet!"));
+                }
+                List<DictionaryEntry> entries = snapshot.data!;
+                return Text(entries[0].english);
+              },
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: widget.sidePadding),
               child: Row(
