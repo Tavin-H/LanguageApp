@@ -2,6 +2,7 @@ import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
+import 'package:flash_fluent/utils/user_save.dart';
 import 'package:flutter/material.dart';
 
 class LearnLesson extends StatefulWidget {
@@ -11,6 +12,8 @@ class LearnLesson extends StatefulWidget {
 }
 
 class _LearnLessonState extends State<LearnLesson> {
+final UserSaveSerice _saveService =
+      UserSaveSerice.instance;
   int page = 0;
 
   @override
@@ -152,9 +155,18 @@ class _LearnLessonState extends State<LearnLesson> {
                 StyledButton(
                   text: page == lesson.pages.length - 1 ? "Finish" : "Next",
                   func: page == lesson.pages.length - 1
-                      ? () {
+                      ? () async {
+													print("searching if lesson exists");
+													bool exists = await _saveService.queryLessonExistance(lesson.title);
+													print("Found that lesson exists = $exists");
+													if(!exists) {
+													print("Added to database");
+													await _saveService.addEntry(lesson.title, 1);
+													}
+													print("Going to next page");
                           lesson.completed.value = true;
-                          tryAddLessonTitle(lesson.title);
+													
+                          //tryAddLessonTitle(lesson.title);
                           nextPage();
                         }
                       : nextPage,

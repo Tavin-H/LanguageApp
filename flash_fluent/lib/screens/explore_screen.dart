@@ -127,19 +127,11 @@ class ExploreScreen extends StatelessWidget {
                 ),
 
                 Text(
-                  "Practice",
+                  "Explore",
                   style: TextStyle(color: AppColours.foreground, fontSize: 20),
                 ),
                 SizedBox(width: 40),
               ],
-            ),
-            Center(
-              child: StyledButton(
-                text: "Flashcards",
-                func: () {
-                  Navigator.pushNamed(context, '/flashcard_hub');
-                },
-              ),
             ),
             SizedBox(height: 20),
             Padding(

@@ -10,22 +10,16 @@ import 'package:flash_fluent/screens/story_screen.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
+import 'package:flash_fluent/utils/user_save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
 /////dart format .
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light, // Android
-      //statusBarBrightness: Brightness.dark,      // iOS
-    ),
-  );
+Future<ChapterData> loadChapterData() async {
+final UserSaveSerice _saveService =
+      UserSaveSerice.instance;
   final String response = await rootBundle.loadString('assets/lessons.json');
   final String storyResponse = await rootBundle.loadString(
     'assets/stories.json',
@@ -49,30 +43,58 @@ void main() async {
       ? grammarLessons.length
       : vocabLessons.length;
 
+	int completed = 0;
+	int completedLessonCount = 0;
+	int completedStoryCount = 0;
   for (int i = 0; i < minLength; i++) {
     allLessons.add(vocabLessons[i]);
+		completed = await _saveService.queryLessonCompletion(vocabLessons[i].title);
+		if(completed == 1) {
+			print("Found lesson data!");
+			grammarLessons[i].completed.value = true;
+			completedLessonCount+=1;
+		}
     allLessons.add(grammarLessons[i]);
+	completed = await _saveService.queryLessonCompletion(grammarLessons[i].title);
+		if(completed == 1) {
+			print("Found story data!");
+			grammarLessons[i].completed.value = true;
+			completedLessonCount += 1;
+		}
   }
   allLessons.addAll(vocabLessons.sublist(minLength));
   allLessons.addAll(grammarLessons.sublist(minLength));
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
 
-  chapters.add(
-    ChapterData(
+	ChapterData chapter = ChapterData(
       title: "Chapter 1",
       lessons: allLessons,
       stories: stories,
-      completedLessonCount: ValueNotifier(0),
-      completedStoriesCount: ValueNotifier(0),
+      completedLessonCount: ValueNotifier(completedLessonCount),
+      completedStoriesCount: ValueNotifier(completedStoryCount),
+    );
+
+	return chapter;
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light, // Android
+      //statusBarBrightness: Brightness.dark,      // iOS
     ),
   );
+	ChapterData chapter = await loadChapterData();
+
+  chapters.add(chapter);
   runApp(
     MyApp(
-      grammarLessons: grammarLessons,
-      vocabLessons: vocabLessons,
-      allLessons: allLessons,
-      stories: stories,
+      allLessons: chapters[0].lessons,
+      stories: chapters[0].stories,
     ),
   );
 }
@@ -80,14 +102,10 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
-    required this.grammarLessons,
-    required this.vocabLessons,
     required this.allLessons,
     required this.stories,
   });
 
-  final List<Lesson> grammarLessons;
-  final List<Lesson> vocabLessons;
   final List<Lesson> allLessons;
   final List<Story> stories;
 

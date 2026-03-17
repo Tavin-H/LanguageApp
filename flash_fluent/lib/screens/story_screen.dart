@@ -140,10 +140,24 @@ class _QuestionContainerState extends State<QuestionContainer> {
                 ),
               ),
               const SizedBox(height: 20),
-              Center(
-                child: StyledButton(
-                  text: "Try again",
-                  func: () => Navigator.pop(context),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColours.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(10),
+                    ),
+                  ),
+
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+
+                  child: Text(
+                    "Try again",
+                    style: TextStyle(color: AppColours.background2),
+                  ),
                 ),
               ),
             ],
