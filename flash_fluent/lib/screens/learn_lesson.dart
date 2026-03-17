@@ -12,8 +12,7 @@ class LearnLesson extends StatefulWidget {
 }
 
 class _LearnLessonState extends State<LearnLesson> {
-final UserSaveSerice _saveService =
-      UserSaveSerice.instance;
+  final UserSaveSerice _saveService = UserSaveSerice.instance;
   int page = 0;
 
   @override
@@ -156,16 +155,18 @@ final UserSaveSerice _saveService =
                   text: page == lesson.pages.length - 1 ? "Finish" : "Next",
                   func: page == lesson.pages.length - 1
                       ? () async {
-													print("searching if lesson exists");
-													bool exists = await _saveService.queryLessonExistance(lesson.title);
-													print("Found that lesson exists = $exists");
-													if(!exists) {
-													print("Added to database");
-													await _saveService.addEntry(lesson.title, 1);
-													}
-													print("Going to next page");
+                          print("searching if lesson exists");
+                          bool exists = await _saveService.queryLessonExistance(
+                            lesson.title,
+                          );
+                          print("Found that lesson exists = $exists");
+                          if (!exists) {
+                            print("Added to database");
+                            await _saveService.addEntry(lesson.title, 1);
+                          }
+                          print("Going to next page");
                           lesson.completed.value = true;
-													
+
                           //tryAddLessonTitle(lesson.title);
                           nextPage();
                         }

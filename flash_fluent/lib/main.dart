@@ -18,8 +18,7 @@ import 'dart:convert';
 /////dart format .
 
 Future<ChapterData> loadChapterData() async {
-final UserSaveSerice _saveService =
-      UserSaveSerice.instance;
+  final UserSaveSerice _saveService = UserSaveSerice.instance;
   final String response = await rootBundle.loadString('assets/lessons.json');
   final String storyResponse = await rootBundle.loadString(
     'assets/stories.json',
@@ -43,39 +42,52 @@ final UserSaveSerice _saveService =
       ? grammarLessons.length
       : vocabLessons.length;
 
-	int completed = 0;
-	int completedLessonCount = 0;
-	int completedStoryCount = 0;
+  int completed = 0;
+  int completedLessonCount = 0;
+  int completedStoryCount = 0;
   for (int i = 0; i < minLength; i++) {
     allLessons.add(vocabLessons[i]);
-		completed = await _saveService.queryLessonCompletion(vocabLessons[i].title);
-		if(completed == 1) {
-			print("Found lesson data!");
-			grammarLessons[i].completed.value = true;
-			completedLessonCount+=1;
-		}
+    completed = await _saveService.queryLessonCompletion(vocabLessons[i].title);
+    if (completed == 1) {
+      print("Found lesson data!");
+      grammarLessons[i].completed.value = true;
+      completedLessonCount += 1;
+    }
     allLessons.add(grammarLessons[i]);
-	completed = await _saveService.queryLessonCompletion(grammarLessons[i].title);
-		if(completed == 1) {
-			print("Found story data!");
-			grammarLessons[i].completed.value = true;
-			completedLessonCount += 1;
-		}
+    completed = await _saveService.queryLessonCompletion(
+      grammarLessons[i].title,
+    );
+    if (completed == 1) {
+      print("Found story data!");
+      grammarLessons[i].completed.value = true;
+      completedLessonCount += 1;
+    }
   }
   allLessons.addAll(vocabLessons.sublist(minLength));
   allLessons.addAll(grammarLessons.sublist(minLength));
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
-
-	ChapterData chapter = ChapterData(
-      title: "Chapter 1",
-      lessons: allLessons,
-      stories: stories,
-      completedLessonCount: ValueNotifier(completedLessonCount),
-      completedStoriesCount: ValueNotifier(completedStoryCount),
+	for(int i = 0; i < stories.length; i++) {
+	completed = await _saveService.queryLessonCompletion(
+      stories[i].title,
     );
+		if (completed == 1) {
+			stories[i].completed.value = true;
+			completedStoryCount += 1;
+		}
+	}
 
-	return chapter;
+
+  ChapterData chapter = ChapterData(
+    title: "Chapter 1",
+    lessons: allLessons,
+    stories: stories,
+    completedLessonCount: ValueNotifier(completedLessonCount),
+    completedStoriesCount: ValueNotifier(completedStoryCount),
+		completedCount: ValueNotifier(completedLessonCount + completedStoryCount),
+  );
+
+  return chapter;
 }
 
 void main() async {
@@ -88,23 +100,14 @@ void main() async {
       //statusBarBrightness: Brightness.dark,      // iOS
     ),
   );
-	ChapterData chapter = await loadChapterData();
+  ChapterData chapter = await loadChapterData();
 
   chapters.add(chapter);
-  runApp(
-    MyApp(
-      allLessons: chapters[0].lessons,
-      stories: chapters[0].stories,
-    ),
-  );
+  runApp(MyApp(allLessons: chapters[0].lessons, stories: chapters[0].stories));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-    required this.allLessons,
-    required this.stories,
-  });
+  const MyApp({super.key, required this.allLessons, required this.stories});
 
   final List<Lesson> allLessons;
   final List<Story> stories;

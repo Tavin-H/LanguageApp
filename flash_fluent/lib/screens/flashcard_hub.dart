@@ -60,8 +60,11 @@ class _FlashcardHubState extends State<FlashcardHub> {
       body: SafeArea(
         child: Column(
           children: [
-            Text("Flashcard Hub", style: TextStyle(color: AppColours.foreground, fontSize: 24),),
-						SizedBox(height: 20),
+            Text(
+              "Flashcard Hub",
+              style: TextStyle(color: AppColours.foreground, fontSize: 24),
+            ),
+            SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: flashcardDecks.length,

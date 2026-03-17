@@ -12,7 +12,7 @@ class PracticeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-					Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(

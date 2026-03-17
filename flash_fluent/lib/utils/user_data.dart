@@ -56,7 +56,8 @@ class ChapterData {
     required this.stories,
     required this.completedLessonCount,
     required this.completedStoriesCount,
-  }) : completedCount = ValueNotifier(0);
+		required this.completedCount,
+  });
 
   void updateProgess() {
     completedLessonCount.value = lessons.where((l) => l.completed.value).length;

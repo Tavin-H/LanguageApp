@@ -1,6 +1,7 @@
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/user_save.dart';
 import 'package:flutter/material.dart';
 import 'package:page_flip/page_flip.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -298,6 +299,7 @@ class StoryScreen extends StatefulWidget {
 }
 
 class _StoryScreenState extends State<StoryScreen> {
+  	final UserSaveSerice _saveService = UserSaveSerice.instance;
   int page = 0;
   late ReadingState state;
 
@@ -443,7 +445,18 @@ class _StoryScreenState extends State<StoryScreen> {
                   correctCount == story.questions.length)
                 StyledButton(
                   text: "Finish",
-                  func: () {
+                  func: () async {
+										
+                          bool exists = await _saveService.queryLessonExistance(
+                            story.title,
+														);
+														if (!exists) {
+                            print("Added to database");
+                            await _saveService.addEntry(story.title, 1);
+                          }
+
+
+										
                     story.completed.value = true;
                     Navigator.pop(context);
                   },
