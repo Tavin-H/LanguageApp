@@ -47,25 +47,51 @@ Future<ChapterData> loadChapterData() async {
   int completedLessonCount = 0;
   int completedStoryCount = 0;
   for (int i = 0; i < minLength; i++) {
-    allLessons.add(vocabLessons[i]);
+    print("adding ${vocabLessons[i].title}");
     completed = await _saveService.queryLessonCompletion(vocabLessons[i].title);
     if (completed == 1) {
       print("Found lesson data!");
-      grammarLessons[i].completed.value = true;
+      vocabLessons[i].completed.value = true;
       completedLessonCount += 1;
     }
-    allLessons.add(grammarLessons[i]);
+    print("adding ${grammarLessons[i].title}");
     completed = await _saveService.queryLessonCompletion(
       grammarLessons[i].title,
     );
     if (completed == 1) {
-      print("Found story data!");
+      print("Found grammar data!");
       grammarLessons[i].completed.value = true;
       completedLessonCount += 1;
     }
+    allLessons.add(grammarLessons[i]);
+    allLessons.add(vocabLessons[i]);
   }
-  allLessons.addAll(vocabLessons.sublist(minLength));
-  allLessons.addAll(grammarLessons.sublist(minLength));
+
+  //Add the rest
+  List<Lesson> remainingVocabs = vocabLessons.sublist(minLength);
+  for (int i = 0; i < remainingVocabs.length; i++) {
+    completed = await _saveService.queryLessonCompletion(
+      remainingVocabs[i].title,
+    );
+    if (completed == 1) {
+      print("Found vocab data!");
+      remainingVocabs[i].completed.value = true;
+      completedLessonCount += 1;
+    }
+    allLessons.add(remainingVocabs[i]);
+  }
+  List<Lesson> remainingGrammar = grammarLessons.sublist(minLength);
+  for (int i = 0; i < remainingGrammar.length; i++) {
+    completed = await _saveService.queryLessonCompletion(
+      remainingGrammar[i].title,
+    );
+    if (completed == 1) {
+      print("Found grammar data!");
+      remainingGrammar[i].completed.value = true;
+      completedLessonCount += 1;
+    }
+    allLessons.add(remainingGrammar[i]);
+  }
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
   for (int i = 0; i < stories.length; i++) {

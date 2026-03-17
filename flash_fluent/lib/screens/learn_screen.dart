@@ -119,18 +119,25 @@ class _LearnScreenState extends State<LearnScreen> {
                 icon: Icon(Icons.arrow_back, color: AppColours.foreground),
               ),
               Padding(
-                padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 0),
+                padding: EdgeInsetsGeometry.fromLTRB(20, 0, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Your suggested next lessons",
                       style: TextStyle(
-                        color: AppColours.blue,
-                        fontSize: 18,
+                        color: AppColours.foreground,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    Container(
+                      height: 3,
+                      width: double.infinity,
+                      color: AppColours.background2,
+                    ),
+                    SizedBox(height: 10),
+
                     Text(
                       "Grammar",
                       style: TextStyle(color: AppColours.foreground2),
@@ -157,11 +164,17 @@ class _LearnScreenState extends State<LearnScreen> {
                     Text(
                       "All Lessons",
                       style: TextStyle(
-                        color: AppColours.blue,
-                        fontSize: 18,
+                        color: AppColours.foreground,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    Container(
+                      height: 3,
+                      width: double.infinity,
+                      color: AppColours.background2,
+                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -171,7 +184,7 @@ class _LearnScreenState extends State<LearnScreen> {
                   itemCount: widget.chapter.lessons.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsetsGeometry.fromLTRB(40, 0, 40, 15),
+                      padding: EdgeInsetsGeometry.fromLTRB(20, 0, 20, 15),
                       child: LessonContainer(
                         lesson: widget.chapter.lessons[index],
                         setParentState: () {

@@ -8,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  	final UserSaveSerice _saveService = UserSaveSerice.instance;
+    final UserSaveSerice _saveService = UserSaveSerice.instance;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -16,10 +16,10 @@ class ProfileScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20),
               child: Column(
-					crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-									crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         radius: 48,
@@ -36,25 +36,40 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-											SizedBox(width: 15,),
-                      Text("Tavin Hartwood", style: TextStyle(color: AppColours.foreground, fontSize: 24),),
+                      SizedBox(width: 15),
+                      Text(
+                        "Tavin Hartwood",
+                        style: TextStyle(
+                          color: AppColours.foreground,
+                          fontSize: 24,
+                        ),
+                      ),
                     ],
                   ),
-									SizedBox(height: 30,),
-									ElevatedButton.icon(
-									
-									style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFcf3e43), shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10))),
-									onPressed: () {
-
-										_saveService.purgeData();
-									}, label: Text("Purge Data", style: TextStyle(color: AppColours.background),),
-									icon: Icon(Icons.delete_rounded, color: AppColours.background,),)
-
-
+                  SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFcf3e43),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      _saveService.purgeData();
+                    },
+                    label: Text(
+                      "Purge Data",
+                      style: TextStyle(color: AppColours.background),
+                    ),
+                    icon: Icon(
+                      Icons.delete_rounded,
+                      color: AppColours.background,
+                    ),
+                  ),
                 ],
               ),
             ),
-                  Expanded(child: Container()),
+            Expanded(child: Container()),
             Navbar(),
           ],
         ),

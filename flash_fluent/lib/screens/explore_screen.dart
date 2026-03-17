@@ -1,5 +1,4 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
-import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
@@ -36,7 +35,7 @@ class PracticeContainer extends StatelessWidget {
                     onTap: action,
                     child: SizedBox(
                       height: 80,
-                      width: 100,
+                      width: 108,
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: color, width: 3),
@@ -54,7 +53,7 @@ class PracticeContainer extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   SizedBox(
-                    width: 90,
+                    width: 100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -69,6 +68,7 @@ class PracticeContainer extends StatelessWidget {
                         ),
                         Expanded(child: Container()),
 
+/*
                         Icon(
                           Icons.timer,
                           color: AppColours.foreground2,
@@ -78,6 +78,11 @@ class PracticeContainer extends StatelessWidget {
                           "3 min",
                           style: TextStyle(color: AppColours.foreground2),
                         ),
+												*/
+												Icon(Icons.star_rounded, size: 18, color: AppColours.foreground),
+
+												Icon(Icons.star_half_rounded, size: 18, color: AppColours.foreground),
+												Icon(Icons.star_outline_rounded, size: 18, color: AppColours.foreground)
                       ],
                     ),
                   ),
@@ -138,10 +143,19 @@ class ExploreScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "Stories",
-                style: TextStyle(color: AppColours.foreground2, fontSize: 18),
+                style: TextStyle(color: AppColours.foreground, fontSize: 20),
               ),
             ),
-            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Container(
+                height: 3,
+                width: double.infinity,
+                color: AppColours.background2,
+              ),
+            ),
+            SizedBox(height: 20),
+
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
@@ -171,13 +185,23 @@ class ExploreScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+						Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                "Audio Lessons",
-                style: TextStyle(color: AppColours.foreground2, fontSize: 18),
+                "Audio Exercises",
+                style: TextStyle(color: AppColours.foreground, fontSize: 20),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Container(
+                height: 3,
+                width: double.infinity,
+                color: AppColours.background2,
+              ),
+            ),
+            SizedBox(height: 20),
+
             SizedBox(height: 10),
             Expanded(
               child: Padding(

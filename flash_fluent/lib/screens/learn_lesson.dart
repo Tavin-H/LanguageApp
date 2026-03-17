@@ -14,6 +14,7 @@ class LearnLesson extends StatefulWidget {
 class _LearnLessonState extends State<LearnLesson> {
   final UserSaveSerice _saveService = UserSaveSerice.instance;
   int page = 0;
+	bool bookmarked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,16 @@ class _LearnLessonState extends State<LearnLesson> {
     }
 
     void makeBookmark() {
-      userBookmarks.add(Bookmark(page: page, lesson: lesson));
+      userBookmarks.add(Bookmark(page: 1, lesson: lesson));
+			setState(() {
+						  bookmarked = true;
+						});
+    }
+		void removeBookmark() {
+      userBookmarks.removeWhere((item) => item.lesson.title == lesson.title);
+			setState(() {
+						  bookmarked = false;
+						});
     }
 
     return Scaffold(
@@ -64,13 +74,14 @@ class _LearnLessonState extends State<LearnLesson> {
                     color: AppColours.foreground,
                   ),
                 ),
-                IconButton(
-                  onPressed: makeBookmark,
+                bookmarked ? IconButton(
+                  onPressed: removeBookmark,
                   icon: Icon(
-                    Icons.bookmark_outline,
-                    color: AppColours.foreground,
+                    Icons.bookmark,
+                    color: AppColours.orange,
+
                   ),
-                ),
+                ) : IconButton(onPressed: makeBookmark, icon: Icon(Icons.bookmark_outline, color: AppColours.foreground)),
               ],
             ),
             Stack(
@@ -161,8 +172,8 @@ class _LearnLessonState extends State<LearnLesson> {
                           );
                           print("Found that lesson exists = $exists");
                           if (!exists) {
-                            print("Added to database");
                             await _saveService.addEntry(lesson.title, 1);
+                            print("Added ${lesson.title} to database");
                           }
                           print("Going to next page");
                           lesson.completed.value = true;
