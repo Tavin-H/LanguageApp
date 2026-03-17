@@ -184,7 +184,7 @@ class _LearnScreenState extends State<LearnScreen> {
                   itemCount: widget.chapter.lessons.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsetsGeometry.fromLTRB(20, 0, 20, 15),
+                      padding: EdgeInsetsGeometry.fromLTRB(20, 0, 20, 10),
                       child: LessonContainer(
                         lesson: widget.chapter.lessons[index],
                         setParentState: () {

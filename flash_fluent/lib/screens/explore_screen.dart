@@ -68,7 +68,7 @@ class PracticeContainer extends StatelessWidget {
                         ),
                         Expanded(child: Container()),
 
-/*
+                        /*
                         Icon(
                           Icons.timer,
                           color: AppColours.foreground2,
@@ -79,10 +79,22 @@ class PracticeContainer extends StatelessWidget {
                           style: TextStyle(color: AppColours.foreground2),
                         ),
 												*/
-												Icon(Icons.star_rounded, size: 18, color: AppColours.foreground),
+                        Icon(
+                          Icons.star_rounded,
+                          size: 18,
+                          color: AppColours.foreground,
+                        ),
 
-												Icon(Icons.star_half_rounded, size: 18, color: AppColours.foreground),
-												Icon(Icons.star_outline_rounded, size: 18, color: AppColours.foreground)
+                        Icon(
+                          Icons.star_half_rounded,
+                          size: 18,
+                          color: AppColours.foreground,
+                        ),
+                        Icon(
+                          Icons.star_outline_rounded,
+                          size: 18,
+                          color: AppColours.foreground,
+                        ),
                       ],
                     ),
                   ),
@@ -185,7 +197,7 @@ class ExploreScreen extends StatelessWidget {
                 ),
               ),
             ),
-						Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "Audio Exercises",

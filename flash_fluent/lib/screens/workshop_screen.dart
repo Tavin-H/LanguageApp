@@ -9,15 +9,93 @@ class BookmarkContainer extends StatelessWidget {
   const BookmarkContainer({
     super.key,
     required this.lesson,
-    required this.lessonTitle,
+    required this.setParentState,
   });
-  final String lessonTitle;
   final Lesson lesson;
+  final Function() setParentState;
+
+  void showConfirmDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColours.background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(10),
+          ),
+          title: Text(
+            "Remove bookmark?",
+            style: TextStyle(
+              color: AppColours.foreground,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text.rich(
+  TextSpan(
+    text: 'Are you sure you want to remove "', // Default style
+    style: TextStyle(fontSize: 18, color: AppColours.foreground),
+    children: <TextSpan>[
+      TextSpan(
+        text: lesson.title, 
+        style: TextStyle(fontWeight: FontWeight.bold, color: AppColours.orange),
+      ),
+      TextSpan(text: '" from your bookmarked lessons?',),
+    ],
+  ),
+),
+
+/*
+					Text(
+            "Are you sure you want to remove \"${bookmark.lesson.title}\" from your bookmarked lessons?",
+            style: TextStyle(color: AppColours.foreground),
+          ),
+					*/
+          actions: <Widget>[
+            InkWell(
+						onTap: () {
+                Navigator.of(context).pop();
+						},
+              child: Container(
+                height: 40,
+                width: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                  color: AppColours.orange,
+                ),
+                child: Center(child: Text("No")),
+              ),
+            ),
+            InkWell(
+						onTap: () {
+                userBookmarks.remove(lesson);
+                setParentState();
+                Navigator.of(context).pop();
+						},
+              child: Container(
+                height: 40,
+                width: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                  border: Border.all(width: 3, color: AppColours.background2),
+                ),
+                child: Center(
+                  child: Text(
+                    "Yes",
+                    style: TextStyle(color: AppColours.foreground),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
       child: Container(
         height: 60,
         decoration: BoxDecoration(
@@ -31,7 +109,9 @@ class BookmarkContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showConfirmDialog(context);
+                },
                 icon: Icon(Icons.bookmark, color: AppColours.orange),
               ),
               Text(
@@ -39,7 +119,16 @@ class BookmarkContainer extends StatelessWidget {
                 style: TextStyle(fontSize: 18, color: AppColours.foreground),
               ),
               Expanded(child: Container()),
-              StyledButton(text: "Review", func: () {}),
+              StyledButton(
+                text: "Review",
+                func: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/lesson',
+                    arguments: lesson,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -79,7 +168,6 @@ class WorkshopScreen extends StatefulWidget {
 class _WorkshopScreenState extends State<WorkshopScreen> {
   @override
   Widget build(BuildContext context) {
-    print(userBookmarks.length);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -110,9 +198,11 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
               child: ListView.builder(
                 itemCount: userBookmarks.length,
                 itemBuilder: (context, index) {
-                  Lesson lesson = userBookmarks[index].lesson;
+                  Lesson lesson = userBookmarks[index];
                   return BookmarkContainer(
-                    lessonTitle: lesson.title,
+                    setParentState: () {
+                      setState(() {});
+                    },
                     lesson: lesson,
                   );
                 },

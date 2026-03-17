@@ -17,6 +17,7 @@ class UserSaveSerice {
   final String _completionIdColumnName = "id";
   final String _completionExerciseName = "exercise";
   final String _completionCompletedColumnName = "completed";
+	final String _completionBookmarkedColumnName = "bookmarked"
 
   UserSaveSerice._constructor();
 

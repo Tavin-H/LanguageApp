@@ -11,7 +11,7 @@ class FlashcardDeckContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
       child: Container(
         height: 60,
         decoration: BoxDecoration(

@@ -122,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
+					/*
             FutureBuilder(
               future: _dictionaryService.getEntries(),
               builder: (context, snapshot) {
@@ -143,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Text(entries[0].english);
               },
             ),
+						*/
             Padding(
               padding: EdgeInsets.symmetric(horizontal: widget.sidePadding),
               child: Row(

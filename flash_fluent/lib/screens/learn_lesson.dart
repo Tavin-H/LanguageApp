@@ -14,11 +14,14 @@ class LearnLesson extends StatefulWidget {
 class _LearnLessonState extends State<LearnLesson> {
   final UserSaveSerice _saveService = UserSaveSerice.instance;
   int page = 0;
-	bool bookmarked = false;
+  bool bookmarked = false;
 
   @override
   Widget build(BuildContext context) {
     final Lesson lesson = ModalRoute.of(context)!.settings.arguments as Lesson;
+	if(userBookmarks.contains(lesson)) {
+	bookmarked = true;
+	}
     void nextPage() {
       if (page < lesson.pages.length - 1) {
         setState(() {
@@ -39,16 +42,17 @@ class _LearnLessonState extends State<LearnLesson> {
     }
 
     void makeBookmark() {
-      userBookmarks.add(Bookmark(page: 1, lesson: lesson));
-			setState(() {
-						  bookmarked = true;
-						});
+      userBookmarks.add(lesson);
+      setState(() {
+        bookmarked = true;
+      });
     }
-		void removeBookmark() {
-      userBookmarks.removeWhere((item) => item.lesson.title == lesson.title);
-			setState(() {
-						  bookmarked = false;
-						});
+
+    void removeBookmark() {
+      userBookmarks.removeWhere((item) => item.title == lesson.title);
+      setState(() {
+        bookmarked = false;
+      });
     }
 
     return Scaffold(
@@ -74,14 +78,18 @@ class _LearnLessonState extends State<LearnLesson> {
                     color: AppColours.foreground,
                   ),
                 ),
-                bookmarked ? IconButton(
-                  onPressed: removeBookmark,
-                  icon: Icon(
-                    Icons.bookmark,
-                    color: AppColours.orange,
-
-                  ),
-                ) : IconButton(onPressed: makeBookmark, icon: Icon(Icons.bookmark_outline, color: AppColours.foreground)),
+                bookmarked
+                    ? IconButton(
+                        onPressed: removeBookmark,
+                        icon: Icon(Icons.bookmark, color: AppColours.orange),
+                      )
+                    : IconButton(
+                        onPressed: makeBookmark,
+                        icon: Icon(
+                          Icons.bookmark_outline,
+                          color: AppColours.foreground,
+                        ),
+                      ),
               ],
             ),
             Stack(

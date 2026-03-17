@@ -24,12 +24,6 @@ class FlashcardDeck {
   }
 }
 
-class Bookmark {
-  int page;
-  Lesson lesson;
-  Bookmark({required this.page, required this.lesson});
-}
-
 List<FlashcardDeck> flashcardDecks = [
   FlashcardDeck(
     deckName: "test deck",
@@ -40,13 +34,13 @@ List<FlashcardDeck> flashcardDecks = [
   ),
 ];
 
-List<Bookmark> userBookmarks = [];
+List<Lesson> userBookmarks = [];
 
 class ChapterData {
   String title;
   List<Lesson> lessons;
   List<Story> stories;
-  List<Bookmark> bookmarks = [];
+  List<Lesson> bookmarks = [];
   ValueNotifier<int> completedLessonCount;
   ValueNotifier<int> completedStoriesCount;
   ValueNotifier<int> completedCount;
