@@ -299,7 +299,7 @@ class StoryScreen extends StatefulWidget {
 }
 
 class _StoryScreenState extends State<StoryScreen> {
-  	final UserSaveSerice _saveService = UserSaveSerice.instance;
+  final UserSaveSerice _saveService = UserSaveSerice.instance;
   int page = 0;
   late ReadingState state;
 
@@ -446,17 +446,14 @@ class _StoryScreenState extends State<StoryScreen> {
                 StyledButton(
                   text: "Finish",
                   func: () async {
-										
-                          bool exists = await _saveService.queryLessonExistance(
-                            story.title,
-														);
-														if (!exists) {
-                            print("Added to database");
-                            await _saveService.addEntry(story.title, 1);
-                          }
+                    bool exists = await _saveService.queryLessonExistance(
+                      story.title,
+                    );
+                    if (!exists) {
+                      print("Added to database");
+                      await _saveService.addEntry(story.title, 1);
+                    }
 
-
-										
                     story.completed.value = true;
                     Navigator.pop(context);
                   },

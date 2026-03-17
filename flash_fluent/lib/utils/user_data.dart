@@ -56,7 +56,7 @@ class ChapterData {
     required this.stories,
     required this.completedLessonCount,
     required this.completedStoriesCount,
-		required this.completedCount,
+    required this.completedCount,
   });
 
   void updateProgess() {

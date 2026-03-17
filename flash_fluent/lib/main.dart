@@ -1,4 +1,3 @@
-import 'package:flash_fluent/screens/bookmarks_screen.dart';
 import 'package:flash_fluent/screens/flashcard_hub.dart';
 import 'package:flash_fluent/screens/flashcard_practice.dart';
 import 'package:flash_fluent/screens/home_screen.dart';
@@ -6,7 +5,9 @@ import 'package:flash_fluent/screens/learn_screen.dart';
 import 'package:flash_fluent/screens/explore_screen.dart';
 import 'package:flash_fluent/screens/learn_lesson.dart';
 import 'package:flash_fluent/screens/practice_screen.dart';
+import 'package:flash_fluent/screens/profile_screen.dart';
 import 'package:flash_fluent/screens/story_screen.dart';
+import 'package:flash_fluent/screens/workshop_screen.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/utils/user_data.dart';
@@ -67,16 +68,13 @@ Future<ChapterData> loadChapterData() async {
   allLessons.addAll(grammarLessons.sublist(minLength));
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
-	for(int i = 0; i < stories.length; i++) {
-	completed = await _saveService.queryLessonCompletion(
-      stories[i].title,
-    );
-		if (completed == 1) {
-			stories[i].completed.value = true;
-			completedStoryCount += 1;
-		}
-	}
-
+  for (int i = 0; i < stories.length; i++) {
+    completed = await _saveService.queryLessonCompletion(stories[i].title);
+    if (completed == 1) {
+      stories[i].completed.value = true;
+      completedStoryCount += 1;
+    }
+  }
 
   ChapterData chapter = ChapterData(
     title: "Chapter 1",
@@ -84,7 +82,7 @@ Future<ChapterData> loadChapterData() async {
     stories: stories,
     completedLessonCount: ValueNotifier(completedLessonCount),
     completedStoriesCount: ValueNotifier(completedStoryCount),
-		completedCount: ValueNotifier(completedLessonCount + completedStoryCount),
+    completedCount: ValueNotifier(completedLessonCount + completedStoryCount),
   );
 
   return chapter;
@@ -145,9 +143,10 @@ class MyApp extends StatelessWidget {
           //Action sceens
           '/lesson': (context) => const LearnLesson(),
           '/flashcard_practice': (context) => const FlashcardPractice(),
-          '/bookmarks': (context) => const BookmarksScreen(),
+          '/bookmarks': (context) => const WorkshopScreen(),
           '/story': (context) => const StoryScreen(),
           '/practice': (context) => PracticeScreen(),
+          '/profile': (context) => ProfileScreen(),
         },
       ),
     );

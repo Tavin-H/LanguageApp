@@ -34,14 +34,14 @@ class BookmarkContainer extends StatelessWidget {
   }
 }
 
-class BookmarksScreen extends StatefulWidget {
-  const BookmarksScreen({super.key});
+class WorkshopScreen extends StatefulWidget {
+  const WorkshopScreen({super.key});
 
   @override
-  State<BookmarksScreen> createState() => _BookmarksScreenState();
+  State<WorkshopScreen> createState() => _WorkshopScreenState();
 }
 
-class _BookmarksScreenState extends State<BookmarksScreen> {
+class _WorkshopScreenState extends State<WorkshopScreen> {
   @override
   Widget build(BuildContext context) {
     print(userBookmarks.length);

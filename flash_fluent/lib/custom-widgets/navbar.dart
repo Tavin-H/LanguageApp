@@ -153,7 +153,9 @@ class Navbar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
                   icon: Icon(
                     Icons.person,
                     size: 35,
