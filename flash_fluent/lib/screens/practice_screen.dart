@@ -21,7 +21,6 @@ class PracticeScreen extends StatelessWidget {
                   },
                   icon: Icon(Icons.arrow_back, color: AppColours.foreground),
                 ),
-
                 Text(
                   "Practice",
                   style: TextStyle(color: AppColours.foreground, fontSize: 20),
@@ -29,12 +28,60 @@ class PracticeScreen extends StatelessWidget {
                 SizedBox(width: 40),
               ],
             ),
-            Center(
-              child: StyledButton(
-                text: "Flashcards",
-                func: () {
-                  Navigator.pushNamed(context, '/flashcard_hub');
-                },
+            Padding(
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  Container(
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColours.background2,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 20),
+                        Text(
+                          "K-E Dictionary",
+                          style: TextStyle(
+                            color: AppColours.foreground,
+                            fontSize: 16,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.book, color: AppColours.orange),
+                        ),
+                        Expanded(child: Container()),
+                        Text(
+                          "K-K Dictionary",
+                          style: TextStyle(
+                            color: AppColours.foreground,
+                            fontSize: 16,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.book, color: AppColours.orange),
+                        ),
+                        SizedBox(width: 10),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Center(
+                    child: StyledButton(
+                      text: "Flashcards",
+                      func: () {
+                        Navigator.pushNamed(context, '/flashcard_hub');
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(child: SizedBox.shrink()),

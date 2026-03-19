@@ -31,20 +31,23 @@ class BookmarkContainer extends StatelessWidget {
             ),
           ),
           content: Text.rich(
-  TextSpan(
-    text: 'Are you sure you want to remove "', // Default style
-    style: TextStyle(fontSize: 18, color: AppColours.foreground),
-    children: <TextSpan>[
-      TextSpan(
-        text: lesson.title, 
-        style: TextStyle(fontWeight: FontWeight.bold, color: AppColours.orange),
-      ),
-      TextSpan(text: '" from your bookmarked lessons?',),
-    ],
-  ),
-),
+            TextSpan(
+              text: 'Are you sure you want to remove "', // Default style
+              style: TextStyle(fontSize: 18, color: AppColours.foreground),
+              children: <TextSpan>[
+                TextSpan(
+                  text: lesson.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColours.orange,
+                  ),
+                ),
+                TextSpan(text: '" from your bookmarked lessons?'),
+              ],
+            ),
+          ),
 
-/*
+          /*
 					Text(
             "Are you sure you want to remove \"${bookmark.lesson.title}\" from your bookmarked lessons?",
             style: TextStyle(color: AppColours.foreground),
@@ -52,9 +55,9 @@ class BookmarkContainer extends StatelessWidget {
 					*/
           actions: <Widget>[
             InkWell(
-						onTap: () {
+              onTap: () {
                 Navigator.of(context).pop();
-						},
+              },
               child: Container(
                 height: 40,
                 width: 70,
@@ -66,11 +69,11 @@ class BookmarkContainer extends StatelessWidget {
               ),
             ),
             InkWell(
-						onTap: () {
+              onTap: () {
                 userBookmarks.remove(lesson);
                 setParentState();
                 Navigator.of(context).pop();
-						},
+              },
               child: Container(
                 height: 40,
                 width: 70,
@@ -122,11 +125,7 @@ class BookmarkContainer extends StatelessWidget {
               StyledButton(
                 text: "Review",
                 func: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/lesson',
-                    arguments: lesson,
-                  );
+                  Navigator.pushNamed(context, '/lesson', arguments: lesson);
                 },
               ),
             ],
@@ -178,8 +177,9 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 20),
                   Text(
-                    "Your bookmarks",
+                    "Your bookmarks (${userBookmarks.length})",
                     style: TextStyle(
                       color: AppColours.foreground,
                       fontSize: 20,

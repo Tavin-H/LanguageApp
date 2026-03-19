@@ -44,18 +44,24 @@ Future<ChapterData> loadChapterData() async {
       : vocabLessons.length;
 
   int completed = 0;
+  int bookmarked = 0;
   int completedLessonCount = 0;
   int completedStoryCount = 0;
   for (int i = 0; i < minLength; i++) {
     print("adding ${vocabLessons[i].title}");
-    completed = await _saveService.queryLessonCompletion(vocabLessons[i].title);
+    (completed, bookmarked) = await _saveService.queryLessonInfo(vocabLessons[i].title);
     if (completed == 1) {
       print("Found lesson data!");
       vocabLessons[i].completed.value = true;
       completedLessonCount += 1;
     }
+		if(bookmarked == 1) {
+			print("Found a bookmark");
+			userBookmarks.add(vocabLessons[i]);
+		}
+
     print("adding ${grammarLessons[i].title}");
-    completed = await _saveService.queryLessonCompletion(
+    (completed, bookmarked) = await _saveService.queryLessonInfo(
       grammarLessons[i].title,
     );
     if (completed == 1) {
@@ -63,6 +69,11 @@ Future<ChapterData> loadChapterData() async {
       grammarLessons[i].completed.value = true;
       completedLessonCount += 1;
     }
+		if(bookmarked == 1) {
+			print("Found a bookmark");
+			userBookmarks.add(grammarLessons[i]);
+		}
+
     allLessons.add(grammarLessons[i]);
     allLessons.add(vocabLessons[i]);
   }
@@ -70,32 +81,44 @@ Future<ChapterData> loadChapterData() async {
   //Add the rest
   List<Lesson> remainingVocabs = vocabLessons.sublist(minLength);
   for (int i = 0; i < remainingVocabs.length; i++) {
-    completed = await _saveService.queryLessonCompletion(
+    (completed, bookmarked) = await _saveService.queryLessonInfo(
       remainingVocabs[i].title,
     );
+    print("adding ${remainingVocabs[i].title}");
     if (completed == 1) {
       print("Found vocab data!");
       remainingVocabs[i].completed.value = true;
       completedLessonCount += 1;
     }
+		if(bookmarked == 1) {
+			print("Found a bookmark");
+			userBookmarks.add(remainingVocabs[i]);
+		}
     allLessons.add(remainingVocabs[i]);
   }
+
   List<Lesson> remainingGrammar = grammarLessons.sublist(minLength);
   for (int i = 0; i < remainingGrammar.length; i++) {
-    completed = await _saveService.queryLessonCompletion(
+    (completed, bookmarked) = await _saveService.queryLessonInfo(
       remainingGrammar[i].title,
     );
+    print("adding ${remainingGrammar[i].title}");
     if (completed == 1) {
       print("Found grammar data!");
       remainingGrammar[i].completed.value = true;
       completedLessonCount += 1;
     }
+		if(bookmarked == 1) {
+			print("Found a bookmark");
+			userBookmarks.add(remainingGrammar[i]);
+		}
+
     allLessons.add(remainingGrammar[i]);
   }
 
   List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
   for (int i = 0; i < stories.length; i++) {
-    completed = await _saveService.queryLessonCompletion(stories[i].title);
+    (completed, bookmarked) = await _saveService.queryLessonInfo(stories[i].title);
     if (completed == 1) {
       stories[i].completed.value = true;
       completedStoryCount += 1;

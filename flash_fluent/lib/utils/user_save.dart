@@ -12,12 +12,12 @@ class UserSaveSerice {
   static Database? _db;
   static final UserSaveSerice instance = UserSaveSerice._constructor();
 
-  final String _completionTableName = "completion";
+  final String _lessonTableName = "completion";
 
-  final String _completionIdColumnName = "id";
-  final String _completionExerciseName = "exercise";
-  final String _completionCompletedColumnName = "completed";
-	final String _completionBookmarkedColumnName = "bookmarked"
+  final String _lessonIdColumnName = "id";
+  final String _lessonExerciseName = "exercise";
+  final String _lessonCompletedColumnName = "completed";
+  final String _lessonBookmarkedColumnName = "bookmarked";
 
   UserSaveSerice._constructor();
 
@@ -36,19 +36,21 @@ class UserSaveSerice {
       version: 1,
       onCreate: (db, version) async {
         await db.execute('''
-      CREATE TABLE IF NOT EXISTS $_completionTableName (
-        $_completionIdColumnName INTEGER PRIMARY KEY,
-        $_completionExerciseName TEXT NOT NULL,
-        $_completionCompletedColumnName INT
+      CREATE TABLE IF NOT EXISTS $_lessonTableName (
+        $_lessonIdColumnName INTEGER PRIMARY KEY,
+        $_lessonExerciseName TEXT NOT NULL,
+        $_lessonCompletedColumnName INT,
+				$_lessonBookmarkedColumnName INT
       )
     ''');
       },
       onOpen: (db) async {
         await db.execute('''
-      CREATE TABLE IF NOT EXISTS $_completionTableName (
-        $_completionIdColumnName INTEGER PRIMARY KEY,
-        $_completionExerciseName TEXT NOT NULL,
-        $_completionCompletedColumnName INT
+      CREATE TABLE IF NOT EXISTS $_lessonTableName (
+        $_lessonIdColumnName INTEGER PRIMARY KEY,
+        $_lessonExerciseName TEXT NOT NULL,
+        $_lessonCompletedColumnName INT,
+				$_lessonBookmarkedColumnName INT
       )
     ''');
       },
@@ -58,20 +60,21 @@ class UserSaveSerice {
 
   void purgeData() async {
     final db = await database;
-    db.delete(_completionTableName);
+    db.delete(_lessonTableName);
   }
 
-  Future<void> addEntry(String exercise, int completed) async {
+  Future<void> addEntry(String exercise, int completed, int bookmarked) async {
     final db = await database;
-    await db.insert(_completionTableName, {
-      _completionExerciseName: exercise,
-      _completionCompletedColumnName: completed,
+    await db.insert(_lessonTableName, {
+      _lessonExerciseName: exercise,
+      _lessonCompletedColumnName: completed,
+      _lessonBookmarkedColumnName: bookmarked,
     });
   }
 
   Future<List<CompletionEntry>> getEntries() async {
     final db = await database;
-    final data = await db.query(_completionTableName);
+    final data = await db.query(_lessonTableName);
     List<CompletionEntry> entries = data
         .map(
           (e) => CompletionEntry(
@@ -86,29 +89,82 @@ class UserSaveSerice {
   Future<bool> queryLessonExistance(String exerciseTitle) async {
     final db = await database;
 
-    print("Found db!");
-    print("DB isOpen: ${db.isOpen}"); // bet this prints false
     final List<Map<String, dynamic>> results = await db.query(
-      _completionTableName,
-      where: '$_completionExerciseName = ?',
+      _lessonTableName,
+      where: '$_lessonExerciseName = ?',
       whereArgs: [exerciseTitle],
     );
-    print("Found entries!");
 
     return results.isNotEmpty;
   }
 
-  Future<int> queryLessonCompletion(String exerciseTitle) async {
+  Future<(int, int)> queryLessonInfo(String exerciseTitle) async {
     final db = await database;
 
     final List<Map<String, dynamic>> results = await db.query(
-      _completionTableName,
-      where: '$_completionExerciseName = ?',
+      _lessonTableName,
+      where: '$_lessonExerciseName = ?',
       whereArgs: [exerciseTitle],
     );
     if (results.isNotEmpty) {
-      return results[0]["completed"];
+      return (results[0]["completed"] as int, results[0]["bookmarked"] as int);
+    }
+    return (-1, -1);
+  }
+
+  Future<int> queryLessonBookmarked(String exerciseTitle) async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> results = await db.query(
+      _lessonTableName,
+      where: '$_lessonExerciseName = ?',
+      whereArgs: [exerciseTitle],
+    );
+    if (results.isNotEmpty) {
+      return results[0]["bookmarked"];
     }
     return -1;
+  }
+	
+ Future<bool> saveCompletedLesson(String exerciseTitle, bool completed) async {
+    final integerBool = completed ? 1 : 0;
+    final db = await database;
+
+    bool exists = await queryLessonExistance(exerciseTitle);
+
+    if (exists) {
+      int count = await db.update(
+        _lessonTableName,
+        {_lessonCompletedColumnName: integerBool}, // The data to update
+        where: '$_lessonExerciseName = ?', // The filter
+        whereArgs: [exerciseTitle], // The value for the filter
+      );
+      return count == 1;
+    } else {
+      await addEntry(exerciseTitle, integerBool, 0);
+      return true;
+    }
+  }
+
+  Future<bool> saveBookmarkLesson(String exerciseTitle, bool bookmarked) async {
+    final integerBool = bookmarked ? 1 : 0;
+    final db = await database;
+
+    bool exists = await queryLessonExistance(exerciseTitle);
+
+    if (exists) {
+		print("Lesson exits $integerBool");
+      int count = await db.update(
+        _lessonTableName,
+        {_lessonBookmarkedColumnName: integerBool}, // The data to update
+        where: '$_lessonExerciseName = ?', // The filter
+        whereArgs: [exerciseTitle], // The value for the filter
+      );
+      return count == 1;
+    } else {
+		print("Lesson does not exist $integerBool");
+      await addEntry(exerciseTitle, 0, integerBool);
+      return true;
+    }
   }
 }

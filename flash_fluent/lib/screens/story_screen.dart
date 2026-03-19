@@ -451,7 +451,7 @@ class _StoryScreenState extends State<StoryScreen> {
                     );
                     if (!exists) {
                       print("Added to database");
-                      await _saveService.addEntry(story.title, 1);
+                      await _saveService.saveCompletedLesson(story.title, true);
                     }
 
                     story.completed.value = true;
