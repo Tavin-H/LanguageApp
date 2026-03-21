@@ -1,6 +1,7 @@
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flash_fluent/utils/user_save.dart';
 import 'package:flutter/material.dart';
 import 'package:page_flip/page_flip.dart';
@@ -301,6 +302,7 @@ class StoryScreen extends StatefulWidget {
 class _StoryScreenState extends State<StoryScreen> {
   final UserSaveSerice _saveService = UserSaveSerice.instance;
   int page = 0;
+  bool bookmarked = false;
   late ReadingState state;
 
   int correctCount = 0;
@@ -319,6 +321,8 @@ class _StoryScreenState extends State<StoryScreen> {
     });
   }
 
+
+
   @override
   void initState() {
     state = ReadingState.reading;
@@ -330,6 +334,25 @@ class _StoryScreenState extends State<StoryScreen> {
   Widget build(BuildContext context) {
     final Story story = ModalRoute.of(context)!.settings.arguments as Story;
 
+	void makeBookmark() {
+      userBookmarks.value.add(story);
+      print("Saving bookmark to db");
+      _saveService.saveBookmarkLesson(story.title, true);
+      setState(() {
+        bookmarked = true;
+      });
+    }
+
+    void removeBookmark() {
+      print("Removing bookmark to db");
+      final updatedList = List<Lesson>.from(userBookmarks.value);
+      updatedList.removeWhere((item) => item.title == story.title);
+      userBookmarks.value = updatedList;
+      _saveService.saveBookmarkLesson(story.title, false);
+      setState(() {
+        bookmarked = false;
+      });
+    }
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -353,12 +376,26 @@ class _StoryScreenState extends State<StoryScreen> {
                       color: AppColours.foreground,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.bookmark, color: AppColours.foreground),
-                  ),
+                  bookmarked
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              bookmarked = false;
+                            });
+                          },
+                          icon: Icon(Icons.bookmark, color: AppColours.orange),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              bookmarked = true;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.bookmark_outline,
+                            color: AppColours.foreground,
+                          ),
+                        ),
                 ],
               ),
 

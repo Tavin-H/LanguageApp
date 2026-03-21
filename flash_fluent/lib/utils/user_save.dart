@@ -125,8 +125,8 @@ class UserSaveSerice {
     }
     return -1;
   }
-	
- Future<bool> saveCompletedLesson(String exerciseTitle, bool completed) async {
+
+  Future<bool> saveCompletedLesson(String exerciseTitle, bool completed) async {
     final integerBool = completed ? 1 : 0;
     final db = await database;
 
@@ -153,7 +153,7 @@ class UserSaveSerice {
     bool exists = await queryLessonExistance(exerciseTitle);
 
     if (exists) {
-		print("Lesson exits $integerBool");
+      print("Lesson exits $integerBool");
       int count = await db.update(
         _lessonTableName,
         {_lessonBookmarkedColumnName: integerBool}, // The data to update
@@ -162,7 +162,7 @@ class UserSaveSerice {
       );
       return count == 1;
     } else {
-		print("Lesson does not exist $integerBool");
+      print("Lesson does not exist $integerBool");
       await addEntry(exerciseTitle, 0, integerBool);
       return true;
     }

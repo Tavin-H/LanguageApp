@@ -70,7 +70,7 @@ class BookmarkContainer extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                userBookmarks.remove(lesson);
+                userBookmarks.value.remove(lesson);
                 setParentState();
                 Navigator.of(context).pop();
               },
@@ -178,12 +178,17 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 20),
-                  Text(
-                    "Your bookmarks (${userBookmarks.length})",
-                    style: TextStyle(
-                      color: AppColours.foreground,
-                      fontSize: 20,
-                    ),
+                  ValueListenableBuilder(
+                    valueListenable: userBookmarks,
+                    builder: (context, bookmarks, child) {
+                      return Text(
+                        "Your bookmarks (${userBookmarks.value.length})",
+                        style: TextStyle(
+                          color: AppColours.foreground,
+                          fontSize: 20,
+                        ),
+                      );
+                    },
                   ),
                   Container(
                     height: 3,
@@ -194,16 +199,22 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
                 ],
               ),
             ),
+
             Expanded(
-              child: ListView.builder(
-                itemCount: userBookmarks.length,
-                itemBuilder: (context, index) {
-                  Lesson lesson = userBookmarks[index];
-                  return BookmarkContainer(
-                    setParentState: () {
-                      setState(() {});
+              child: ValueListenableBuilder(
+                valueListenable: (userBookmarks),
+                builder: (context, bookmarks, child) {
+                  return ListView.builder(
+                    itemCount: bookmarks.length,
+                    itemBuilder: (context, index) {
+                      Lesson lesson = bookmarks[index];
+                      return BookmarkContainer(
+                        setParentState: () {
+                          setState(() {});
+                        },
+                        lesson: lesson,
+                      );
                     },
-                    lesson: lesson,
                   );
                 },
               ),

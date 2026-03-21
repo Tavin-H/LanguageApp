@@ -19,7 +19,7 @@ class _LearnLessonState extends State<LearnLesson> {
   @override
   Widget build(BuildContext context) {
     final Lesson lesson = ModalRoute.of(context)!.settings.arguments as Lesson;
-    if (userBookmarks.contains(lesson)) {
+    if (userBookmarks.value.contains(lesson)) {
       bookmarked = true;
     }
     void nextPage() {
@@ -42,18 +42,20 @@ class _LearnLessonState extends State<LearnLesson> {
     }
 
     void makeBookmark() {
-      userBookmarks.add(lesson);
-			print("Saving bookmark to db");
-			_saveService.saveBookmarkLesson(lesson.title, true);
+      userBookmarks.value.add(lesson);
+      print("Saving bookmark to db");
+      _saveService.saveBookmarkLesson(lesson.title, true);
       setState(() {
         bookmarked = true;
       });
     }
 
     void removeBookmark() {
-			print("Removing bookmark to db");
-      userBookmarks.removeWhere((item) => item.title == lesson.title);
-			_saveService.saveBookmarkLesson(lesson.title, false);
+      print("Removing bookmark to db");
+      final updatedList = List<Lesson>.from(userBookmarks.value);
+      updatedList.removeWhere((item) => item.title == lesson.title);
+      userBookmarks.value = updatedList;
+      _saveService.saveBookmarkLesson(lesson.title, false);
       setState(() {
         bookmarked = false;
       });
@@ -184,7 +186,10 @@ class _LearnLessonState extends State<LearnLesson> {
                           );
                           print("Found that lesson exists = $exists");
                           if (!exists) {
-                            await _saveService.saveCompletedLesson(lesson.title, true);
+                            await _saveService.saveCompletedLesson(
+                              lesson.title,
+                              true,
+                            );
                             print("Added ${lesson.title} to database");
                           }
                           print("Going to next page");
