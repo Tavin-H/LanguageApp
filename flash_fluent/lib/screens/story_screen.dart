@@ -104,7 +104,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
   void _showHint() {
     showModalBottomSheet(
       context: context,
-      barrierColor: Colors.transparent,
+      barrierColor: Color(0x67000000),
       // makes the top corners rounded
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -114,7 +114,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
           height: 220,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: AppColours.background2,
+            color: AppColours.background,
             borderRadius: BorderRadius.circular(25),
           ),
           padding: const EdgeInsets.all(20),
@@ -142,23 +142,25 @@ class _QuestionContainerState extends State<QuestionContainer> {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColours.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10),
-                    ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusGeometry.circular(10),
+                    border: Border.all(color: AppColours.background2, width: 3),
                   ),
-
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-
-                  child: Text(
-                    "Try again",
-                    style: TextStyle(color: AppColours.background2),
+                  child: Center(
+                    child: Text(
+                      "Try again",
+                      style: TextStyle(
+                        color: AppColours.orange,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -172,7 +174,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
   void _showCorrect() {
     showModalBottomSheet(
       context: context,
-      barrierColor: Colors.transparent,
+      barrierColor: Color(0x67000000),
       // makes the top corners rounded
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -182,7 +184,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
           height: 200,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: AppColours.background2,
+            color: AppColours.background,
             borderRadius: BorderRadius.circular(25),
           ),
           padding: const EdgeInsets.all(20),
@@ -202,10 +204,26 @@ class _QuestionContainerState extends State<QuestionContainer> {
                 style: TextStyle(color: AppColours.foreground, fontSize: 20),
               ),
               const SizedBox(height: 20),
-              Center(
-                child: StyledButton(
-                  text: "Continue",
-                  func: () => Navigator.pop(context),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusGeometry.circular(10),
+                    border: Border.all(color: AppColours.background2, width: 3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(
+                        color: AppColours.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -321,8 +339,6 @@ class _StoryScreenState extends State<StoryScreen> {
     });
   }
 
-
-
   @override
   void initState() {
     state = ReadingState.reading;
@@ -333,9 +349,12 @@ class _StoryScreenState extends State<StoryScreen> {
   @override
   Widget build(BuildContext context) {
     final Story story = ModalRoute.of(context)!.settings.arguments as Story;
+    if (storyBookmarks.value.contains(story)) {
+      bookmarked = true;
+    }
 
-	void makeBookmark() {
-      userBookmarks.value.add(story);
+    void makeBookmark() {
+      storyBookmarks.value.add(story);
       print("Saving bookmark to db");
       _saveService.saveBookmarkLesson(story.title, true);
       setState(() {
@@ -345,14 +364,15 @@ class _StoryScreenState extends State<StoryScreen> {
 
     void removeBookmark() {
       print("Removing bookmark to db");
-      final updatedList = List<Lesson>.from(userBookmarks.value);
+      final updatedList = List<Story>.from(storyBookmarks.value);
       updatedList.removeWhere((item) => item.title == story.title);
-      userBookmarks.value = updatedList;
+      storyBookmarks.value = updatedList;
       _saveService.saveBookmarkLesson(story.title, false);
       setState(() {
         bookmarked = false;
       });
     }
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -379,17 +399,13 @@ class _StoryScreenState extends State<StoryScreen> {
                   bookmarked
                       ? IconButton(
                           onPressed: () {
-                            setState(() {
-                              bookmarked = false;
-                            });
+                            removeBookmark();
                           },
                           icon: Icon(Icons.bookmark, color: AppColours.orange),
                         )
                       : IconButton(
                           onPressed: () {
-                            setState(() {
-                              bookmarked = true;
-                            });
+                            makeBookmark();
                           },
                           icon: Icon(
                             Icons.bookmark_outline,
@@ -492,6 +508,7 @@ class _StoryScreenState extends State<StoryScreen> {
                     }
 
                     story.completed.value = true;
+                    if (!context.mounted) return;
                     Navigator.pop(context);
                   },
                 ),

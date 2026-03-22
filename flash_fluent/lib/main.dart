@@ -59,7 +59,7 @@ Future<ChapterData> loadChapterData() async {
     }
     if (bookmarked == 1) {
       print("Found a bookmark");
-      userBookmarks.value.add(vocabLessons[i]);
+      lessonBookmarks.value.add(vocabLessons[i]);
     }
 
     print("adding ${grammarLessons[i].title}");
@@ -73,7 +73,7 @@ Future<ChapterData> loadChapterData() async {
     }
     if (bookmarked == 1) {
       print("Found a bookmark");
-      userBookmarks.value.add(grammarLessons[i]);
+      lessonBookmarks.value.add(grammarLessons[i]);
     }
 
     allLessons.add(grammarLessons[i]);
@@ -94,7 +94,7 @@ Future<ChapterData> loadChapterData() async {
     }
     if (bookmarked == 1) {
       print("Found a bookmark");
-      userBookmarks.value.add(remainingVocabs[i]);
+      lessonBookmarks.value.add(remainingVocabs[i]);
     }
     allLessons.add(remainingVocabs[i]);
   }
@@ -112,7 +112,7 @@ Future<ChapterData> loadChapterData() async {
     }
     if (bookmarked == 1) {
       print("Found a bookmark");
-      userBookmarks.value.add(remainingGrammar[i]);
+      lessonBookmarks.value.add(remainingGrammar[i]);
     }
 
     allLessons.add(remainingGrammar[i]);
@@ -126,6 +126,10 @@ Future<ChapterData> loadChapterData() async {
     if (completed == 1) {
       stories[i].completed.value = true;
       completedStoryCount += 1;
+    }
+    if (bookmarked == 1) {
+      print("Found completed story ${stories[i].title}");
+      storyBookmarks.value.add(stories[i]);
     }
   }
 
@@ -143,6 +147,11 @@ Future<ChapterData> loadChapterData() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  /*
+	UNCOMMENT TO PURGE DATABASE
+  final UserSaveSerice _saveService = UserSaveSerice.instance;
+  _saveService.purgeData();
+	*/
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

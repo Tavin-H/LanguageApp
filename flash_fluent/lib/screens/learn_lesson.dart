@@ -19,7 +19,7 @@ class _LearnLessonState extends State<LearnLesson> {
   @override
   Widget build(BuildContext context) {
     final Lesson lesson = ModalRoute.of(context)!.settings.arguments as Lesson;
-    if (userBookmarks.value.contains(lesson)) {
+    if (lessonBookmarks.value.contains(lesson)) {
       bookmarked = true;
     }
     void nextPage() {
@@ -42,7 +42,7 @@ class _LearnLessonState extends State<LearnLesson> {
     }
 
     void makeBookmark() {
-      userBookmarks.value.add(lesson);
+      lessonBookmarks.value.add(lesson);
       print("Saving bookmark to db");
       _saveService.saveBookmarkLesson(lesson.title, true);
       setState(() {
@@ -52,9 +52,9 @@ class _LearnLessonState extends State<LearnLesson> {
 
     void removeBookmark() {
       print("Removing bookmark to db");
-      final updatedList = List<Lesson>.from(userBookmarks.value);
+      final updatedList = List<Lesson>.from(lessonBookmarks.value);
       updatedList.removeWhere((item) => item.title == lesson.title);
-      userBookmarks.value = updatedList;
+      lessonBookmarks.value = updatedList;
       _saveService.saveBookmarkLesson(lesson.title, false);
       setState(() {
         bookmarked = false;

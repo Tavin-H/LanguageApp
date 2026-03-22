@@ -59,8 +59,16 @@ class UserSaveSerice {
   }
 
   void purgeData() async {
-    final db = await database;
-    db.delete(_lessonTableName);
+    final databaseDirPath = await getDatabasesPath();
+    final databasePath = join(databaseDirPath, "save_data.db");
+
+    if (_db != null) {
+      await _db!.close();
+      _db = null;
+    }
+
+    await deleteDatabase(databasePath);
+    print("Database deleted and reset!");
   }
 
   Future<void> addEntry(String exercise, int completed, int bookmarked) async {
@@ -100,6 +108,7 @@ class UserSaveSerice {
 
   Future<(int, int)> queryLessonInfo(String exerciseTitle) async {
     final db = await database;
+    print("Checking for $exerciseTitle");
 
     final List<Map<String, dynamic>> results = await db.query(
       _lessonTableName,

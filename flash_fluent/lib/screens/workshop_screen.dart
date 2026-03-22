@@ -3,16 +3,23 @@ import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
 import 'package:flash_fluent/custom-widgets/navbar.dart';
 import 'package:flash_fluent/utils/user_data.dart';
+import 'package:flash_fluent/utils/user_save.dart';
 import 'package:flutter/material.dart';
 
 class BookmarkContainer extends StatelessWidget {
   const BookmarkContainer({
     super.key,
-    required this.lesson,
     required this.setParentState,
+    required this.onRemoveConfirm,
+    required this.goToPush,
+    required this.title,
+    required this.isStory,
   });
-  final Lesson lesson;
   final Function() setParentState;
+  final Function() onRemoveConfirm;
+  final Function() goToPush;
+  final bool isStory;
+  final String title;
 
   void showConfirmDialog(BuildContext context) {
     showDialog(
@@ -36,13 +43,15 @@ class BookmarkContainer extends StatelessWidget {
               style: TextStyle(fontSize: 18, color: AppColours.foreground),
               children: <TextSpan>[
                 TextSpan(
-                  text: lesson.title,
+                  text: title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColours.orange,
                   ),
                 ),
-                TextSpan(text: '" from your bookmarked lessons?'),
+                isStory
+                    ? TextSpan(text: '" from your bookmarked stories?')
+                    : TextSpan(text: '" from your bookmarked lessons?'),
               ],
             ),
           ),
@@ -70,8 +79,7 @@ class BookmarkContainer extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                userBookmarks.value.remove(lesson);
-                setParentState();
+                onRemoveConfirm();
                 Navigator.of(context).pop();
               },
               child: Container(
@@ -118,14 +126,14 @@ class BookmarkContainer extends StatelessWidget {
                 icon: Icon(Icons.bookmark, color: AppColours.orange),
               ),
               Text(
-                lesson.title,
+                title,
                 style: TextStyle(fontSize: 18, color: AppColours.foreground),
               ),
               Expanded(child: Container()),
               StyledButton(
                 text: "Review",
                 func: () {
-                  Navigator.pushNamed(context, '/lesson', arguments: lesson);
+                  goToPush();
                 },
               ),
             ],
@@ -133,27 +141,6 @@ class BookmarkContainer extends StatelessWidget {
         ),
       ),
     );
-
-    /*
-
-		Padding(
-      padding: EdgeInsets.fromLTRB(20, 10, 10, 20),
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(lessonTitle),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/vocab', arguments: lesson);
-              },
-              child: Text("go to lesson"),
-            ),
-          ],
-        ),
-      ),
-    );
-		*/
   }
 }
 
@@ -165,6 +152,9 @@ class WorkshopScreen extends StatefulWidget {
 }
 
 class _WorkshopScreenState extends State<WorkshopScreen> {
+  List<String> bookmarkTypes = ["Lessons", "Stories", "Audio"];
+  String selectedBookmarkType = "Lessons";
+  final UserSaveSerice _saveService = UserSaveSerice.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,18 +168,73 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 20),
-                  ValueListenableBuilder(
-                    valueListenable: userBookmarks,
-                    builder: (context, bookmarks, child) {
-                      return Text(
-                        "Your bookmarks (${userBookmarks.value.length})",
-                        style: TextStyle(
-                          color: AppColours.foreground,
-                          fontSize: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ValueListenableBuilder(
+                        valueListenable: lessonBookmarks,
+                        builder: (context, bookmarks, child) {
+                          return Text(
+                            selectedBookmarkType == "Lessons"
+                                ? "Your bookmarks (${lessonBookmarks.value.length})"
+                                : "Your bookmakrs (${storyBookmarks.value.length})",
+                            style: TextStyle(
+                              color: AppColours.foreground,
+                              fontSize: 20,
+                            ),
+                          );
+                        },
+                      ),
+
+                      Container(
+                        height: 40,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: AppColours.background,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColours.background2,
+                            width: 3,
+                          ),
                         ),
-                      );
-                    },
+                        child: Center(
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: selectedBookmarkType,
+                              focusColor: Colors.transparent,
+
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedBookmarkType = newValue!;
+                                });
+                                print(newValue);
+                              },
+                              hint: Text(
+                                selectedBookmarkType,
+                                style: TextStyle(color: AppColours.foreground),
+                              ),
+                              icon: const SizedBox.shrink(),
+                              borderRadius: BorderRadius.circular(10),
+                              items: bookmarkTypes.map((item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(
+                                      color: (selectedBookmarkType == item)
+                                          ? AppColours.orange
+                                          : AppColours.foreground,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 5),
                   Container(
                     height: 3,
                     width: double.infinity,
@@ -200,25 +245,86 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
               ),
             ),
 
-            Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: (userBookmarks),
-                builder: (context, bookmarks, child) {
-                  return ListView.builder(
-                    itemCount: bookmarks.length,
-                    itemBuilder: (context, index) {
-                      Lesson lesson = bookmarks[index];
-                      return BookmarkContainer(
-                        setParentState: () {
-                          setState(() {});
-                        },
-                        lesson: lesson,
-                      );
-                    },
-                  );
-                },
+            if (selectedBookmarkType == "Lessons")
+              Expanded(
+                child: ValueListenableBuilder(
+                  valueListenable: (lessonBookmarks),
+                  builder: (context, bookmarks, child) {
+                    return ListView.builder(
+                      itemCount: bookmarks.length,
+                      itemBuilder: (context, index) {
+                        Lesson lesson = bookmarks[index];
+                        return BookmarkContainer(
+                          isStory: false,
+                          setParentState: () {
+                            setState(() {});
+                          },
+                          onRemoveConfirm: () {
+      											_saveService.saveBookmarkLesson(lesson.title, false);
+                            lessonBookmarks.value.remove(lesson);
+                            setState(() {});
+                          },
+                          goToPush: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/lesson',
+                              arguments: lesson,
+                            );
+                          },
+                          title: lesson.title,
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
+            if (selectedBookmarkType == "Stories")
+              Expanded(
+                child: ValueListenableBuilder(
+                  valueListenable: (storyBookmarks),
+                  builder: (context, bookmarks, child) {
+                    return ListView.builder(
+                      itemCount: bookmarks.length,
+                      itemBuilder: (context, index) {
+                        Story story = bookmarks[index];
+                        return BookmarkContainer(
+                          isStory: true,
+                          setParentState: () {
+                            setState(() {});
+                          },
+                          onRemoveConfirm: () {
+                            storyBookmarks.value.remove(story);
+      											_saveService.saveBookmarkLesson(story.title, false);
+                            setState(() {}); //Kinda janky but reloads the widget to reflect the change
+                          },
+                          goToPush: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/story',
+                              arguments: story,
+                            );
+                          },
+                          title: story.title,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            if (selectedBookmarkType == "Audio")
+              Center(
+                child: Text(
+                  "Coming soon!!!",
+                  style: TextStyle(
+                    color: AppColours.background2,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+            if (selectedBookmarkType == "Audio") Expanded(child: Container()),
+
             Navbar(),
           ],
         ),

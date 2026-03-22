@@ -34,13 +34,16 @@ List<FlashcardDeck> flashcardDecks = [
   ),
 ];
 
-ValueNotifier<List<Lesson>> userBookmarks = ValueNotifier([]);
+//Eventually change to use chapterData vars
+ValueNotifier<List<Lesson>> lessonBookmarks = ValueNotifier([]);
+ValueNotifier<List<Story>> storyBookmarks = ValueNotifier([]);
 
 class ChapterData {
   String title;
   List<Lesson> lessons;
   List<Story> stories;
-  ValueNotifier<List<Lesson>> bookmarks = ValueNotifier([]);
+  ValueNotifier<List<Lesson>> lessonBookmarks = ValueNotifier([]);
+  ValueNotifier<List<Story>> storyBookmarks = ValueNotifier([]);
   ValueNotifier<int> completedLessonCount;
   ValueNotifier<int> completedStoriesCount;
   ValueNotifier<int> completedCount;
