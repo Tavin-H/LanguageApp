@@ -1,7 +1,7 @@
 {
 	"grammar-lessons": [
 		{
-			"lesson-name": "Basic Hangul",
+			"lesson-name": "Hangul pt.1",
 			"important-words" : ["걱정하다"],
 			"pages": [
 
@@ -47,14 +47,21 @@
 
 						},
 						{
-
 							"type" : "paragraph",
-							"content" : "Here are the aspirated consonants:"
+							"content" : "Note: some characters have 2 sounds associated with them, and the character ㅇ even has no sound? this will all make sense in the lesson 'Hangul pt.3'"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "There are also aspirated consonants"
 						},
 						{
 							"type" : "translated-group",
 							"target" : ["ㅋ", "ㅌ", "ㅍ", "ㅊ"],
 							"source" : ["k'", "t'", "p'", "ch'"]
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Note: the aspirated consonants are very similar to the normal ones they look like usually with an extra line to indicate that you use more breath when pronouncing them."
 						}
 					]
 				},
@@ -62,10 +69,47 @@
 					"components": [
 						{
 							"type": "header",
-							"content" : "Continued"
+							"content" : "Vowels"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The last 10 characters are vowels. Here are the first 6 of them:"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㅏ", "ㅓ", "ㅗ", "ㅜ", "ㅡ", "ㅣ"],
+							"source" : ["a", "eo", "o", "u", "eu", "ee"]
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The next 4 are actually built off 4 of the original vowels. Adding another line adds a 'y' in front of the vowel except for 'eu' and 'ee' like so:"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㅑ", "ㅕ", "ㅛ", "ㅠ"],
+							"source" : ["ya", "yeo", "yo","yu"]
 						}
+
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "End of Lesson"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "That's all of the characters! Well, the building blocks for them at least. In the next lesson we will look at forming compound characters by combining the ones learned in this lesson"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Then in pt.3 of this series we will look at how these building blocks are actually used to form korean characters like 정 and 산. Although you might be able to already see how this might happen."
+						}
+
 					]
 				}
+
 			]
 		},
 
