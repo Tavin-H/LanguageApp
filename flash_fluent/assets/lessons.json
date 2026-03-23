@@ -17,7 +17,7 @@
 						},
 						{
 							"type" : "paragraph",
-							"content" : "한글 has over 10,000 characters! Although, with only 2 lessons, you will be able to read, and write all these characters yourself."
+							"content" : "한글 has over 10,000 characters! Although, with only 3 lessons, you will be able to read, and write all these characters yourself."
 						},
 						{
 							"type" : "paragraph",
@@ -30,7 +30,31 @@
 					"components": [
 						{
 							"type": "header",
-							"content" : "Continued"
+							"content" : "Consonants"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Ok that intro was a little long... Let's get to the meat and potatoes shall we?"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Here are the first 10 character, they are all consonants"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅎ"],
+							"source" : ["g/k", "n", "d/t", "r/l", "m", "b/p", "s", "none/ng", "j", "h"]
+
+						},
+						{
+
+							"type" : "paragraph",
+							"content" : "Here are the aspirated consonants:"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㅋ", "ㅌ", "ㅍ", "ㅊ"],
+							"source" : ["k'", "t'", "p'", "ch'"]
 						}
 					]
 				},

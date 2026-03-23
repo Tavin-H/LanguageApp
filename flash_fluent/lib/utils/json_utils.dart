@@ -259,7 +259,7 @@ Widget convertJsonComponentToWidget(Component component) {
 			Wrap(
 			alignment: WrapAlignment.center,
 				runSpacing: 5,
-				spacing: 20,
+				spacing: 30,
         children: [
 
 					for (int i = 0; i < c.targetWords.length; i++) 
