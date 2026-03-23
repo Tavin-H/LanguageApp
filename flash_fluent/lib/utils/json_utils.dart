@@ -58,6 +58,8 @@ abstract class Component {
         return HighlightComponent.fromJson(json);
       case 'mini-quiz':
         return MiniQuizComponent.fromJson(json);
+      case 'translated-group':
+        return TranslatedGroupComponent.fromJson(json);
       default:
         throw Exception('Unkown component type: ${json['type']}');
     }
@@ -106,6 +108,21 @@ class HighlightComponent extends Component {
     : super(type: 'highlight', bottomMargin: 10);
   factory HighlightComponent.fromJson(Map<String, dynamic> json) {
     return HighlightComponent(content: json['content']);
+  }
+}
+
+class TranslatedGroupComponent extends Component {
+  final List<String> targetWords;
+  final List<String> sourceWords;
+  TranslatedGroupComponent({
+    required this.targetWords,
+    required this.sourceWords,
+  }) : super(type: 'translated-group', bottomMargin: 20);
+  factory TranslatedGroupComponent.fromJson(Map<String, dynamic> json) {
+    return TranslatedGroupComponent(
+      sourceWords: List<String>.from(json['source']),
+      targetWords: List<String>.from(json['target']),
+    );
   }
 }
 
@@ -233,6 +250,27 @@ Widget convertJsonComponentToWidget(Component component) {
     case 'mini-quiz':
       final c = component as MiniQuizComponent;
       return MiniQuizWidget(c: c);
+    case 'translated-group':
+      final c = component as TranslatedGroupComponent;
+
+      return 
+			Center(child: 
+
+			Wrap(
+			alignment: WrapAlignment.center,
+				runSpacing: 5,
+				spacing: 20,
+        children: [
+
+					for (int i = 0; i < c.targetWords.length; i++) 
+						Column(children: [
+						Text(c.targetWords[i], style: TextStyle(color: AppColours.orange, fontSize: 18, fontWeight: FontWeight.bold)),
+						Text(c.sourceWords[i], style: TextStyle(color: AppColours.foreground),)
+						])
+
+					],
+      ));
+
     default:
       return Text(
         "Unsuported type: ${component.type}",

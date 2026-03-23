@@ -177,7 +177,7 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
                           return Text(
                             selectedBookmarkType == "Lessons"
                                 ? "Your bookmarks (${lessonBookmarks.value.length})"
-                                : "Your bookmakrs (${storyBookmarks.value.length})",
+                                : "Your bookmarks (${storyBookmarks.value.length})",
                             style: TextStyle(
                               color: AppColours.foreground,
                               fontSize: 20,
@@ -260,7 +260,10 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
                             setState(() {});
                           },
                           onRemoveConfirm: () {
-      											_saveService.saveBookmarkLesson(lesson.title, false);
+                            _saveService.saveBookmarkLesson(
+                              lesson.title,
+                              false,
+                            );
                             lessonBookmarks.value.remove(lesson);
                             setState(() {});
                           },
@@ -294,8 +297,10 @@ class _WorkshopScreenState extends State<WorkshopScreen> {
                           },
                           onRemoveConfirm: () {
                             storyBookmarks.value.remove(story);
-      											_saveService.saveBookmarkLesson(story.title, false);
-                            setState(() {}); //Kinda janky but reloads the widget to reflect the change
+                            _saveService.saveBookmarkLesson(story.title, false);
+                            setState(
+                              () {},
+                            ); //Kinda janky but reloads the widget to reflect the change
                           },
                           goToPush: () {
                             Navigator.pushNamed(

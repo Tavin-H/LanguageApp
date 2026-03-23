@@ -115,7 +115,7 @@ class Navbar extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "practice",
+                  "Practice",
                   style: TextStyle(color: AppColours.foreground, fontSize: 12),
                 ),
               ],

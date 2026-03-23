@@ -249,25 +249,35 @@
 						},
 						{
 							"type" : "paragraph",
-							"content": "In this lesson, you will learn how to say 'I'm worried that I will ____' or 'I'm worried ____ will happen'"
+							"content": "In this lesson, you will learn your first 5 korean words!"
 						},
 						{
 							"type" : "paragraph",
-							"content" : "The standard grammatical particle for this is:"
-						},
-						
-						{
-							"type" : "highlight",
-							"content" : "(ㄹ/을)까 봐 걱정하다"
+							"content": "In future lessons we will aim to learn 10 words at a time, but we'll start slowthis time to get used to reading Hangul."
 						},
 						{
 							"type" : "paragraph",
-							"content" : "Examples:"
+							"content": "Here they are:"
+						},
+
+						{
+							"type" : "translated-group",
+							"target" : ["나", "사과", "영화", "카페", "하다"],
+							"source" : ["Me", "Apple", "Movie", "Cafe", "To do"]
 						},
 						{
 							"type" : "paragraph",
-							"content" : "비가 올까 봐 우산을 가져올 거예요"
+							"content": "You might be frustrated that there won't be any romanization in any lessons. But remember, it's difficult to read Hangul at first, but you will get used to it very quickly."
+						},
+						{
+							"type" : "paragraph",
+							"content": "Notice that the last word 하다 is a verb and it ends with the character 다. This will be a pattern later."
 						}
+					]
+				},
+				{
+					"components" : [
+
 					]
 				}
 			]

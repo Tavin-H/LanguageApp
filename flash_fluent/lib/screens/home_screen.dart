@@ -213,6 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   SizedBox(height: 30),
+
+                  /*
                   Center(
                     child: Text(
                       "Aquire -> Absorb -> Produce",
@@ -222,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-
+									*/
                   SizedBox(height: 20),
                   Container(
                     height: 70,
@@ -304,6 +306,33 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                               color: AppColours.foreground,
                               fontSize: 18,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          InkWell(
+                            child: Container(
+                              height: 40,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: AppColours.background2,
+                                  width: 3,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "Change",
+                                    style: TextStyle(
+                                      color: AppColours.foreground,
+                                    ),
+                                  ),
+                                  Icon(Icons.edit, color: AppColours.orange),
+                                ],
+                              ),
                             ),
                           ),
                         ],
