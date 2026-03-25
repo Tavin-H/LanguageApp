@@ -253,23 +253,32 @@ Widget convertJsonComponentToWidget(Component component) {
     case 'translated-group':
       final c = component as TranslatedGroupComponent;
 
-      return 
-			Center(child: 
-
-			Wrap(
-			alignment: WrapAlignment.center,
-				runSpacing: 5,
-				spacing: 30,
-        children: [
-
-					for (int i = 0; i < c.targetWords.length; i++) 
-						Column(children: [
-						Text(c.targetWords[i], style: TextStyle(color: AppColours.orange, fontSize: 18, fontWeight: FontWeight.bold)),
-						Text(c.sourceWords[i], style: TextStyle(color: AppColours.foreground),)
-						])
-
-					],
-      ));
+      return Center(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          runSpacing: 5,
+          spacing: 30,
+          children: [
+            for (int i = 0; i < c.targetWords.length; i++)
+              Column(
+                children: [
+                  Text(
+                    c.targetWords[i],
+                    style: TextStyle(
+                      color: AppColours.orange,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    c.sourceWords[i],
+                    style: TextStyle(color: AppColours.foreground),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      );
 
     default:
       return Text(

@@ -1,3 +1,4 @@
+import 'package:flash_fluent/screens/dictionary_screen.dart';
 import 'package:flash_fluent/screens/flashcard_hub.dart';
 import 'package:flash_fluent/screens/flashcard_practice.dart';
 import 'package:flash_fluent/screens/home_screen.dart';
@@ -182,6 +183,7 @@ class MyApp extends StatelessWidget {
       ),
       child: MaterialApp(
         theme: ThemeData(
+				textSelectionTheme: TextSelectionThemeData(),
           appBarTheme: AppBarTheme(
             systemOverlayStyle:
                 SystemUiOverlayStyle.light, // Makes status bar icons white
@@ -191,6 +193,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
             seedColor: AppColours.blue,
             surface: AppColours.background,
+						onSurface: AppColours.foreground
           ),
         ),
         initialRoute: '/',
@@ -209,6 +212,7 @@ class MyApp extends StatelessWidget {
           '/story': (context) => const StoryScreen(),
           '/practice': (context) => PracticeScreen(),
           '/profile': (context) => ProfileScreen(),
+          '/dictionary': (context) => DictionaryScreen(),
         },
       ),
     );

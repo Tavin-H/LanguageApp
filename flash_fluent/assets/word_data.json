@@ -1,6 +1,25 @@
 [
 	{
-		"word" : "걱정하다",
-		"translation" : "To worry"
+		"target" : "걱정하다",
+		"source" : "To worry",
+		"examples" : [
+			"너무 걱정하지 마세요.", 
+			"나는 내일 시험을 걱정하고 있어.",
+			"부모님이 제 건강을 많이 걱정하세요."
+		]
+	},
+	{
+		"target" : "우산",
+		"source" : "Umbrella",
+		"examples" : [
+			"비가 올 것 같아서 우산을 가져왔어요.", 
+			"우산 같이 쓸래요?",
+			"버스에 우산을 두고 내렸어요."
+		]
+	},
+	{
+		"target" : "Test",
+		"source" : "Test 2",
+		"examples" : ["Hi there", "Testing"]
 	}
 ]

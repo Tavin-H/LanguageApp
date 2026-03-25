@@ -53,7 +53,9 @@ class PracticeScreen extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/dictionary');
+                          },
                           icon: Icon(Icons.book, color: AppColours.orange),
                         ),
                         Expanded(child: Container()),

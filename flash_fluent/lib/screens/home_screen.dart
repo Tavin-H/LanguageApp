@@ -117,14 +117,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _dictionaryService.addEntry("Hi", "Hello");
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            /*
+					/*
             FutureBuilder(
-              future: _dictionaryService.getEntries(),
+              future: _dictionaryService.queryWordInfo("걱정하다"),
               builder: (context, snapshot) {
                 // 1. Check if we are still waiting for the database
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -137,11 +136,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 // 3. Check if we actually have data and it's not empty
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                if (!snapshot.hasData) {
                   return const Center(child: Text("No entries found yet!"));
                 }
-                List<DictionaryEntry> entries = snapshot.data!;
-                return Text(entries[0].english);
+                String english = "";
+                List<String> examples = [];
+                (english, examples) = snapshot.data!;
+                //return Text(entries[0].english);
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: examples.length,
+                    itemBuilder: (context, index) {
+                      return Row(children: [Text(examples[index])]);
+                    },
+                  ),
+                );
               },
             ),
 						*/
