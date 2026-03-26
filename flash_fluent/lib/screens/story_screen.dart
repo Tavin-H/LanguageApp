@@ -13,14 +13,72 @@ class PageContainer extends StatelessWidget {
   const PageContainer({super.key, required this.content});
   final String content;
 
+  String removePunctuation(String word) {
+    String returnWord = "";
+    for (int i = 0; i < word.length; i++) {
+      if (word[i] != "?" &&
+          word[i] != "." &&
+          word[i] != "," &&
+          word[i] != "!") {
+        returnWord += word[i];
+      }
+    }
+    return returnWord;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<String> lines = content.split("\n");
     return Padding(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ...lines.map((line) {
+            if (line.isEmpty) return SizedBox(height: 12);
+            return Wrap(
+              children: [
+                ...line
+                    .split(" ")
+                    .map(
+                      (word) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        child: InkWell(
+                          onTap: () {
+														String cleanedWord = removePunctuation(word);
+														//Super duper fancy algorithm goes here
+                            print(cleanedWord);
+                          },
+                          child: Text(
+                            word,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: word.contains(":")
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: word.contains(":")
+                                  ? AppColours.orange
+                                  : AppColours.foreground,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+              ],
+            );
+          }),
+        ],
+      ),
+    );
+
+    Padding(
       padding: EdgeInsetsGeometry.all(20),
-      child: Text(
+      child: Wrap(children: [...lines.map((word) => Text(word))]),
+
+      /*Text(
         content,
         style: TextStyle(color: AppColours.foreground, fontSize: 18),
-      ),
+      ),*/
     );
   }
 }
