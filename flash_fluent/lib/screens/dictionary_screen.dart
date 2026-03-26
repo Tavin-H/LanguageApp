@@ -15,7 +15,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
       DictionaryDatabaseService.instance;
 
   String english = "";
-	String korean = "";
+  String korean = "";
   List<String> examples = [];
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
               "Korean - English Dictionary",
               style: TextStyle(color: AppColours.foreground, fontSize: 20),
             ),
-						SizedBox(height: 20),
+            SizedBox(height: 20),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
-									crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -56,7 +56,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                             final (englishResult, examplesResult) =
                                 await _dictionaryService.queryWordInfo(value);
                             setState(() {
-														korean = value;
+                              korean = value;
                               english = englishResult;
                               examples = examplesResult;
                             });
@@ -64,27 +64,53 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                         ),
                       ),
                     ),
-										SizedBox(height: 20,),
-										Row(children: [
-										Text("Korean: ", style: TextStyle(color: AppColours.orange, fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text(
-                      korean,
-                      style: TextStyle(color: AppColours.foreground, fontSize: 18),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          "Korean: ",
+                          style: TextStyle(
+                            color: AppColours.orange,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          korean,
+                          style: TextStyle(
+                            color: AppColours.foreground,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
                     ),
-										],),
-
-										Row(children: [
-										Text("Meaning: ", style: TextStyle(color: AppColours.orange, fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text(
-                      english,
-                      style: TextStyle(color: AppColours.foreground, fontSize: 18),
+                    Row(
+                      children: [
+                        Text(
+                          "Meaning: ",
+                          style: TextStyle(
+                            color: AppColours.orange,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          english,
+                          style: TextStyle(
+                            color: AppColours.foreground,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
                     ),
-										],),
-										SizedBox(height: 20,),
-                    
+                    SizedBox(height: 20),
                     Text(
                       "Examples:",
-                      style: TextStyle(color: AppColours.orange, fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: AppColours.orange,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Expanded(
                       child: ListView.builder(
@@ -101,7 +127,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                 ),
               ),
             ),
-						Navbar()
+            Navbar(),
           ],
         ),
       ),

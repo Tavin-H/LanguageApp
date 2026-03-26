@@ -183,7 +183,7 @@ class MyApp extends StatelessWidget {
       ),
       child: MaterialApp(
         theme: ThemeData(
-				textSelectionTheme: TextSelectionThemeData(),
+          textSelectionTheme: TextSelectionThemeData(),
           appBarTheme: AppBarTheme(
             systemOverlayStyle:
                 SystemUiOverlayStyle.light, // Makes status bar icons white
@@ -193,7 +193,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
             seedColor: AppColours.blue,
             surface: AppColours.background,
-						onSurface: AppColours.foreground
+            onSurface: AppColours.foreground,
           ),
         ),
         initialRoute: '/',
