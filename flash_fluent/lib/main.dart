@@ -19,14 +19,10 @@ import 'dart:convert';
 
 /////dart format .
 
-Future<ChapterData> loadChapterData() async {
+Future<ChapterData> loadChapterData(String chapterLocation) async {
   final UserSaveSerice _saveService = UserSaveSerice.instance;
-  final String response = await rootBundle.loadString('assets/lessons.json');
-  final String storyResponse = await rootBundle.loadString(
-    'assets/stories.json',
-  );
+  final String response = await rootBundle.loadString('assets/$chapterLocation');
   final Map<String, dynamic> data = json.decode(response);
-  final List<dynamic> storyData = json.decode(storyResponse);
 
   final List<dynamic> rawGrammarLessons = data['grammar-lessons'] as List;
   List<Lesson> grammarLessons = rawGrammarLessons
@@ -119,7 +115,7 @@ Future<ChapterData> loadChapterData() async {
     allLessons.add(remainingGrammar[i]);
   }
 
-  List<Story> stories = storyData.map((s) => Story.fromJson(s)).toList();
+final List<Story> stories = (data['stories'] as List).map((s) => Story.fromJson(s)).toList();
   for (int i = 0; i < stories.length; i++) {
     (completed, bookmarked) = await _saveService.queryLessonInfo(
       stories[i].title,
@@ -135,7 +131,7 @@ Future<ChapterData> loadChapterData() async {
   }
 
   ChapterData chapter = ChapterData(
-    title: "Chapter 1",
+    title: data['title'],
     lessons: allLessons,
     stories: stories,
     completedLessonCount: ValueNotifier(completedLessonCount),
@@ -147,6 +143,7 @@ Future<ChapterData> loadChapterData() async {
 }
 
 void main() async {
+	print("APPPPP IS NOW RUNNINGGG");
   WidgetsFlutterBinding.ensureInitialized();
   /*
 	UNCOMMENT TO PURGE DATABASE
@@ -161,7 +158,7 @@ void main() async {
       //statusBarBrightness: Brightness.dark,      // iOS
     ),
   );
-  ChapterData chapter = await loadChapterData();
+  ChapterData chapter = await loadChapterData("chapter1.json");
 
   chapters.add(chapter);
   runApp(MyApp(allLessons: chapters[0].lessons, stories: chapters[0].stories));

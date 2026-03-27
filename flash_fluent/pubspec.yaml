@@ -42,6 +42,7 @@ dependencies:
   flutter_flip_card: ^0.0.6
   sqflite: ^2.4.2
   path: ^1.9.1
+  hangul: ^0.7.0
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +61,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/lessons.json
+    - assets/chapter1.json
     - assets/stories.json
     - assets/word_data.json
     - assets/sounds/

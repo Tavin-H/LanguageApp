@@ -1,6 +1,7 @@
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
+import 'package:flash_fluent/utils/korean_algs.dart';
 import 'package:flash_fluent/utils/user_data.dart';
 import 'package:flash_fluent/utils/user_save.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +47,8 @@ class PageContainer extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
 														String cleanedWord = removePunctuation(word);
+														List<String> baseWord = deConjugate(cleanedWord);
 														//Super duper fancy algorithm goes here
-                            print(cleanedWord);
                           },
                           child: Text(
                             word,

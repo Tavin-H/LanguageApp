@@ -1,4 +1,5 @@
 {
+	"title" : "Chapter 1",
 	"grammar-lessons": [
 		{
 			"lesson-name": "Hangul pt.1",
@@ -350,5 +351,91 @@
 				}
 			]
 		}
-	]
+	],
+	"stories" : 
+	[
+	{
+		"story-name" : "At the Cafe",
+		"pages" : [
+			"민호: 수지 씨, 안녕하세요! 오랜만이에요\n\n수지: 아, 민호 씨! 정말 반가워요\n\n민호: 여기에서 뭐 해요? 공부해요?\n\n수지: 아니요, 친구를 기다려요. 민호 씨는요?\n\n민호: 저는 커피를 마시러 왔어요. 이 카페 커피가 아주 맛있어요.\n", 
+			"수지: 맞아요. 그런데 민호 씨, 점심 먹었어요?\n\n민호: 아니요, 배가 고파서 케이크도 주문할까 봐요.\n\n수지: 저도 배가 조금 고파요. 같이 먹을까요?\n\n민호: 좋아요! 제가 케이크를 살게요.\n\n수지: 정말요? 고마워요, 민호 씨!"
+		],
+		"questions" : [
+			{
+				"question" : "What was 수지 doing at the cafe?",
+				"options" : ["Meeting a friend","Studying", "Ordering Coffee"],
+				"relavent-line" : "수지: 아니요, 친구를 기다려요."
+			},
+			{
+				"question" : "What did 민호 order?",
+				"options" : ["Cake", "Coffee" ,"Sandwich"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
+			}
+
+		]
+	},
+	{
+		"story-name" : "Mall Shopping",
+		"pages" : [
+			"지수: 와, 이 백화점 정말 커요!\n\n현우: 네, 사람도 아주 많아요. 지수 씨, 뭐 찾아요?\n\n지수: 저는 따뜻한 코트를 사고 싶어요.\n\n현우: 저기 파란색 코트 어때요? 예뻐요.\n\n지수: 예쁘지만 너무 비쌀까 봐 걱정돼요.", 
+			"현우: 걱정 마세요. 지금 세일 기간이에요.\n\n지수: 아, 그래요? 그럼 한번 입어 볼게요.\n\n현우: 잘 어울려요! 사이즈도 딱 맞아요.\n\n지수: 마음에 들어요. 이걸로 할게요.\n\n현우: 잘 샀어요! 이제 우리 맛있는 거 먹으러 가요."
+		],
+		"questions" : [
+			{
+				"question" : "What did 지수 want to buy?",
+				"options" : ["A coat", "Shoes", "A bag", "Lunch"],
+				"relavent-line" : "지수: 저는 따뜻한 코트를 사고 싶어요."
+			},
+			{
+				"question" : "What does 입어 볼게요 mean?",
+				"options" : ["To try on", "To buy", "To be on sale", "To be cheap"],
+				"relavent-line" : "지수: 아, 그래요? 그럼 한번 입어 볼게요."
+			}
+
+		]
+	},
+	{
+		"story-name" : "Test",
+		"pages" : [
+			"지수: 와, 이 백화점 정말 커요!\n\n현우: 네, 사람도 아주 많아요. 지수 씨, 뭐 찾아요?\n\n지수: 저는 따뜻한 코트를 사고 싶어요.\n\n현우: 저기 파란색 코트 어때요? 예뻐요.\n\n지수: 예쁘지만 너무 비쌀까 봐 걱정돼요.", 
+			"현우: 걱정 마세요. 지금 세일 기간이에요.\n\n지수: 아, 그래요? 그럼 한번 입어 볼게요.\n\n현우: 잘 어울려요! 사이즈도 딱 맞아요.\n\n지수: 마음에 들어요. 이걸로 할게요.\n\n현우: 잘 샀어요! 이제 우리 맛있는 거 먹으러 가요."
+		],
+		"questions" : [
+			{
+				"question" : "What did 지수 want to buy?",
+				"options" : ["A coat", "Shoes", "A bag", "Lunch"],
+				"relavent-line" : "지수: 저는 따뜻한 코트를 사고 싶어요."
+			},
+			{
+				"question" : "What does 입어 볼게요 mean?",
+				"options" : ["To try on", "To buy", "To be on sale", "To be cheap"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
+			}
+
+		]
+	},
+	{
+		"story-name" : "Test",
+		"pages" : [
+			"지수: 와, 이 백화점 정말 커요!\n\n현우: 네, 사람도 아주 많아요. 지수 씨, 뭐 찾아요?\n\n지수: 저는 따뜻한 코트를 사고 싶어요.\n\n현우: 저기 파란색 코트 어때요? 예뻐요.\n\n지수: 예쁘지만 너무 비쌀까 봐 걱정돼요.", 
+			"현우: 걱정 마세요. 지금 세일 기간이에요.\n\n지수: 아, 그래요? 그럼 한번 입어 볼게요.\n\n현우: 잘 어울려요! 사이즈도 딱 맞아요.\n\n지수: 마음에 들어요. 이걸로 할게요.\n\n현우: 잘 샀어요! 이제 우리 맛있는 거 먹으러 가요."
+		],
+		"questions" : [
+			{
+				"question" : "What did 지수 want to buy?",
+				"options" : ["A coat", "Shoes", "A bag", "Lunch"],
+				"relavent-line" : "지수: 저는 따뜻한 코트를 사고 싶어요."
+			},
+			{
+				"question" : "What does 입어 볼게요 mean?",
+				"options" : ["To try on", "To buy", "To be on sale", "To be cheap"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
+			}
+
+		]
+	}
+
+
+
+]
 }
