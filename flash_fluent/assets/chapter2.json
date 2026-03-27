@@ -1,0 +1,440 @@
+{
+	"title" : "Chapter 2",
+	"grammar-lessons": [
+		{
+			"lesson-name": "Hangul pt.2",
+			"important-words" : ["걱정하다"],
+			"pages": [
+
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type": "paragraph",
+							"content" : "Welcome to your first Korean lesson! \n\nFor the entirety of this course we will show Korean words in the Korean alphabet 한글 (Hangul) so this lesson is designed as a first introduction."
+						},
+						{
+							"type" : "paragraph",
+							"content" : "한글 has over 10,000 characters! Although, with only 3 lessons, you will be able to read, and write all these characters yourself."
+						},
+						{
+							"type" : "paragraph",
+							"content" : "But how is that possible? Is each lesson going to force you to memorize 5,000 characters each? Nope! You actually only need to know 24 characters. That's right, less than the English alphabet!"
+						}
+
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Consonants"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Ok that intro was a little long... Let's get to the meat and potatoes shall we?"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Here are the first 10 character, they are all consonants"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅎ"],
+							"source" : ["g/k", "n", "d/t", "r/l", "m", "b/p", "s", "none/ng", "j", "h"]
+
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Note: some characters have 2 sounds associated with them, and the character ㅇ even has no sound? this will all make sense in the lesson 'Hangul pt.3'"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "There are also aspirated consonants"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㅋ", "ㅌ", "ㅍ", "ㅊ"],
+							"source" : ["k'", "t'", "p'", "ch'"]
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Note: the aspirated consonants are very similar to the normal ones they look like usually with an extra line to indicate that you use more breath when pronouncing them."
+						}
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Vowels"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The last 10 characters are vowels. Here are the first 6 of them:"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㅏ", "ㅓ", "ㅗ", "ㅜ", "ㅡ", "ㅣ"],
+							"source" : ["a", "eo", "o", "u", "eu", "ee"]
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The next 4 are actually built off 4 of the original vowels. Adding another line adds a 'y' in front of the vowel except for 'eu' and 'ee' like so:"
+						},
+						{
+							"type" : "translated-group",
+							"target" : ["ㅑ", "ㅕ", "ㅛ", "ㅠ"],
+							"source" : ["ya", "yeo", "yo","yu"]
+						}
+
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "End of Lesson"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "That's all of the characters! Well, the building blocks for them at least. In the next lesson we will look at forming compound characters by combining the ones learned in this lesson"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Then in pt.3 of this series we will look at how these building blocks are actually used to form korean characters like 정 and 산. Although you might be able to already see how this might happen."
+						}
+
+					]
+				}
+
+			]
+		},
+
+		{
+			"lesson-name": "C2L2",
+			"important-words" : ["걱정하다"],
+			"pages": [
+
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type" : "paragraph",
+							"content": "In this lesson, you will learn how to say 'I'm worried that I will ____' or 'I'm worried ____ will happen'"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The standard grammatical particle for this is:"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "highlight",
+							"content" : "(ㄹ/을)까 봐 걱정하다"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Examples:"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "비가 올까 봐 우산을 가져올 거예요"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "그 소리가 학생들을 방해할까 봐"
+						}
+						
+
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Continued"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "This grammatical structure can be used with either 걱정하다 or 걱정돼다. These verbs both mean 'To worry' but the nuance is slightly differnt"
+						},
+						{
+							"type":"padding",
+							"height" : 20
+						},
+						{
+							"type" : "sentence",
+							"target" : "왜 아직도 안 자요? 내일 일찍 일어나야 하잖아요.",
+							"source" : "(Why are you still awake? You have to get up early tomorrow.)"
+						},
+						{
+							"type" : "sentence",
+							"target" : "늦잠을 잘까 봐 걱정돼서 알람을 5개나 맞췄어요.",
+							"source" : "(I’m worried that I might oversleep, so I set five alarms.)"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "mini-quiz",
+							"question" : "Is this a correct use of the grammar?",
+							"options" : ["true", "false"]
+						}
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Continued"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "This grammatical structure can be used with either 걱정하다 or 걱정돼다. These verbs both mean 'To worry' but the nuance is slightly differnt"
+						},
+						{
+							"type":"padding",
+							"height" : 20
+						},
+						{
+							"type" : "sentence",
+							"target" : "왜 아직도 안 자요? 내일 일찍 일어나야 하잖아요.",
+							"source" : "(Why are you still awake? You have to get up early tomorrow.)"
+						},
+						{
+							"type" : "sentence",
+							"target" : "늦잠을 잘까 봐 걱정돼서 알람을 5개나 맞췄어요.",
+							"source" : "(I’m worried that I might oversleep, so I set five alarms.)"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "mini-quiz",
+							"question" : "Is this a correct use of the grammar?",
+							"options" : ["true", "false"]
+						}
+					]
+				}
+			]
+		},
+		{
+			"lesson-name": "C2L3",
+			"pages": [
+
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type" : "paragraph",
+							"content": "In this lesson, we will learn how to add an intention to a sentence. You will be able to say 'I'm doing ___ in order to ____' or 'I intend to study later today'"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "The standard grammatical particle for this is:"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "highlight",
+							"content" : " (으)려고 하다"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						},
+						{
+							"type" : "paragraph",
+							"content" : "Examples:"
+						},
+						{
+							"type" : "paragraph",
+							"content" : "오늘 도서관에 가려고 합니다."
+						},
+						{
+							"type" : "paragraph",
+							"content" : "좋아하기 때문에 한국어 배우려고 해요."
+						}
+						
+
+					]
+				},
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Some more examples"
+						},	
+						{
+							"type" : "sentence",
+							"target" : "오늘 도서관에 가려고 했어요",
+							"source" : "(I planned/intended to go to the library today.)"
+						},
+						{
+							"type" : "sentence",
+							"target" : "주말에 부모님과 같이 밥 먹으려고 약속했어요. ",
+							"source" : "(I promised/arranged to have dinner with my parents on the weekend.)"
+						},
+						{
+							"type" : "padding",
+							"height" : 10
+						}
+					]
+				}
+			]
+		}
+
+	],
+	"vocab-lessons": [
+		{
+			"lesson-name": "C2L4",
+			"pages": [
+				{
+					"components": [
+						{
+							"type": "header",
+							"content" : "Introduction"
+						},
+						{
+							"type" : "paragraph",
+							"content": "In this lesson, you will learn your first 5 korean words!"
+						},
+						{
+							"type" : "paragraph",
+							"content": "In future lessons we will aim to learn 10 words at a time, but we'll start slowthis time to get used to reading Hangul."
+						},
+						{
+							"type" : "paragraph",
+							"content": "Here they are:"
+						},
+
+						{
+							"type" : "translated-group",
+							"target" : ["나", "사과", "영화", "카페", "하다"],
+							"source" : ["Me", "Apple", "Movie", "Cafe", "To do"]
+						},
+						{
+							"type" : "paragraph",
+							"content": "You might be frustrated that there won't be any romanization in any lessons. But remember, it's difficult to read Hangul at first, but you will get used to it very quickly."
+						},
+						{
+							"type" : "paragraph",
+							"content": "Notice that the last word 하다 is a verb and it ends with the character 다. This will be a pattern later."
+						}
+					]
+				},
+				{
+					"components" : [
+
+					]
+				}
+			]
+		}
+	],
+	"stories" : 
+	[
+	{
+		"story-name" : "At the Cafe 2",
+		"pages" : [
+			"민호: 수지 씨, 안녕하세요! 오랜만이에요\n\n수지: 아, 민호 씨! 정말 반가워요\n\n민호: 여기에서 뭐 해요? 공부해요?\n\n수지: 아니요, 친구를 기다려요. 민호 씨는요?\n\n민호: 저는 커피를 마시러 왔어요. 이 카페 커피가 아주 맛있어요.\n", 
+			"수지: 맞아요. 그런데 민호 씨, 점심 먹었어요?\n\n민호: 아니요, 배가 고파서 케이크도 주문할까 봐요.\n\n수지: 저도 배가 조금 고파요. 같이 먹을까요?\n\n민호: 좋아요! 제가 케이크를 살게요.\n\n수지: 정말요? 고마워요, 민호 씨!"
+		],
+		"questions" : [
+			{
+				"question" : "What was 수지 doing at the cafe?",
+				"options" : ["Meeting a friend","Studying", "Ordering Coffee"],
+				"relavent-line" : "수지: 아니요, 친구를 기다려요."
+			},
+			{
+				"question" : "What did 민호 order?",
+				"options" : ["Cake", "Coffee" ,"Sandwich"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
+			}
+
+		]
+	},
+	{
+		"story-name" : "Mall Shopping 2",
+		"pages" : [
+			"지수: 와, 이 백화점 정말 커요!\n\n현우: 네, 사람도 아주 많아요. 지수 씨, 뭐 찾아요?\n\n지수: 저는 따뜻한 코트를 사고 싶어요.\n\n현우: 저기 파란색 코트 어때요? 예뻐요.\n\n지수: 예쁘지만 너무 비쌀까 봐 걱정돼요.", 
+			"현우: 걱정 마세요. 지금 세일 기간이에요.\n\n지수: 아, 그래요? 그럼 한번 입어 볼게요.\n\n현우: 잘 어울려요! 사이즈도 딱 맞아요.\n\n지수: 마음에 들어요. 이걸로 할게요.\n\n현우: 잘 샀어요! 이제 우리 맛있는 거 먹으러 가요."
+		],
+		"questions" : [
+			{
+				"question" : "What did 지수 want to buy?",
+				"options" : ["A coat", "Shoes", "A bag", "Lunch"],
+				"relavent-line" : "지수: 저는 따뜻한 코트를 사고 싶어요."
+			},
+			{
+				"question" : "What does 입어 볼게요 mean?",
+				"options" : ["To try on", "To buy", "To be on sale", "To be cheap"],
+				"relavent-line" : "지수: 아, 그래요? 그럼 한번 입어 볼게요."
+			}
+
+		]
+	},
+	{
+		"story-name" : "Test",
+		"pages" : [
+			"지수: 와, 이 백화점 정말 커요!\n\n현우: 네, 사람도 아주 많아요. 지수 씨, 뭐 찾아요?\n\n지수: 저는 따뜻한 코트를 사고 싶어요.\n\n현우: 저기 파란색 코트 어때요? 예뻐요.\n\n지수: 예쁘지만 너무 비쌀까 봐 걱정돼요.", 
+			"현우: 걱정 마세요. 지금 세일 기간이에요.\n\n지수: 아, 그래요? 그럼 한번 입어 볼게요.\n\n현우: 잘 어울려요! 사이즈도 딱 맞아요.\n\n지수: 마음에 들어요. 이걸로 할게요.\n\n현우: 잘 샀어요! 이제 우리 맛있는 거 먹으러 가요."
+		],
+		"questions" : [
+			{
+				"question" : "What did 지수 want to buy?",
+				"options" : ["A coat", "Shoes", "A bag", "Lunch"],
+				"relavent-line" : "지수: 저는 따뜻한 코트를 사고 싶어요."
+			},
+			{
+				"question" : "What does 입어 볼게요 mean?",
+				"options" : ["To try on", "To buy", "To be on sale", "To be cheap"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
+			}
+
+		]
+	},
+	{
+		"story-name" : "Test",
+		"pages" : [
+			"지수: 와, 이 백화점 정말 커요!\n\n현우: 네, 사람도 아주 많아요. 지수 씨, 뭐 찾아요?\n\n지수: 저는 따뜻한 코트를 사고 싶어요.\n\n현우: 저기 파란색 코트 어때요? 예뻐요.\n\n지수: 예쁘지만 너무 비쌀까 봐 걱정돼요.", 
+			"현우: 걱정 마세요. 지금 세일 기간이에요.\n\n지수: 아, 그래요? 그럼 한번 입어 볼게요.\n\n현우: 잘 어울려요! 사이즈도 딱 맞아요.\n\n지수: 마음에 들어요. 이걸로 할게요.\n\n현우: 잘 샀어요! 이제 우리 맛있는 거 먹으러 가요."
+		],
+		"questions" : [
+			{
+				"question" : "What did 지수 want to buy?",
+				"options" : ["A coat", "Shoes", "A bag", "Lunch"],
+				"relavent-line" : "지수: 저는 따뜻한 코트를 사고 싶어요."
+			},
+			{
+				"question" : "What does 입어 볼게요 mean?",
+				"options" : ["To try on", "To buy", "To be on sale", "To be cheap"],
+				"relavent-line" : "민호: 좋아요! 제가 케이크를 살게요."
+			}
+
+		]
+	}
+
+
+
+]
+}

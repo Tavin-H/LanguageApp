@@ -143,7 +143,6 @@ final List<Story> stories = (data['stories'] as List).map((s) => Story.fromJson(
 }
 
 void main() async {
-	print("APPPPP IS NOW RUNNINGGG");
   WidgetsFlutterBinding.ensureInitialized();
   /*
 	UNCOMMENT TO PURGE DATABASE
@@ -159,8 +158,11 @@ void main() async {
     ),
   );
   ChapterData chapter = await loadChapterData("chapter1.json");
+	ChapterData chapter2 = await loadChapterData("chapter2.json");
 
   chapters.add(chapter);
+	chapters.add(chapter2);
+	currentChapter = chapter;
   runApp(MyApp(allLessons: chapters[0].lessons, stories: chapters[0].stories));
 }
 
@@ -198,8 +200,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => HomeScreen(chapter: chapters[0]),
 
           //Intermediate screens
-          '/learn': (context) => LearnScreen(chapter: chapters[0]),
-          '/explore': (context) => ExploreScreen(chapter: chapters[0]),
+          '/learn': (context) => LearnScreen(chapter: currentChapter!),
+          '/explore': (context) => ExploreScreen(chapter: currentChapter!),
           '/flashcard_hub': (context) => const FlashcardHub(),
 
           //Action sceens

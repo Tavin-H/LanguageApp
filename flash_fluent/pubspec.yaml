@@ -62,6 +62,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/chapter1.json
+    - assets/
     - assets/stories.json
     - assets/word_data.json
     - assets/sounds/
