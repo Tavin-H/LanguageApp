@@ -3,6 +3,7 @@
 	"grammar-lessons": [
 		{
 			"lesson-name": "Hangul pt.2",
+			"subtitle" : "",
 			"important-words" : ["걱정하다"],
 			"pages": [
 
@@ -116,6 +117,7 @@
 
 		{
 			"lesson-name": "C2L2",
+			"subtitle" : "",
 			"important-words" : ["걱정하다"],
 			"pages": [
 
@@ -235,6 +237,7 @@
 		},
 		{
 			"lesson-name": "C2L3",
+			"subtitle" : "",
 			"pages": [
 
 				{
@@ -308,6 +311,7 @@
 	"vocab-lessons": [
 		{
 			"lesson-name": "C2L4",
+			"subtitle" : "",
 			"pages": [
 				{
 					"components": [

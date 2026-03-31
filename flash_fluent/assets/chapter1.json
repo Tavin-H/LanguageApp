@@ -117,7 +117,8 @@
 		},
 
 		{
-			"lesson-name": "I'm worried that ___",
+			"lesson-name": "(ㄹ/을)까 봐 걱정하다",
+			"subtitle" : "I'm worried that ___",
 			"important-words" : ["걱정하다"],
 			"order-id": 3,
 			"pages": [
@@ -312,6 +313,7 @@
 	"vocab-lessons": [
 		{
 			"lesson-name": "First 10 words",
+			"subtitle" : "",
 			"pages": [
 
 				{

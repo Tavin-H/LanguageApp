@@ -6,11 +6,13 @@ enum LessonType { grammar, vocab }
 
 class Lesson {
   final String title;
+	final String subtitle;
   final List<Page> pages;
   final LessonType type;
   ValueNotifier<bool> completed;
   Lesson({
     required this.title,
+		required this.subtitle,
     required this.pages,
     required this.type,
     bool isCompleted = false,
@@ -19,6 +21,7 @@ class Lesson {
     return Lesson(
       type: type,
       title: json['lesson-name'],
+			subtitle: json['subtitle'],
       pages: (json['pages'] as List)
           .map((item) => Page.fromJson(item))
           .toList(),

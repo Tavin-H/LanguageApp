@@ -1,4 +1,5 @@
 import 'package:flash_fluent/custom-widgets/navbar.dart';
+import 'package:flash_fluent/custom-widgets/outline_button.dart';
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flash_fluent/utils/json_utils.dart';
@@ -25,7 +26,7 @@ class LessonContainer extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             Container(
-              height: 60,
+              height: 70,
               decoration: BoxDecoration(
                 color: AppColours.background,
                 borderRadius: BorderRadius.circular(14),
@@ -36,13 +37,28 @@ class LessonContainer extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      lesson.title,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: AppColours.foreground,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          lesson.title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColours.orange,
+                          ),
+                        ),
+                        Text(
+                          lesson.subtitle,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColours.foreground,
+                          ),
+                        ),
+                      ],
                     ),
+										/*
                     StyledButton(
                       text: "Learn",
                       func: () {
@@ -59,6 +75,8 @@ class LessonContainer extends StatelessWidget {
                         });
                       },
                     ),
+										*/
+                    OutlineButton(text: "Learn"),
                   ],
                 ),
               ),
