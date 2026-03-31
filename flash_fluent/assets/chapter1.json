@@ -2,8 +2,10 @@
 	"title" : "Chapter 1",
 	"grammar-lessons": [
 		{
-			"lesson-name": "Hangul pt.1",
+			"lesson-name": "한글 1",
+			"subtitle": "Hangul pt.1",
 			"important-words" : ["걱정하다"],
+			"order-id": 1,
 			"pages": [
 
 				{
@@ -117,6 +119,7 @@
 		{
 			"lesson-name": "I'm worried that ___",
 			"important-words" : ["걱정하다"],
+			"order-id": 3,
 			"pages": [
 
 				{
@@ -235,6 +238,7 @@
 		},
 		{
 			"lesson-name": "With the intention of ___",
+			"order-id": 2,
 			"pages": [
 
 				{

@@ -21,7 +21,9 @@ import 'dart:convert';
 
 Future<ChapterData> loadChapterData(String chapterLocation) async {
   final UserSaveSerice _saveService = UserSaveSerice.instance;
-  final String response = await rootBundle.loadString('assets/$chapterLocation');
+  final String response = await rootBundle.loadString(
+    'assets/$chapterLocation',
+  );
   final Map<String, dynamic> data = json.decode(response);
 
   final List<dynamic> rawGrammarLessons = data['grammar-lessons'] as List;
@@ -115,7 +117,9 @@ Future<ChapterData> loadChapterData(String chapterLocation) async {
     allLessons.add(remainingGrammar[i]);
   }
 
-final List<Story> stories = (data['stories'] as List).map((s) => Story.fromJson(s)).toList();
+  final List<Story> stories = (data['stories'] as List)
+      .map((s) => Story.fromJson(s))
+      .toList();
   for (int i = 0; i < stories.length; i++) {
     (completed, bookmarked) = await _saveService.queryLessonInfo(
       stories[i].title,
@@ -158,11 +162,11 @@ void main() async {
     ),
   );
   ChapterData chapter = await loadChapterData("chapter1.json");
-	ChapterData chapter2 = await loadChapterData("chapter2.json");
+  ChapterData chapter2 = await loadChapterData("chapter2.json");
 
   chapters.add(chapter);
-	chapters.add(chapter2);
-	currentChapter = chapter;
+  chapters.add(chapter2);
+  currentChapter = chapter;
   runApp(MyApp(allLessons: chapters[0].lessons, stories: chapters[0].stories));
 }
 

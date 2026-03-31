@@ -76,5 +76,4 @@ void tryAddLessonTitle(String title) {
 final ValueNotifier<List<String>> completedLessonTitles = ValueNotifier([]);
 List<String> completedStoriesTitles = [];
 
-
 ChapterData? currentChapter;

@@ -46,9 +46,9 @@ class PageContainer extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 4),
                         child: InkWell(
                           onTap: () {
-														String cleanedWord = removePunctuation(word);
-														List<String> baseWord = deConjugate(cleanedWord);
-														//Super duper fancy algorithm goes here
+                            String cleanedWord = removePunctuation(word);
+                            List<String> baseWord = deConjugate(cleanedWord);
+                            //Super duper fancy algorithm goes here
                           },
                           child: Text(
                             word,

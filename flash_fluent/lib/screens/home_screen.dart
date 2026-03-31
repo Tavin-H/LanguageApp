@@ -71,8 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final DictionaryDatabaseService _dictionaryService =
       DictionaryDatabaseService.instance;
 
-	
-
   void _showCourses() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -117,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-	ChapterData selectedChapter = chapters[0];
+  ChapterData selectedChapter = chapters[0];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -363,52 +361,63 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   SizedBox(height: 50),
-									Row(
-									mainAxisAlignment: MainAxisAlignment.spaceBetween,
-									children: [
-
-                  Text(
-                    "Your learning",
-                    style: TextStyle(
-                      color: AppColours.foreground,
-                      fontSize: 20,
-                    ),
-                  ),
-									DropdownButtonHideUnderline(
-                            child: DropdownButton<ChapterData>(
-                              value: selectedChapter,
-                              focusColor: Colors.transparent,
-
-                              onChanged: (newValue) {
-                                setState(() {
-                                  selectedChapter = newValue!;
-																	currentChapter = newValue;
-                                });
-                                print(newValue!.title);
-                              },
-                              hint: Text(
-                                "Hello",
-                                style: TextStyle(color: AppColours.foreground),
-                              ),
-                              icon: const SizedBox.shrink(),
-                              borderRadius: BorderRadius.circular(10),
-                              items: chapters.map((item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(
-                                    item.title,
-                                    style: TextStyle(
-                                      color: (selectedChapter == item)
-                                          ? AppColours.orange
-                                          : AppColours.foreground,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Your learning",
+                        style: TextStyle(
+                          color: AppColours.foreground,
+                          fontSize: 20,
+                        ),
+                      ),
+Container(
+                        height: 40,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: AppColours.background,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColours.background2,
+                            width: 3,
                           ),
-
-									],),
+                        ),
+                        child: Center( child:
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton<ChapterData>(
+                          value: selectedChapter,
+                          focusColor: Colors.transparent,
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedChapter = newValue!;
+                              currentChapter = newValue;
+                            });
+                            print(newValue!.title);
+                          },
+                          hint: Text(
+                            "Hello",
+                            style: TextStyle(color: AppColours.foreground),
+                          ),
+                          icon: const SizedBox.shrink(),
+                          borderRadius: BorderRadius.circular(10),
+                          items: chapters.map((item) {
+                            return DropdownMenuItem(
+                              value: item,
+                              child: Text(
+                                item.title,
+                                style: TextStyle(
+                                  color: (selectedChapter == item)
+                                      ? AppColours.orange
+                                      : AppColours.foreground,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ))),
+                    ],
+                  ),
+                  SizedBox(height: 5),
                   Container(
                     height: 3,
                     width: double.infinity,
@@ -417,12 +426,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   SizedBox(height: 20),
                   Text(
-                    "Chapter 1:",
+                    selectedChapter.title,
                     style: TextStyle(
                       color: AppColours.foreground,
                       fontSize: 20,
                     ),
                   ),
+                  SizedBox(height: 10),
                   ValueListenableBuilder(
                     valueListenable: selectedChapter.completedCount,
                     builder: (context, count, child) {
