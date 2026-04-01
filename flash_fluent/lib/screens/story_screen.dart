@@ -193,7 +193,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
                 style: TextStyle(color: AppColours.foreground, fontSize: 18),
               ),
               Text(
-                "\"${widget.questionObject.relaventLine}\"",
+                widget.questionObject.hint,
                 style: TextStyle(
                   color: AppColours.foreground,
                   fontSize: 20,

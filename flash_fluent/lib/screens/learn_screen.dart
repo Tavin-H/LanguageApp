@@ -58,7 +58,7 @@ class LessonContainer extends StatelessWidget {
                         ),
                       ],
                     ),
-										/*
+                    /*
                     StyledButton(
                       text: "Learn",
                       func: () {
@@ -76,7 +76,22 @@ class LessonContainer extends StatelessWidget {
                       },
                     ),
 										*/
-                    OutlineButton(text: "Learn"),
+                    OutlineButton(
+                      text: "Learn",
+                      onpressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/lesson',
+                          arguments: lesson,
+                        ).then((_) {
+                          if (lesson.completed.value) {
+                            moveLessonToEnd(lesson);
+                          }
+
+                          setParentState();
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),

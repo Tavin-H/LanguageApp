@@ -371,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 20,
                         ),
                       ),
-Container(
+                      Container(
                         height: 40,
                         width: 100,
                         decoration: BoxDecoration(
@@ -382,39 +382,41 @@ Container(
                             width: 3,
                           ),
                         ),
-                        child: Center( child:
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton<ChapterData>(
-                          value: selectedChapter,
-                          focusColor: Colors.transparent,
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedChapter = newValue!;
-                              currentChapter = newValue;
-                            });
-                            print(newValue!.title);
-                          },
-                          hint: Text(
-                            "Hello",
-                            style: TextStyle(color: AppColours.foreground),
-                          ),
-                          icon: const SizedBox.shrink(),
-                          borderRadius: BorderRadius.circular(10),
-                          items: chapters.map((item) {
-                            return DropdownMenuItem(
-                              value: item,
-                              child: Text(
-                                item.title,
-                                style: TextStyle(
-                                  color: (selectedChapter == item)
-                                      ? AppColours.orange
-                                      : AppColours.foreground,
-                                ),
+                        child: Center(
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<ChapterData>(
+                              value: selectedChapter,
+                              focusColor: Colors.transparent,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedChapter = newValue!;
+                                  currentChapter = newValue;
+                                });
+                                print(newValue!.title);
+                              },
+                              hint: Text(
+                                "Hello",
+                                style: TextStyle(color: AppColours.foreground),
                               ),
-                            );
-                          }).toList(),
+                              icon: const SizedBox.shrink(),
+                              borderRadius: BorderRadius.circular(10),
+                              items: chapters.map((item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item.title,
+                                    style: TextStyle(
+                                      color: (selectedChapter == item)
+                                          ? AppColours.orange
+                                          : AppColours.foreground,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
-                      ))),
+                      ),
                     ],
                   ),
                   SizedBox(height: 5),

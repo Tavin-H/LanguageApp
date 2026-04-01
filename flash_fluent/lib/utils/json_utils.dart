@@ -1,4 +1,5 @@
 import 'package:flash_fluent/custom-widgets/styled_button.dart';
+import 'package:flash_fluent/screens/story_screen.dart';
 import 'package:flash_fluent/utils/app_consts.dart';
 import 'package:flutter/material.dart';
 
@@ -6,13 +7,13 @@ enum LessonType { grammar, vocab }
 
 class Lesson {
   final String title;
-	final String subtitle;
+  final String subtitle;
   final List<Page> pages;
   final LessonType type;
   ValueNotifier<bool> completed;
   Lesson({
     required this.title,
-		required this.subtitle,
+    required this.subtitle,
     required this.pages,
     required this.type,
     bool isCompleted = false,
@@ -21,7 +22,7 @@ class Lesson {
     return Lesson(
       type: type,
       title: json['lesson-name'],
-			subtitle: json['subtitle'],
+      subtitle: json['subtitle'],
       pages: (json['pages'] as List)
           .map((item) => Page.fromJson(item))
           .toList(),
@@ -162,7 +163,18 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return QuestionContainer(
+      questionObject: Question(
+        question: widget.c.question,
+        options: widget.c.options,
+        hint: "",
+      ),
+      addCorrectCount: () {},
+      removeCorrectCount: () {},
+    );
+
+    /*
+		Column(
       children: [
         Text(widget.c.question, style: TextStyle(color: AppColours.foreground)),
         Row(
@@ -191,6 +203,7 @@ class _MiniQuizWidgetState extends State<MiniQuizWidget> {
         Text(displayMessage, style: TextStyle(color: displayColor)),
       ],
     );
+		*/
   }
 }
 
@@ -299,17 +312,17 @@ class StoryPage {
 class Question {
   String question;
   List<String> options;
-  String relaventLine;
+  String hint;
   Question({
     required this.question,
     required this.options,
-    required this.relaventLine,
+    required this.hint,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       question: json['question'],
-      relaventLine: json['relavent-line'],
+      hint: "\"${json['relavent-line']}\"",
       options: List<String>.from(json['options']),
     );
   }
